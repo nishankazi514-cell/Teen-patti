@@ -193,24 +193,20 @@ body{
 }
 
 .dealer-avatar{
-      overflow:hidden;
+    position:relative;
+
     width:72px;
     height:72px;
 
     border-radius:50%;
 
+    overflow:hidden;
+
     display:flex;
     align-items:center;
     justify-content:center;
 
-    font-size:39px;
-
     background:
-        radial-gradient(
-            circle at 50% 30%,
-            #ffd9c4 0 14%,
-            transparent 15%
-        ),
         linear-gradient(
             145deg,
             #9c2039,
@@ -222,6 +218,25 @@ body{
     box-shadow:
         0 0 0 4px rgba(0,0,0,.25),
         0 0 20px rgba(255,199,70,.4);
+
+    clip-path:circle(50% at 50% 50%);
+}
+
+.dealer-avatar img{
+    position:absolute;
+
+    left:0;
+    top:0;
+
+    width:100%;
+    height:100%;
+
+    display:block;
+
+    object-fit:cover;
+    object-position:center top;
+
+    clip-path:circle(50% at 50% 50%);
 }
 
 .dealer-name{
@@ -737,12 +752,7 @@ body{
         height:45px;
     }
 }
-      .dealer-avatar img{
-    width:100%;
-    height:100%;
-    object-fit:contain;
-    display:block;
-}
+      
 </style>
 </head>
 
