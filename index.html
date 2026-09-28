@@ -1,1516 +1,1486 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+
+<meta charset="utf-8">
+
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"
+>
 
 <title>Teen Patti Gold Online</title>
 
 <style>
+
 *{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-    -webkit-tap-highlight-color:transparent;
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
 }
 
-html,body{
-    width:100%;
-    height:100%;
-    overflow:hidden;
-    background:#071b16;
-    font-family:Arial,Helvetica,sans-serif;
+html,
+body{
+  margin:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  background:#061a15;
+  font-family:Arial,Helvetica,sans-serif;
 }
 
 body{
-    display:flex;
-    justify-content:center;
-    align-items:center;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:#fff;
 }
 
-/* =========================
-   GAME TABLE
-========================= */
+:root{
+  --gold:#f2c64b;
+  --gold2:#ffdf78;
+  --green:#087b60;
+  --green2:#0b9b72;
+  --dark:#06261d;
+  --purple:#251334;
+}
 
 .game{
-    position:relative;
-    width:100vw;
-    height:100vh;
-    max-width:520px;
-    overflow:hidden;
+  position:relative;
+  width:100vw;
+  height:100vh;
+  max-width:520px;
+  overflow:hidden;
 
-    background:
-        radial-gradient(
-            ellipse at center,
-            #11916e 0%,
-            #087457 42%,
-            #04503f 72%,
-            #02352c 100%
-        );
-
-    border-left:5px solid #8b551e;
-    border-right:5px solid #8b551e;
+  background:
+    radial-gradient(
+      circle at 50% 58%,
+      #12a77a 0,
+      #08775d 42%,
+      #043a2e 78%,
+      #021d17 100%
+    );
 }
 
-/* outside border */
+.game:before{
+  content:"";
+  position:absolute;
+  inset:13px;
 
-.game::before{
-    content:"";
-    position:absolute;
-    inset:14px;
-    border:4px solid #a96b26;
-    pointer-events:none;
-    z-index:1;
+  border:3px solid #b47a22;
+
+  box-shadow:
+    inset 0 0 0 3px #4b2810,
+    inset 0 0 35px #0008,
+    0 0 0 2px #15100b;
+
+  pointer-events:none;
+  z-index:30;
 }
 
-/* table oval */
+.header{
+  position:absolute;
+  top:12px;
+  left:50%;
+  transform:translateX(-50%);
 
-.table{
-    position:absolute;
-    left:4%;
-    right:4%;
-    top:24%;
-    bottom:12%;
+  width:49%;
+  height:43px;
 
-    border:9px solid #8a511f;
-    border-radius:48%;
+  border:1px solid #c99b31;
+  border-radius:25px;
 
-    box-shadow:
-        inset 0 0 35px rgba(0,0,0,.65),
-        0 0 0 5px #392016,
-        0 0 30px rgba(0,0,0,.45);
+  background:#071613e8;
 
-    background:
-        radial-gradient(
-            ellipse at center,
-            #119875 0%,
-            #087b5f 48%,
-            #05604c 75%,
-            #034738 100%
-        );
+  display:flex;
+  align-items:center;
+  justify-content:center;
 
-    z-index:2;
+  font-size:15px;
+
+  z-index:40;
+
+  box-shadow:
+    0 3px 15px #0008;
 }
 
-/* inner table */
+.iconbtn{
+  position:absolute;
 
-.table::after{
-    content:"";
-    position:absolute;
-    left:20%;
-    right:20%;
-    top:39%;
-    bottom:30%;
+  top:22px;
 
-    border:3px solid rgba(221,201,87,.55);
-    border-radius:50%;
+  width:58px;
+  height:58px;
+
+  border:1px solid #d4a83e;
+  border-radius:14px;
+
+  background:#071713e8;
+
+  color:#fff;
+
+  font-size:24px;
+
+  z-index:40;
 }
 
-/* =========================
-   DEALER
-========================= */
+.sound{
+  right:72px;
+}
+
+.menu{
+  right:12px;
+}
 
 .dealer{
-    position:absolute;
-    z-index:10;
+  position:absolute;
 
-    top:5%;
-    left:50%;
+  top:72px;
+  left:50%;
 
-    transform:translateX(-50%);
+  transform:translateX(-50%);
 
-    width:125px;
+  width:145px;
 
-    text-align:center;
+  text-align:center;
+
+  z-index:25;
 }
 
-.dealer-photo{
-    width:112px;
-    height:112px;
+.dealer-ring{
+  width:105px;
+  height:105px;
 
-    margin:auto;
+  margin:auto;
 
-    border-radius:50%;
+  border-radius:50%;
 
-    border:6px solid #e8b83f;
+  border:5px solid var(--gold);
 
-    background:
-        radial-gradient(circle,#7b173f,#350d24);
+  background:#4d0d2c;
 
-    box-shadow:
-        0 0 15px rgba(255,205,60,.65),
-        inset 0 0 10px rgba(0,0,0,.7);
+  box-shadow:
+    0 0 22px #ffd85a88,
+    0 5px 20px #0008;
 
-    overflow:hidden;
+  overflow:hidden;
+
+  display:flex;
+
+  align-items:flex-start;
+  justify-content:center;
 }
 
-.dealer-photo img{
-    width:100%;
-    height:100%;
-    display:block;
-    object-fit:cover;
-    object-position:center top;
+.dealer-ring img{
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+
+  object-position:center 18%;
+
+  display:block;
 }
 
 .dealer-name{
-    margin-top:5px;
-    color:#ffe28a;
-    font-size:18px;
-    font-weight:900;
-    text-shadow:0 2px 4px #000;
+  margin-top:6px;
+
+  color:#ffe17a;
+
+  font-size:15px;
+
+  font-weight:800;
+
+  text-shadow:
+    0 2px 5px #000;
 }
 
-/* =========================
-   TOP BAR
-========================= */
+.table{
+  position:absolute;
 
-.players-count{
-    position:absolute;
-    z-index:30;
+  left:4%;
+  right:4%;
 
-    top:1.2%;
-    left:50%;
+  top:335px;
+  bottom:175px;
 
-    transform:translateX(-50%);
+  border-radius:
+    48% 48% 44% 44% /
+    24% 24% 30% 30%;
 
-    min-width:165px;
+  background:
+    radial-gradient(
+      circle at 50% 44%,
+      #0ea579,
+      #087b5e 60%,
+      #07533f 100%
+    );
 
-    padding:9px 20px;
+  border:10px solid #4b2a16;
 
-    border:1px solid #d8ad43;
-    border-radius:25px;
+  box-shadow:
+    0 0 0 5px #c1872c,
+    inset 0 0 55px #001f18,
+    0 12px 35px #0009;
 
-    background:rgba(4,14,12,.9);
-
-    color:#fff;
-
-    text-align:center;
-
-    font-size:17px;
-    font-weight:700;
+  z-index:5;
 }
 
-/* =========================
-   TOP BUTTONS
-========================= */
+.table:after{
+  content:"";
 
-.top-buttons{
-    position:absolute;
-    z-index:40;
+  position:absolute;
 
-    right:3%;
-    top:7%;
-    
-    display:flex;
-    gap:8px;
+  inset:27% 22%;
+
+  border:
+    2px solid #a9b95c66;
+
+  border-radius:50%;
+
+  box-shadow:
+    inset 0 0 30px #003c2d66;
 }
 
-.icon-btn{
-    width:64px;
-    height:64px;
+.logo{
+  position:absolute;
 
-    border:1px solid #d8ad43;
-    border-radius:15px;
+  left:50%;
+  top:48%;
 
-    background:rgba(4,15,14,.82);
+  transform:
+    translate(-50%,-50%);
 
-    color:#fff;
+  font-size:27px;
 
-    font-size:29px;
+  line-height:1.05;
 
-    box-shadow:0 3px 10px rgba(0,0,0,.4);
+  text-align:center;
+
+  font-weight:900;
+
+  color:#a3a86c55;
+
+  z-index:2;
 }
-
-/* =========================
-   POT
-========================= */
 
 .pot{
-    position:absolute;
-    z-index:15;
+  position:absolute;
 
-    top:49%;
-    left:50%;
+  left:50%;
+  top:40%;
 
-    transform:translate(-50%,-50%);
+  transform:
+    translate(-50%,-50%);
 
-    text-align:center;
+  text-align:center;
 
-    color:#fff;
+  z-index:10;
+
+  text-shadow:
+    0 2px 5px #000;
 }
 
-.pot-label{
-    color:#ffe079;
-    font-size:20px;
-    font-weight:700;
-    letter-spacing:3px;
+.pot small{
+  display:block;
+
+  color:#ffe079;
+
+  font-size:15px;
+
+  letter-spacing:3px;
 }
 
-.pot-value{
-    margin-top:5px;
+.pot strong{
+  display:block;
 
-    font-size:42px;
-    font-weight:900;
+  font-size:38px;
 
-    text-shadow:0 3px 5px #000;
+  margin-top:2px;
 }
-
-/* =========================
-   CHIP
-========================= */
 
 .chip{
-    position:absolute;
+  width:82px;
+  height:82px;
 
-    left:50%;
-    top:57%;
+  border-radius:50%;
 
-    transform:translate(-50%,-50%);
+  background:
+    radial-gradient(
+      circle,
+      #e4313d 0 42%,
+      #fff 43% 57%,
+      #c72b37 58% 67%,
+      #fff 68% 76%,
+      #a71927 77%
+    );
 
-    width:92px;
-    height:92px;
+  border:4px solid #eee;
 
-    border-radius:50%;
+  box-shadow:
+    0 4px 14px #0008;
 
-    background:
-        repeating-conic-gradient(
-            #fff 0deg 14deg,
-            #c92735 14deg 28deg
-        );
+  margin:10px auto;
+}
 
-    border:6px solid #eee;
+.seat{
+  position:absolute;
 
+  z-index:15;
+
+  width:145px;
+
+  text-align:center;
+
+  color:#fff;
+
+  text-shadow:
+    0 2px 5px #000;
+
+  font-size:14px;
+
+  font-weight:800;
+}
+
+.seat .ava{
+  width:62px;
+  height:62px;
+
+  border-radius:50%;
+
+  margin:auto;
+
+  border:3px solid var(--gold);
+
+  background:
+    linear-gradient(
+      #2a2145,
+      #10152c
+    );
+
+  display:grid;
+  place-items:center;
+
+  font-size:27px;
+
+  box-shadow:
+    0 0 15px #ffd65c66;
+}
+
+.seat .bal{
+  color:#ffd95e;
+
+  font-size:13px;
+
+  margin-top:3px;
+}
+
+.seat .cards{
+  display:flex;
+
+  justify-content:center;
+
+  gap:3px;
+
+  margin-top:6px;
+}
+
+.seat .back{
+  width:38px;
+  height:55px;
+
+  border-radius:6px;
+
+  border:2px solid #e6bb47;
+
+  background:
+    repeating-linear-gradient(
+      135deg,
+      #741a3e 0 6px,
+      #a11f50 6px 9px
+    );
+
+  box-shadow:
+    0 3px 8px #0009;
+
+  display:grid;
+
+  place-items:center;
+
+  color:#ffd45d;
+
+  font-size:18px;
+}
+
+.seat .card{
+  width:43px;
+  height:58px;
+
+  border-radius:6px;
+
+  background:#fff;
+
+  color:#111;
+
+  border:1px solid #ddd;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  font-size:18px;
+
+  font-weight:900;
+
+  box-shadow:
+    0 3px 8px #0009;
+}
+
+.seat .red{
+  color:#d21f2f;
+}
+
+.topseat{
+  left:50%;
+
+  transform:
+    translateX(-50%);
+
+  top:190px;
+}
+
+.leftseat{
+  left:19px;
+
+  top:48%;
+}
+
+.rightseat{
+  right:19px;
+
+  top:48%;
+}
+
+.me{
+  left:50%;
+
+  transform:
+    translateX(-50%);
+
+  bottom:115px;
+}
+
+.controls{
+  position:absolute;
+
+  left:14px;
+  right:14px;
+
+  bottom:17px;
+
+  display:grid;
+
+  grid-template-columns:
+    1fr
+    1.15fr
+    1fr
+    1.15fr
+    1fr;
+
+  gap:7px;
+
+  z-index:50;
+}
+
+.btn{
+  height:62px;
+
+  border-radius:13px;
+
+  border:1px solid #d9ab42;
+
+  color:#fff;
+
+  background:
+    linear-gradient(
+      #2b1740,
+      #170b25
+    );
+
+  font-weight:900;
+
+  font-size:13px;
+
+  box-shadow:
+    0 4px 10px #0008;
+}
+
+.btn.gold{
+  background:
+    linear-gradient(
+      #f2ce63,
+      #b77612
+    );
+
+  color:#241500;
+}
+
+.btn:disabled{
+  opacity:.35;
+}
+
+.turn{
+  animation:pulse 1s infinite;
+}
+
+.hidden{
+  display:none!important;
+}
+
+.notice{
+  position:absolute;
+
+  left:50%;
+  top:47px;
+
+  transform:
+    translateX(-50%);
+
+  z-index:60;
+
+  padding:7px 12px;
+
+  border:1px solid #d5a83f;
+
+  border-radius:14px;
+
+  background:#140c20e8;
+
+  font-size:12px;
+
+  opacity:0;
+
+  transition:.2s;
+
+  pointer-events:none;
+
+  white-space:nowrap;
+}
+
+.notice.show{
+  opacity:1;
+}
+
+.overlay{
+  position:absolute;
+
+  inset:0;
+
+  background:#00110dd9;
+
+  z-index:100;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  padding:28px;
+}
+
+.panel{
+  width:min(92%,430px);
+
+  border:3px solid var(--gold);
+
+  border-radius:25px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #241437,
+      #0c1820
+    );
+
+  padding:28px 22px;
+
+  box-shadow:
+    0 15px 45px #000b;
+
+  text-align:center;
+}
+
+.panel img{
+  width:130px;
+  height:130px;
+
+  border-radius:50%;
+
+  object-fit:cover;
+
+  object-position:center 18%;
+
+  border:5px solid var(--gold);
+
+  box-shadow:
+    0 0 25px #ffd55a66;
+}
+
+.panel h1{
+  margin:16px 0 4px;
+
+  color:#ffd75b;
+
+  font-size:36px;
+}
+
+.panel p{
+  margin:0 0 20px;
+
+  color:#c8c8cf;
+}
+
+.name{
+  width:100%;
+  height:50px;
+
+  border-radius:12px;
+
+  border:1px solid #c99c3c;
+
+  background:#080d12;
+
+  color:#fff;
+
+  padding:0 15px;
+
+  font-size:17px;
+
+  text-align:center;
+
+  outline:none;
+
+  margin-bottom:12px;
+}
+
+.join{
+  width:100%;
+  height:58px;
+
+  border:1px solid #ffe083;
+
+  border-radius:14px;
+
+  background:
+    linear-gradient(
+      #ffd85c,
+      #b87a16
+    );
+
+  font-size:19px;
+
+  font-weight:900;
+
+  color:#1d1300;
+}
+
+@keyframes pulse{
+
+  50%{
     box-shadow:
-        0 5px 12px rgba(0,0,0,.55);
+      0 0 20px #ffe06a;
+  }
 
-    z-index:20;
 }
 
-.chip::after{
-    content:"";
+@media(max-height:760px){
 
-    position:absolute;
-    left:21px;
-    top:21px;
+  .dealer{
+    top:62px;
+  }
 
-    width:38px;
-    height:38px;
+  .dealer-ring{
+    width:88px;
+    height:88px;
+  }
 
-    border-radius:50%;
+  .topseat{
+    top:158px;
+  }
 
-    background:#d32838;
+  .table{
+    top:285px;
+    bottom:158px;
+  }
 
-    border:5px solid #fff;
+  .me{
+    bottom:101px;
+  }
+
+  .controls{
+    bottom:10px;
+  }
+
+  .btn{
+    height:54px;
+    font-size:11px;
+  }
+
+  .seat .ava{
+    width:55px;
+    height:55px;
+  }
+
 }
 
-/* =========================
-   PLAYER
-========================= */
-
-.player{
-    position:absolute;
-    z-index:25;
-
-    width:150px;
-
-    text-align:center;
-
-    color:#fff;
-
-    text-shadow:0 2px 4px #000;
-}
-
-.player-avatar{
-    width:72px;
-    height:72px;
-
-    margin:auto;
-
-    border-radius:50%;
-
-    border:4px solid #e8b83f;
-
-    background:
-        radial-gradient(circle,#ffd84e,#9a6413);
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    font-size:37px;
-
-    box-shadow:
-        0 0 15px rgba(255,218,80,.65);
-}
-
-.player-name{
-    margin-top:4px;
-
-    font-size:17px;
-    font-weight:800;
-}
-
-.player-balance{
-    margin-top:2px;
-
-    color:#ffe35f;
-
-    font-size:15px;
-    font-weight:700;
-}
-
-/* positions */
-
-.player-bottom{
-    left:50%;
-    bottom:12%;
-
-    transform:translateX(-50%);
-}
-
-.player-top{
-    left:50%;
-    top:19%;
-
-    transform:translateX(-50%);
-}
-
-.player-left{
-    left:2%;
-    top:49%;
-
-    transform:translateY(-50%);
-}
-
-.player-right{
-    right:2%;
-    top:49%;
-
-    transform:translateY(-50%);
-}
-
-/* =========================
-   CARDS
-========================= */
-
-.cards{
-    display:flex;
-    justify-content:center;
-
-    margin-top:8px;
-}
-
-.card{
-    width:56px;
-    height:78px;
-
-    margin-left:-7px;
-
-    border-radius:7px;
-
-    background:#fff;
-
-    border:2px solid #ddd;
-
-    color:#111;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    font-size:19px;
-    font-weight:900;
-
-    box-shadow:0 4px 8px rgba(0,0,0,.55);
-}
-
-.card:first-child{
-    margin-left:0;
-}
-
-.card.red{
-    color:#d21d2b;
-}
-
-/* card back */
-
-.card-back{
-    width:56px;
-    height:78px;
-
-    margin-left:-7px;
-
-    border-radius:7px;
-
-    border:3px solid #e2b53e;
-
-    background:
-        repeating-linear-gradient(
-            45deg,
-            #67122f 0,
-            #67122f 7px,
-            #92183b 7px,
-            #92183b 14px
-        );
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    color:#ffd44d;
-
-    font-size:24px;
-
-    box-shadow:0 4px 8px rgba(0,0,0,.5);
-}
-
-.card-back:first-child{
-    margin-left:0;
-}
-
-/* =========================
-   ACTION BAR
-========================= */
-
-.actions{
-    position:absolute;
-    z-index:50;
-
-    left:2%;
-    right:2%;
-    bottom:2%;
-
-    display:grid;
-
-    grid-template-columns:
-        1fr 1.1fr 1fr 1.1fr 1fr;
-
-    gap:7px;
-}
-
-.action{
-    height:62px;
-
-    border-radius:15px;
-
-    border:1px solid #d9a932;
-
-    background:
-        linear-gradient(
-            180deg,
-            #3b1855,
-            #21102e
-        );
-
-    color:#fff;
-
-    font-size:14px;
-    font-weight:900;
-
-    box-shadow:
-        inset 0 1px rgba(255,255,255,.1),
-        0 3px 8px rgba(0,0,0,.45);
-}
-
-.action.chaal{
-    background:
-        linear-gradient(
-            180deg,
-            #f1c94d,
-            #a66d13
-        );
-
-    color:#241800;
-}
-
-.action:active{
-    transform:scale(.96);
-}
-
-/* =========================
-   STATUS
-========================= */
-
-.status{
-    position:absolute;
-    z-index:60;
-
-    bottom:10%;
-
-    left:50%;
-
-    transform:translateX(-50%);
-
-    padding:5px 16px;
-
-    border-radius:20px;
-
-    background:rgba(0,0,0,.5);
-
-    color:#fff;
-
-    font-size:13px;
-
-    pointer-events:none;
-}
-
-/* =========================
-   TOAST
-========================= */
-
-.toast{
-    position:absolute;
-
-    z-index:100;
-
-    left:50%;
-    top:15%;
-
-    transform:translateX(-50%);
-
-    padding:9px 17px;
-
-    border-radius:18px;
-
-    background:rgba(0,0,0,.88);
-
-    border:1px solid #e7bd50;
-
-    color:#fff;
-
-    font-weight:800;
-
-    opacity:0;
-
-    pointer-events:none;
-
-    transition:.25s;
-
-    white-space:nowrap;
-}
-
-.toast.show{
-    opacity:1;
-}
-
-/* =========================
-   CONNECT SCREEN
-========================= */
-
-.connect-screen{
-    position:fixed;
-
-    inset:0;
-
-    z-index:500;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    background:
-        radial-gradient(
-            circle at center,
-            rgba(15,104,78,.95),
-            rgba(0,0,0,.97)
-        );
-}
-
-.connect-box{
-    width:min(88vw,420px);
-
-    padding:38px 24px;
-
-    text-align:center;
-
-    border:3px solid #e4b53e;
-
-    border-radius:30px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #261338,
-            #111722
-        );
-
-    box-shadow:
-        0 0 40px rgba(0,0,0,.8);
-}
-
-.connect-dealer{
-    width:125px;
-    height:125px;
-
-    margin:auto;
-
-    border-radius:50%;
-
-    border:5px solid #e8b83f;
-
-    overflow:hidden;
-
-    background:#43152c;
-}
-
-.connect-dealer img{
-    width:100%;
-    height:100%;
-
-    object-fit:cover;
-    object-position:center top;
-}
-
-.connect-title{
-    margin-top:20px;
-
-    color:#ffd85d;
-
-    font-size:35px;
-
-    font-weight:900;
-}
-
-.connect-sub{
-    margin-top:8px;
-
-    color:#ddd;
-
-    font-size:18px;
-}
-
-.connect-status{
-    margin-top:30px;
-
-    padding:18px;
-
-    border-radius:18px;
-
-    background:
-        linear-gradient(
-            180deg,
-            #f2ca51,
-            #ae7417
-        );
-
-    color:#201500;
-
-    font-size:21px;
-
-    font-weight:900;
-}
-
-/* hide when connected */
-
-.connect-screen.hide{
-    display:none;
-}
-
-/* =========================
-   MOBILE
-========================= */
-
-@media(max-width:430px){
-
-    .dealer{
-        top:7%;
-        width:105px;
-    }
-
-    .dealer-photo{
-        width:92px;
-        height:92px;
-    }
-
-    .dealer-name{
-        font-size:16px;
-    }
-
-    .table{
-        top:27%;
-        bottom:13%;
-    }
-
-    .player{
-        width:125px;
-    }
-
-    .player-avatar{
-        width:64px;
-        height:64px;
-        font-size:31px;
-    }
-
-    .player-name{
-        font-size:15px;
-    }
-
-    .player-balance{
-        font-size:13px;
-    }
-
-    .card,
-    .card-back{
-        width:52px;
-        height:72px;
-    }
-
-    .pot-value{
-        font-size:38px;
-    }
-
-    .chip{
-        width:82px;
-        height:82px;
-    }
-
-    .chip::after{
-        left:18px;
-        top:18px;
-    }
-
-    .action{
-        height:58px;
-        font-size:12px;
-    }
-
-    .top-buttons{
-        top:8%;
-    }
-
-    .icon-btn{
-        width:57px;
-        height:57px;
-    }
-}
 </style>
+
 </head>
 
 <body>
 
-<div class="game">
+<div class="game" id="game">
 
-    <div class="players-count" id="playersCount">
-        Players 0/4
-    </div>
+<div
+  class="header"
+  id="count"
+>
+Players 0/4
+</div>
 
-    <div class="top-buttons">
-        <button class="icon-btn" id="soundBtn">🔊</button>
-        <button class="icon-btn" id="exitBtn">×</button>
-    </div>
+<button
+  class="iconbtn sound"
+  id="sound"
+>
+🔊
+</button>
 
-    <!-- DEALER -->
+<button
+  class="iconbtn menu"
+  id="menu"
+>
+✕
+</button>
 
-    <div class="dealer">
+<div class="dealer">
 
-        <div class="dealer-photo">
+  <div class="dealer-ring">
 
-            <img
-                src="assets/dealer.png"
-                alt="Dealer"
-                onerror="this.style.display='none';this.parentElement.innerHTML='👩';"
-            >
+    <img
+      src="assets/dealer.png"
+      alt="Dealer"
+    >
 
-        </div>
+  </div>
 
-        <div class="dealer-name">
-            DEALER
-        </div>
+  <div class="dealer-name">
+    DEALER
+  </div>
 
-    </div>
+</div>
 
-    <!-- TABLE -->
+<div class="table">
 
-    <div class="table"></div>
+  <div class="logo">
+    TEEN PATTI<br>
+    GOLD
+  </div>
 
-    <!-- POT -->
+  <div class="pot">
 
-    <div class="pot">
+    <small>
+      POT
+    </small>
 
-        <div class="pot-label">
-            POT
-        </div>
-
-        <div class="pot-value" id="pot">
-            ₹0
-        </div>
-
-    </div>
+    <strong id="pot">
+      ₹0
+    </strong>
 
     <div class="chip"></div>
 
-    <!-- PLAYERS -->
+  </div>
 
-    <div id="players"></div>
-
-    <div class="status" id="status">
-        Connecting...
-    </div>
-
-    <div class="toast" id="toast"></div>
-
-    <!-- ACTIONS -->
-
-    <div class="actions">
-
-        <button class="action" onclick="gameAction('pack')">
-            PACK
-        </button>
-
-        <button class="action" onclick="gameAction('sideshow')">
-            SIDE SHOW
-        </button>
-
-        <button class="action chaal" onclick="gameAction('chaal')">
-            CHAAL
-        </button>
-
-        <button class="action chaal" onclick="gameAction('chaal2')">
-            2X CHAAL
-        </button>
-
-        <button class="action" onclick="gameAction('show')">
-            SHOW
-        </button>
-
-    </div>
+  <div id="seats"></div>
 
 </div>
 
+<div class="controls">
 
-<!-- CONNECTING -->
+  <button
+    class="btn"
+    id="pack"
+  >
+    PACK
+  </button>
 
-<div class="connect-screen" id="connectScreen">
+  <button
+    class="btn"
+    id="side"
+  >
+    SIDE SHOW
+  </button>
 
-    <div class="connect-box">
+  <button
+    class="btn gold"
+    id="chaal"
+  >
+    CHAAL
+  </button>
 
-        <div class="connect-dealer">
+  <button
+    class="btn gold"
+    id="chaal2"
+  >
+    2X CHAAL
+  </button>
 
-            <img
-                src="assets/dealer.png"
-                alt="Dealer"
-                onerror="this.style.display='none';this.parentElement.innerHTML='👩';"
-            >
-
-        </div>
-
-        <div class="connect-title">
-            TEEN PATTI
-        </div>
-
-        <div class="connect-sub">
-            GOLD ONLINE TABLE
-        </div>
-
-        <div class="connect-status" id="connectStatus">
-            CONNECTING...
-        </div>
-
-    </div>
+  <button
+    class="btn"
+    id="show"
+  >
+    SHOW
+  </button>
 
 </div>
 
+<div
+  class="notice"
+  id="notice"
+></div>
+
+<div
+  class="overlay"
+  id="overlay"
+>
+
+  <div class="panel">
+
+    <img
+      src="assets/dealer.png"
+      alt="Dealer"
+    >
+
+    <h1>
+      TEEN PATTI
+    </h1>
+
+    <p>
+      GOLD ONLINE TABLE
+    </p>
+
+    <input
+      class="name"
+      id="name"
+      maxlength="16"
+      placeholder="Your name"
+    >
+
+    <button
+      class="join"
+      id="join"
+    >
+      JOIN TABLE
+    </button>
+
+  </div>
+
+</div>
+
+</div>
 
 <script>
 
-/* =====================================================
-   GAME VARIABLES
-===================================================== */
+const $ =
+  id =>
+    document.getElementById(id);
 
-let socket = null;
-
-let myId = null;
+let playerId =
+  localStorage.getItem(
+    "tp_pid"
+  ) || "";
 
 let muted = false;
 
-let reconnectTimer = null;
+let state = null;
 
+let audioContext = null;
 
-/* =====================================================
-   ELEMENTS
-===================================================== */
+function toast(text){
 
-const connectScreen =
-    document.getElementById("connectScreen");
+  const notice =
+    $("notice");
 
-const connectStatus =
-    document.getElementById("connectStatus");
+  notice.textContent =
+    text;
 
-const status =
-    document.getElementById("status");
+  notice.classList.add(
+    "show"
+  );
 
-const playersCount =
-    document.getElementById("playersCount");
+  clearTimeout(
+    toast.timer
+  );
 
-const playersBox =
-    document.getElementById("players");
-
-const potBox =
-    document.getElementById("pot");
-
-const toast =
-    document.getElementById("toast");
-
-const soundBtn =
-    document.getElementById("soundBtn");
-
-
-/* =====================================================
-   TOAST
-===================================================== */
-
-function showToast(message){
-
-    toast.textContent = message;
-
-    toast.classList.add("show");
-
-    clearTimeout(window.toastTimer);
-
-    window.toastTimer =
-        setTimeout(()=>{
-            toast.classList.remove("show");
-        },1800);
+  toast.timer =
+    setTimeout(
+      () =>
+        notice.classList.remove(
+          "show"
+        ),
+      1800
+    );
 }
 
+function playSound(
+  frequency = 500,
+  duration = 0.08
+){
 
-/* =====================================================
-   CONNECT
-===================================================== */
+  if(muted){
+    return;
+  }
 
-function connect(){
+  try{
 
-    if(
-        socket &&
-        (
-            socket.readyState === WebSocket.OPEN ||
-            socket.readyState === WebSocket.CONNECTING
-        )
-    ){
-        return;
-    }
+    audioContext =
+      audioContext ||
+      new (
+        window.AudioContext ||
+        window.webkitAudioContext
+      )();
 
-    connectStatus.textContent =
-        "CONNECTING...";
+    const oscillator =
+      audioContext.createOscillator();
 
-    status.textContent =
-        "Connecting...";
+    const gain =
+      audioContext.createGain();
 
-    const protocol =
-        location.protocol === "https:"
-        ? "wss:"
-        : "ws:";
+    oscillator.frequency.value =
+      frequency;
 
-    try{
+    gain.gain.value =
+      0.035;
 
-        socket =
-            new WebSocket(
-                protocol +
-                "//" +
-                location.host
-            );
-
-    }catch(error){
-
-        retryConnection();
-
-        return;
-    }
-
-
-    socket.onopen = function(){
-
-        console.log(
-            "WebSocket connected"
-        );
-
-        connectStatus.textContent =
-            "CONNECTED";
-
-        status.textContent =
-            "Connected";
-
-        showToast(
-            "Connected to table"
-        );
-
-        /*
-         * IMPORTANT:
-         * server sends welcome after connection.
-         */
-
-    };
-
-
-    socket.onmessage = function(event){
-
-        let data;
-
-        try{
-
-            data =
-                JSON.parse(event.data);
-
-        }catch(error){
-
-            return;
-        }
-
-
-        /* =====================
-           WELCOME
-        ===================== */
-
-        if(data.type === "welcome"){
-
-            myId =
-                data.id;
-
-            connectScreen.classList.add(
-                "hide"
-            );
-
-            showToast(
-                "Joined table"
-            );
-
-            status.textContent =
-                "Waiting for players...";
-
-            return;
-        }
-
-
-        /* =====================
-           STATE
-        ===================== */
-
-        if(data.type === "state"){
-
-            renderGame(data);
-
-            return;
-        }
-
-
-        /* =====================
-           NOTICE
-        ===================== */
-
-        if(data.type === "notice"){
-
-            showToast(
-                data.text || ""
-            );
-
-            return;
-        }
-
-
-        /* =====================
-           RESULT
-        ===================== */
-
-        if(data.type === "result"){
-
-            showToast(
-                (data.winnerName || "Player") +
-                " won ₹" +
-                (data.pot || 0)
-            );
-
-            return;
-        }
-
-
-        /* =====================
-           FULL
-        ===================== */
-
-        if(data.type === "full"){
-
-            connectStatus.textContent =
-                "TABLE FULL";
-
-            status.textContent =
-                "Table full";
-
-            showToast(
-                "Table is full"
-            );
-
-            return;
-        }
-
-
-        /* =====================
-           ERROR
-        ===================== */
-
-        if(data.type === "error"){
-
-            showToast(
-                data.text || "Game error"
-            );
-
-        }
-
-    };
-
-
-    socket.onerror = function(){
-
-        console.log(
-            "WebSocket error"
-        );
-
-        connectStatus.textContent =
-            "RECONNECTING...";
-
-    };
-
-
-    socket.onclose = function(){
-
-        status.textContent =
-            "Disconnected";
-
-        connectStatus.textContent =
-            "RECONNECTING...";
-
-        /*
-         * Automatically reconnect.
-         */
-
-        retryConnection();
-
-    };
-
-}
-
-
-/* =====================================================
-   RETRY
-===================================================== */
-
-function retryConnection(){
-
-    clearTimeout(
-        reconnectTimer
+    oscillator.connect(
+      gain
     );
 
-    reconnectTimer =
-        setTimeout(
-            connect,
-            2000
-        );
+    gain.connect(
+      audioContext.destination
+    );
+
+    oscillator.start();
+
+    oscillator.stop(
+      audioContext.currentTime +
+      duration
+    );
+
+  }catch(e){}
 
 }
 
+function escapeHtml(value){
 
-/* =====================================================
-   RENDER GAME
-===================================================== */
+  return String(value)
+    .replace(
+      /[&<>"']/g,
+      char => ({
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;",
+        "'":"&#39;"
+      }[char])
+    );
 
-function renderGame(state){
+}
 
-    const list =
-        state.players || [];
+function cardHtml(card){
 
-    playersCount.textContent =
-        "Players " +
-        list.length +
-        "/4";
+  if(!card){
+    return "";
+  }
 
+  const red =
+    card.suit === "♥" ||
+    card.suit === "♦";
 
-    potBox.textContent =
-        "₹" +
-        Number(
-            state.pot || 0
-        ).toLocaleString();
+  return `
+    <div
+      class="card ${red ? "red" : ""}"
+    >
+      ${escapeHtml(card.rank)}
+      ${card.suit}
+    </div>
+  `;
+}
 
+function render(gameState){
 
-    playersBox.innerHTML = "";
+  state =
+    gameState;
 
+  const online =
+    gameState.players
+      .filter(
+        p => p.connected
+      )
+      .length;
 
-    /*
-     * Four fixed seats
-     */
+  $("count").textContent =
+    `Players ${online}/4`;
 
-    list.forEach(function(player){
+  $("pot").textContent =
+    "₹" +
+    Number(
+      gameState.pot || 0
+    ).toLocaleString();
 
-        let className =
-            "player ";
+  const positions = [
+    "me",
+    "topseat",
+    "leftseat",
+    "rightseat"
+  ];
 
-        if(player.seat === 0){
+  $("seats").innerHTML =
+    gameState.players
+      .map(player => {
 
-            className +=
-                "player-bottom";
+        const mine =
+          player.id ===
+          playerId;
 
-        }else if(player.seat === 1){
+        const showCards =
+          mine ||
+          gameState.phase ===
+          "finished";
 
-            className +=
-                "player-left";
+        let cardsHtml = "";
 
-        }else if(player.seat === 2){
+        if(showCards){
 
-            className +=
-                "player-top";
-
-        }else{
-
-            className +=
-                "player-right";
-
-        }
-
-
-        const div =
-            document.createElement(
-                "div"
-            );
-
-        div.className =
-            className;
-
-
-        const isMe =
-            player.id === myId;
-
-
-        /*
-         * Only own cards are visible
-         * during the round.
-         */
-
-        const cards =
-            (
-                isMe ||
-                state.phase === "finished"
-            )
-            ? (player.cards || [])
-            : null;
-
-
-        let cardsHTML = "";
-
-
-        if(cards){
-
-            cards.forEach(function(card){
-
-                let red =
-                    card.suit === "♥" ||
-                    card.suit === "♦";
-
-
-                cardsHTML +=
-                    `<div class="card ${red ? "red" : ""}">
-                        ${card.rank}${card.suit}
-                    </div>`;
-
-            });
+          cardsHtml =
+            (player.cards || [])
+              .map(cardHtml)
+              .join("");
 
         }else{
 
-            cardsHTML =
-                `
-                <div class="card-back">♠</div>
-                <div class="card-back">♠</div>
-                <div class="card-back">♠</div>
-                `;
+          cardsHtml = `
+            <div class="back">♠</div>
+            <div class="back">♠</div>
+            <div class="back">♠</div>
+          `;
 
         }
 
+        const avatar =
+          player.seat === 0
+            ? "🙂"
+            : player.seat === 1
+              ? "👩"
+              : player.seat === 2
+                ? "😎"
+                : "🧑";
 
-        div.innerHTML = `
+        return `
+          <div
+            class="
+              seat
+              ${positions[player.seat] || ""}
+              ${
+                gameState.turn ===
+                player.id
+                  ? "turn"
+                  : ""
+              }
+            "
+          >
 
-            <div class="player-avatar">
-                ${isMe ? "👤" : "🙂"}
+            <div class="ava">
+              ${avatar}
             </div>
 
-            <div class="player-name">
-                ${escapeHTML(
-                    player.name || "Player"
-                )}
+            <div>
+              ${escapeHtml(
+                player.name
+              )}
+
+              ${
+                player.packed
+                  ? " — PACKED"
+                  : ""
+              }
             </div>
 
-            <div class="player-balance">
-                ₹${Number(
-                    player.balance || 0
-                ).toLocaleString()}
+            <div class="bal">
+              ₹${Number(
+                player.balance || 0
+              ).toLocaleString()}
             </div>
 
             <div class="cards">
-                ${cardsHTML}
+              ${cardsHtml}
             </div>
 
+          </div>
         `;
 
+      })
+      .join("");
 
-        playersBox.appendChild(
-            div
-        );
+  const me =
+    gameState.players.find(
+      p =>
+        p.id === playerId
+    );
 
-    });
+  const myTurn =
+    gameState.turn ===
+      playerId &&
+    gameState.phase ===
+      "playing" &&
+    !me?.packed;
 
+  [
+    "pack",
+    "side",
+    "chaal",
+    "chaal2",
+    "show"
+  ].forEach(id => {
 
-    /* =====================
-       STATUS
-    ===================== */
+    $(id).disabled =
+      !myTurn;
 
-    if(state.turn === myId){
-
-        status.textContent =
-            "YOUR TURN";
-
-    }else if(
-        state.phase === "waiting"
-    ){
-
-        status.textContent =
-            "Waiting for players...";
-
-    }else if(
-        state.phase === "finished"
-    ){
-
-        status.textContent =
-            "Round finished";
-
-    }else{
-
-        status.textContent =
-            "Waiting...";
-    }
+  });
 
 }
 
+async function joinTable(){
 
-/* =====================================================
-   ACTION
-===================================================== */
+  const name =
+    $("name")
+      .value
+      .trim() ||
+    "Player";
 
-function gameAction(action){
+  localStorage.setItem(
+    "tp_name",
+    name
+  );
 
-    if(
-        !socket ||
-        socket.readyState !== WebSocket.OPEN
-    ){
+  try{
 
-        showToast(
-            "Connecting..."
-        );
+    const response =
+      await fetch(
+        "/join",
+        {
+          method:"POST",
 
-        return;
+          headers:{
+            "Content-Type":
+              "application/json"
+          },
+
+          body:
+            JSON.stringify({
+              id:
+                playerId ||
+                null,
+
+              name
+            })
+        }
+      );
+
+    const data =
+      await response.json();
+
+    if(!response.ok){
+      throw new Error(
+        data.error ||
+        "Join failed"
+      );
     }
 
+    playerId =
+      data.id;
 
-    socket.send(
-        JSON.stringify({
-
-            type:"action",
-
-            action:action
-
-        })
+    localStorage.setItem(
+      "tp_pid",
+      playerId
     );
 
-}
+    $("overlay")
+      .classList
+      .add("hidden");
 
-
-/* =====================================================
-   SOUND
-===================================================== */
-
-soundBtn.onclick =
-function(){
-
-    muted =
-        !muted;
-
-    soundBtn.textContent =
-        muted
-        ? "🔇"
-        : "🔊";
-
-    showToast(
-        muted
-        ? "Sound OFF"
-        : "Sound ON"
+    playSound(
+      650,
+      0.12
     );
-
-};
-
-
-/* =====================================================
-   EXIT
-===================================================== */
-
-document
-.getElementById("exitBtn")
-.onclick =
-function(){
-
-    if(
-        socket &&
-        socket.readyState === WebSocket.OPEN
-    ){
-
-        socket.close();
-
-    }
-
-    connectScreen.classList.remove(
-        "hide"
-    );
-
-    connectStatus.textContent =
-        "CONNECTING...";
 
     connect();
 
-};
+  }catch(error){
 
+    toast(
+      error.message
+    );
 
-/* =====================================================
-   ESCAPE HTML
-===================================================== */
-
-function escapeHTML(value){
-
-    return String(value)
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
+  }
 
 }
 
+function connect(){
 
-/* =====================================================
-   AUTO START
-===================================================== */
+  const stream =
+    new EventSource(
+      "/stream?id=" +
+      encodeURIComponent(
+        playerId
+      )
+    );
 
-/*
- * No JOIN button.
- * Page automatically connects.
- */
+  stream.onopen =
+    () => {
 
-window.addEventListener(
-    "load",
-    function(){
+      toast(
+        "Connected"
+      );
 
-        setTimeout(
-            connect,
-            300
-        );
+    };
+
+  stream.onmessage =
+    event => {
+
+      try{
+
+        const message =
+          JSON.parse(
+            event.data
+          );
+
+        if(
+          message.type ===
+          "welcome"
+        ){
+
+          playSound(
+            800,
+            0.08
+          );
+
+        }
+
+        else if(
+          message.type ===
+          "state"
+        ){
+
+          render(
+            message
+          );
+
+        }
+
+        else if(
+          message.type ===
+          "notice"
+        ){
+
+          toast(
+            message.text
+          );
+
+          playSound(
+            420,
+            0.06
+          );
+
+        }
+
+        else if(
+          message.type ===
+          "result"
+        ){
+
+          toast(
+            message.winnerName +
+            " won ₹" +
+            Number(
+              message.pot
+            ).toLocaleString()
+          );
+
+          playSound(
+            900,
+            0.18
+          );
+
+        }
+
+        else if(
+          message.type ===
+          "error"
+        ){
+
+          toast(
+            message.text
+          );
+
+        }
+
+      }catch(e){}
+
+    };
+
+  stream.onerror =
+    () => {
+
+      stream.close();
+
+      toast(
+        "Reconnecting..."
+      );
+
+      setTimeout(
+        () => {
+
+          if(
+            playerId
+          ){
+            connect();
+          }
+
+        },
+        1800
+      );
+
+    };
+
+}
+
+async function action(
+  actionName
+){
+
+  if(!playerId){
+    return;
+  }
+
+  try{
+
+    await fetch(
+      "/action",
+      {
+        method:"POST",
+
+        headers:{
+          "Content-Type":
+            "application/json"
+        },
+
+        body:
+          JSON.stringify({
+            id:
+              playerId,
+
+            action:
+              actionName
+          })
+      }
+    );
+
+    if(
+      actionName === "chaal" ||
+      actionName === "chaal2"
+    ){
+
+      playSound(
+        620,
+        0.07
+      );
+
+    }else{
+
+      playSound(
+        430,
+        0.07
+      );
 
     }
-);
+
+  }catch(e){
+
+    toast(
+      "Connection lost"
+    );
+
+  }
+
+}
+
+$("join").onclick =
+  joinTable;
+
+$("name").value =
+  localStorage.getItem(
+    "tp_name"
+  ) || "";
+
+$("pack").onclick =
+  () => action("pack");
+
+$("side").onclick =
+  () => action("sideshow");
+
+$("chaal").onclick =
+  () => action("chaal");
+
+$("chaal2").onclick =
+  () => action("chaal2");
+
+$("show").onclick =
+  () => action("show");
+
+$("sound").onclick =
+  () => {
+
+    muted =
+      !muted;
+
+    $("sound").textContent =
+      muted
+        ? "🔇"
+        : "🔊";
+
+    toast(
+      muted
+        ? "Sound off"
+        : "Sound on"
+    );
+
+    if(!muted){
+      playSound();
+    }
+
+  };
+
+$("menu").onclick =
+  () => {
+
+    toast(
+      "Table menu"
+    );
+
+  };
 
 </script>
 
