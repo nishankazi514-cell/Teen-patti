@@ -1,24 +1,32 @@
+"use strict";
+
 const http = require("http");
 const fs = require("fs");
 const path = require("path");
-const crypto = require("crypto");
+const { WebSocketServer, WebSocket } = require("ws");
 
-const PORT = process.env.PORT || 3000;
-
+const PORT = Number(process.env.PORT) || 3000;
 const MAX_PLAYERS = 4;
 const START_BALANCE = 13460;
 const ANTE = 100;
 const TURN_TIME = 20000;
 
-const players = [];
+const ROOT = __dirname;
 
-let pot = 0;
-let phase = "waiting";
-let round = 0;
-let turnIndex = -1;
-let deck = [];
-let turnTimer = null;
-let startTimer = null;
+const MIME = {
+  ".html": "text/html; charset=utf-8",
+  ".css": "text/css; charset=utf-8",
+  ".js": "application/javascript; charset=utf-8",
+  ".json": "application/json; charset=utf-8",
+  ".png": "image/png",
+  ".jpg": "image/jpeg",
+  ".jpeg": "image/jpeg",
+  ".webp": "image/webp",
+  ".gif": "image/gif",
+  ".mp3": "audio/mpeg",
+  ".wav": "audio/wav",
+  ".svg": "image/svg+xml"
+};
 
 const suits = ["♠", "♥", "♦", "♣"];
 
@@ -38,16 +46,99 @@ const ranks = [
   ["A", 14]
 ];
 
+let players = [];
+let pot = 0;
+let deck = [];
+let round = 0;
+let turnIndex = 0;
+let phase = "waiting";
+let turnTimer = null;
+let nextRoundTimer = null;
+let roundStarting = false;
+
+/* ---------------- HTTP SERVER ---------------- */
+
+const server = http.createServer((req, res) => {
+  try {
+    let requestPath = decodeURIComponent(
+      new URL(req.url, `http://${req.headers.host || "localhost"}`).pathname
+    );
+
+    if (requestPath === "/health") {
+      const body = JSON.stringify({
+        ok: true,
+        service: "teen-patti",
+        players: players.filter(p => p.connected).length,
+        maxPlayers: MAX_PLAYERS,
+        phase,
+        round
+      });
+
+      res.writeHead(200, {
+        "Content-Type": "application/json; charset=utf-8",
+        "Cache-Control": "no-store"
+      });
+
+      res.end(body);
+      return;
+    }
+
+    if (requestPath === "/") {
+      requestPath = "/index.html";
+    }
+
+    const safePath = path.normalize(requestPath).replace(/^(\.\.[/\\])+/, "");
+    const filePath = path.join(ROOT, safePath);
+
+    if (!filePath.startsWith(ROOT)) {
+      res.writeHead(403);
+      res.end("Forbidden");
+      return;
+    }
+
+    fs.readFile(filePath, (err, data) => {
+      if (err) {
+        res.writeHead(404, {
+          "Content-Type": "text/plain; charset=utf-8"
+        });
+        res.end("Not found");
+        return;
+      }
+
+      const ext = path.extname(filePath).toLowerCase();
+
+      res.writeHead(200, {
+        "Content-Type": MIME[ext] || "application/octet-stream",
+        "Cache-Control": "no-cache"
+      });
+
+      res.end(data);
+    });
+
+  } catch (err) {
+    console.error("HTTP error:", err);
+
+    res.writeHead(500, {
+      "Content-Type": "text/plain; charset=utf-8"
+    });
+
+    res.end("Internal server error");
+  }
+});
+
+/* ---------------- GAME HELPERS ---------------- */
+
 function makeId() {
-  return crypto.randomBytes(12).toString("hex");
+  return Math.random().toString(36).slice(2) +
+         Date.now().toString(36);
 }
 
 function makeDeck() {
-  const d = [];
+  const cards = [];
 
   for (const suit of suits) {
     for (const [rank, value] of ranks) {
-      d.push({
+      cards.push({
         rank,
         value,
         suit
@@ -55,16 +146,16 @@ function makeDeck() {
     }
   }
 
-  for (let i = d.length - 1; i > 0; i--) {
+  for (let i = cards.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [d[i], d[j]] = [d[j], d[i]];
+    [cards[i], cards[j]] = [cards[j], cards[i]];
   }
 
-  return d;
+  return cards;
 }
 
 function handScore(cards) {
-  if (!cards || cards.length !== 3) {
+  if (!Array.isArray(cards) || cards.length !== 3) {
     return [0];
   }
 
@@ -72,42 +163,50 @@ function handScore(cards) {
     .map(c => c.value)
     .sort((a, b) => b - a);
 
-  const unique = [...new Set(values)]
-    .sort((a, b) => a - b);
+  const counts = {};
 
-  const count = {};
-
-  for (const v of values) {
-    count[v] = (count[v] || 0) + 1;
+  for (const value of values) {
+    counts[value] = (counts[value] || 0) + 1;
   }
 
   const flush = cards.every(
     c => c.suit === cards[0].suit
   );
 
-  let straight =
-    unique.length === 3 &&
-    unique[2] - unique[0] === 2;
+  const unique = [...new Set(values)].sort(
+    (a, b) => a - b
+  );
 
-  if (unique.join(",") === "2,3,14") {
+  let straight = false;
+
+  if (
+    unique.length === 3 &&
+    unique[2] - unique[0] === 2
+  ) {
     straight = true;
   }
+
+  // A-2-3
+  if (
+    unique[0] === 2 &&
+    unique[1] === 3 &&
+    unique[2] === 14
+  ) {
+    straight = true;
+  }
+
+  // Trail / Trio
+  const triple = Object.keys(counts).find(
+    key => counts[key] === 3
+  );
 
   if (straight && flush) {
     return [6, Math.max(...values)];
   }
 
-  const triple = Object.keys(count).find(
-    v => count[v] === 3
-  );
-
   if (triple) {
     return [5, Number(triple)];
   }
-
-  const pair = Object.keys(count).find(
-    v => count[v] === 2
-  );
 
   if (flush) {
     return [4, ...values];
@@ -117,30 +216,32 @@ function handScore(cards) {
     return [3, Math.max(...values)];
   }
 
+  const pair = Object.keys(counts).find(
+    key => counts[key] === 2
+  );
+
   if (pair) {
-    const kicker = Object.keys(count).find(
-      v => count[v] === 1
+    const kicker = Number(
+      Object.keys(counts).find(
+        key => counts[key] === 1
+      )
     );
 
-    return [
-      2,
-      Number(pair),
-      Number(kicker)
-    ];
+    return [2, Number(pair), kicker];
   }
 
   return [1, ...values];
 }
 
 function compareHands(a, b) {
-  const A = handScore(a);
-  const B = handScore(b);
+  const sa = handScore(a);
+  const sb = handScore(b);
 
-  const length = Math.max(A.length, B.length);
+  const length = Math.max(sa.length, sb.length);
 
   for (let i = 0; i < length; i++) {
-    const av = A[i] || 0;
-    const bv = B[i] || 0;
+    const av = sa[i] || 0;
+    const bv = sb[i] || 0;
 
     if (av !== bv) {
       return av - bv;
@@ -156,33 +257,26 @@ function connectedPlayers() {
 
 function activePlayers() {
   return players.filter(
-    p =>
-      p.connected &&
-      !p.packed
+    p => p.connected && !p.packed
   );
 }
 
-function findPlayer(id) {
-  return players.find(
-    p => p.id === id
-  );
-}
-
-function sendEvent(player, data) {
-  if (!player || !player.response) {
-    return;
+function send(ws, data) {
+  if (
+    ws &&
+    ws.readyState === WebSocket.OPEN
+  ) {
+    ws.send(JSON.stringify(data));
   }
-
-  try {
-    player.response.write(
-      "data: " +
-      JSON.stringify(data) +
-      "\n\n"
-    );
-  } catch {}
 }
 
-function publicState(player) {
+function broadcast(data) {
+  for (const player of players) {
+    send(player.ws, data);
+  }
+}
+
+function createPublicState(forPlayerId) {
   return {
     type: "state",
 
@@ -193,62 +287,154 @@ function publicState(player) {
     pot,
 
     turn:
-      players[turnIndex]?.id || null,
+      players[turnIndex] &&
+      players[turnIndex].connected &&
+      !players[turnIndex].packed
+        ? players[turnIndex].id
+        : null,
 
-    players: players.map(p => ({
-      id: p.id,
+    players: players.map(player => {
+      const isMe = player.id === forPlayerId;
 
-      name: p.name,
+      const showCards =
+        phase === "finished" || isMe;
 
-      seat: p.seat,
+      return {
+        id: player.id,
+        name: player.name,
+        seat: player.seat,
+        balance: player.balance,
+        connected: player.connected,
+        packed: player.packed,
 
-      balance: p.balance,
-
-      packed: p.packed,
-
-      connected: p.connected,
-
-      cards:
-        phase === "finished" ||
-        p.id === player.id
-          ? p.cards
+        cards: showCards
+          ? player.cards
           : []
-    }))
+      };
+    })
   };
 }
 
-function broadcast(data) {
+function broadcastState() {
   for (const player of players) {
-    if (player.connected) {
-      sendEvent(player, data);
-    }
+    send(
+      player.ws,
+      createPublicState(player.id)
+    );
   }
 }
 
-function broadcastStates() {
-  for (const player of players) {
-    if (player.connected) {
-      sendEvent(
-        player,
-        publicState(player)
-      );
-    }
-  }
-}
-
-function clearTurnTimer() {
+function clearTimers() {
   if (turnTimer) {
     clearTimeout(turnTimer);
     turnTimer = null;
   }
+
+  if (nextRoundTimer) {
+    clearTimeout(nextRoundTimer);
+    nextRoundTimer = null;
+  }
+}
+
+/* ---------------- ROUND ---------------- */
+
+function startRound() {
+  if (roundStarting) return;
+
+  const connected = connectedPlayers();
+
+  if (connected.length < 2) {
+    phase = "waiting";
+    broadcastState();
+    return;
+  }
+
+  roundStarting = true;
+
+  clearTimers();
+
+  pot = 0;
+  deck = makeDeck();
+
+  round++;
+  phase = "playing";
+
+  for (const player of players) {
+    if (!player.connected) {
+      player.cards = [];
+      player.packed = true;
+      continue;
+    }
+
+    player.packed = false;
+
+    player.cards = [
+      deck.pop(),
+      deck.pop(),
+      deck.pop()
+    ];
+
+    if (player.balance >= ANTE) {
+      player.balance -= ANTE;
+      pot += ANTE;
+    } else {
+      player.packed = true;
+    }
+  }
+
+  turnIndex = 0;
+
+  moveToNextActive(false);
+
+  roundStarting = false;
+
+  broadcast({
+    type: "notice",
+    text: `Round ${round} started`
+  });
+
+  broadcastState();
+
+  startTurnTimer();
+}
+
+function moveToNextActive(changeTurn = true) {
+  const active = activePlayers();
+
+  if (active.length <= 1) {
+    finishRound("last-player");
+    return;
+  }
+
+  if (!players.length) return;
+
+  let index = turnIndex;
+
+  for (let i = 0; i < players.length; i++) {
+    if (changeTurn || i > 0) {
+      index = (index + 1) % players.length;
+    }
+
+    const player = players[index];
+
+    if (
+      player &&
+      player.connected &&
+      !player.packed
+    ) {
+      turnIndex = index;
+      return;
+    }
+  }
 }
 
 function startTurnTimer() {
-  clearTurnTimer();
+  if (phase !== "playing") return;
+
+  clearTimeout(turnTimer);
 
   turnTimer = setTimeout(() => {
-    const player =
-      players[turnIndex];
+    const player = players[turnIndex];
 
     if (
       player &&
@@ -259,9 +445,7 @@ function startTurnTimer() {
 
       broadcast({
         type: "notice",
-        text:
-          player.name +
-          " timed out and packed."
+        text: `${player.name} timed out and packed.`
       });
 
       nextTurn();
@@ -270,6 +454,9 @@ function startTurnTimer() {
 }
 
 function nextTurn() {
+  clearTimeout(turnTimer);
+  turnTimer = null;
+
   const active = activePlayers();
 
   if (active.length <= 1) {
@@ -277,122 +464,25 @@ function nextTurn() {
     return;
   }
 
-  for (
-    let step = 1;
-    step <= players.length;
-    step++
-  ) {
-    const next =
-      (turnIndex + step) %
-      players.length;
+  moveToNextActive(true);
 
-    const player =
-      players[next];
-
-    if (
-      player &&
-      player.connected &&
-      !player.packed
-    ) {
-      turnIndex = next;
-
-      broadcastStates();
-
-      startTurnTimer();
-
-      return;
-    }
-  }
-
-  finishRound("no-turn");
-}
-
-function startRound() {
-  clearTurnTimer();
-
-  pot = 0;
-
-  deck = makeDeck();
-
-  round++;
-
-  phase = "playing";
-
-  for (const player of players) {
-    if (!player.connected) {
-      continue;
-    }
-
-    player.cards = [
-      deck.pop(),
-      deck.pop(),
-      deck.pop()
-    ];
-
-    player.packed = false;
-
-    if (player.balance >= ANTE) {
-      player.balance -= ANTE;
-
-      pot += ANTE;
-    } else {
-      player.packed = true;
-    }
-  }
-
-  const active = activePlayers();
-
-  if (active.length < 2) {
-    phase = "waiting";
-
-    broadcastStates();
-
-    return;
-  }
-
-  turnIndex =
-    players.indexOf(active[0]);
-
-  broadcastStates();
-
-  broadcast({
-    type: "notice",
-    text: "Round " + round + " started"
-  });
+  broadcastState();
 
   startTurnTimer();
 }
 
-function scheduleRound() {
-  if (
-    phase !== "waiting" ||
-    connectedPlayers().length < 2
-  ) {
-    return;
-  }
-
-  clearTimeout(startTimer);
-
-  startTimer = setTimeout(() => {
-    if (
-      phase === "waiting" &&
-      connectedPlayers().length >= 2
-    ) {
-      startRound();
-    }
-  }, 1000);
-}
-
 function finishRound(reason) {
-  clearTurnTimer();
+  if (phase !== "playing") return;
+
+  clearTimeout(turnTimer);
+  turnTimer = null;
 
   const active = activePlayers();
 
-  if (active.length === 0) {
+  if (!active.length) {
     phase = "waiting";
-
-    broadcastStates();
-
+    pot = 0;
+    broadcastState();
     return;
   }
 
@@ -409,7 +499,9 @@ function finishRound(reason) {
     }
   }
 
-  winner.balance += pot;
+  const winAmount = pot;
+
+  winner.balance += winAmount;
 
   phase = "finished";
 
@@ -420,33 +512,54 @@ function finishRound(reason) {
 
     winnerName: winner.name,
 
-    pot,
+    amount: winAmount,
 
-    reason
+    pot: winAmount,
+
+    reason,
+
+    cards: active.map(player => ({
+      id: player.id,
+      cards: player.cards
+    }))
   });
 
-  broadcastStates();
+  broadcastState();
 
-  setTimeout(() => {
-    const connected =
-      connectedPlayers();
+  nextRoundTimer = setTimeout(() => {
+    nextRoundTimer = null;
 
-    if (connected.length >= 2) {
+    if (
+      connectedPlayers().length >= 2
+    ) {
       startRound();
     } else {
       phase = "waiting";
-
-      broadcastStates();
+      pot = 0;
+      broadcastState();
     }
   }, 4000);
 }
 
-function performAction(player, action) {
+/* ---------------- ACTIONS ---------------- */
+
+function playerAction(player, action) {
+  if (phase !== "playing") return;
+
   if (
-    phase !== "playing" ||
-    !player.connected ||
-    player.packed ||
     players[turnIndex]?.id !== player.id
+  ) {
+    send(player.ws, {
+      type: "error",
+      text: "Not your turn."
+    });
+
+    return;
+  }
+
+  if (
+    !player.connected ||
+    player.packed
   ) {
     return;
   }
@@ -456,208 +569,231 @@ function performAction(player, action) {
 
     broadcast({
       type: "notice",
-      text:
-        player.name +
-        " packed."
+      text: `${player.name} packed.`
     });
 
     nextTurn();
 
+    return;
+  }
+
+  if (action === "chaal") {
+    playBet(player, ANTE);
+    return;
+  }
+
+  if (action === "chaal2") {
+    playBet(player, ANTE * 2);
     return;
   }
 
   if (action === "show") {
     finishRound("show");
-
     return;
   }
 
   if (action === "sideshow") {
-    broadcast({
+    send(player.ws, {
       type: "notice",
-      text:
-        player.name +
-        " requested Side Show."
+      text: "Side Show requested."
     });
 
-    nextTurn();
-
     return;
   }
+}
 
-  let amount = 0;
-
-  if (action === "chaal") {
-    amount = ANTE;
-  }
-
-  if (action === "chaal2") {
-    amount = ANTE * 2;
-  }
-
-  if (!amount) {
-    return;
-  }
-
+function playBet(player, amount) {
   if (player.balance < amount) {
-    sendEvent(player, {
+    send(player.ws, {
       type: "error",
-      text: "Insufficient chips"
+      text: "Not enough chips."
     });
 
     return;
   }
 
   player.balance -= amount;
-
   pot += amount;
 
   broadcast({
     type: "notice",
     text:
-      player.name +
-      " played " +
-      (action === "chaal2"
-        ? "2X Chaal"
-        : "Chaal")
+      `${player.name} played ` +
+      `${amount === ANTE * 2 ? "2X Chaal" : "Chaal"}`
   });
 
   nextTurn();
 }
 
-function parseBody(req) {
-  return new Promise(
-    (resolve, reject) => {
-      let body = "";
+/* ---------------- WEBSOCKET ---------------- */
 
-      req.on("data", chunk => {
-        body += chunk;
-      });
+const wss = new WebSocketServer({
+  server
+});
 
-      req.on("end", () => {
-        try {
-          resolve(
-            body
-              ? JSON.parse(body)
-              : {}
-          );
-        } catch (error) {
-          reject(error);
-        }
-      });
-    }
-  );
-}
-
-function json(res, status, data) {
-  res.writeHead(status, {
-    "Content-Type":
-      "application/json; charset=utf-8",
-
-    "Cache-Control":
-      "no-store",
-
-    "Access-Control-Allow-Origin":
-      "*"
-  });
-
-  res.end(
-    JSON.stringify(data)
-  );
-}
-
-function serveFile(req, res) {
-  const url = new URL(
-    req.url,
-    "http://localhost"
-  );
-
-  let requested =
-    url.pathname === "/"
-      ? "/index.html"
-      : url.pathname;
-
-  requested =
-    decodeURIComponent(requested);
-
-  const filePath = path.join(
-    __dirname,
-    requested
-  );
-
-  if (
-    !filePath.startsWith(
-      __dirname
-    ) ||
-    !fs.existsSync(filePath) ||
-    fs.statSync(filePath).isDirectory()
-  ) {
-    json(res, 404, {
-      error: "Not found"
+wss.on("connection", ws => {
+  if (connectedPlayers().length >= MAX_PLAYERS) {
+    send(ws, {
+      type: "full",
+      text: "Table is full."
     });
 
+    ws.close();
     return;
   }
 
-  const extension =
-    path.extname(filePath);
+  const usedSeats = new Set(
+    players
+      .filter(p => p.connected)
+      .map(p => p.seat)
+  );
 
-  const contentTypes = {
-    ".html":
-      "text/html; charset=utf-8",
+  let seat = 0;
 
-    ".js":
-      "text/javascript; charset=utf-8",
+  while (usedSeats.has(seat)) {
+    seat++;
+  }
 
-    ".css":
-      "text/css; charset=utf-8",
-
-    ".png":
-      "image/png",
-
-    ".jpg":
-      "image/jpeg",
-
-    ".jpeg":
-      "image/jpeg",
-
-    ".mp3":
-      "audio/mpeg"
+  const player = {
+    id: makeId(),
+    ws,
+    seat,
+    name: `Player ${seat + 1}`,
+    balance: START_BALANCE,
+    cards: [],
+    packed: false,
+    connected: true
   };
 
-  res.writeHead(200, {
-    "Content-Type":
-      contentTypes[extension] ||
-      "application/octet-stream",
+  players.push(player);
 
-    "Cache-Control":
-      extension === ".html"
-        ? "no-store"
-        : "public,max-age=3600"
+  send(ws, {
+    type: "welcome",
+    id: player.id,
+    seat: player.seat,
+    name: player.name
   });
 
-  fs.createReadStream(
-    filePath
-  ).pipe(res);
+  broadcast({
+    type: "notice",
+    text: `${player.name} joined the table.`
+  });
+
+  broadcastState();
+
+  if (
+    connectedPlayers().length >= 2 &&
+    phase === "waiting"
+  ) {
+    setTimeout(() => {
+      if (
+        phase === "waiting" &&
+        connectedPlayers().length >= 2
+      ) {
+        startRound();
+      }
+    }, 1000);
+  }
+
+  ws.on("message", raw => {
+    try {
+      const message = JSON.parse(
+        raw.toString()
+      );
+
+      if (
+        message &&
+        message.type === "action"
+      ) {
+        playerAction(
+          player,
+          String(message.action || "")
+        );
+      }
+    } catch (error) {
+      send(ws, {
+        type: "error",
+        text: "Invalid request."
+      });
+    }
+  });
+
+  ws.on("close", () => {
+    if (!player.connected) return;
+
+    player.connected = false;
+
+    if (
+      phase === "playing" &&
+      !player.packed
+    ) {
+      player.packed = true;
+
+      if (
+        players[turnIndex]?.id === player.id
+      ) {
+        nextTurn();
+      }
+    }
+
+    broadcast({
+      type: "notice",
+      text: `${player.name} disconnected.`
+    });
+
+    broadcastState();
+
+    // Remove old disconnected player after the
+    // current round is finished.
+    if (phase !== "playing") {
+      setTimeout(cleanDisconnectedPlayers, 1000);
+    }
+  });
+
+  ws.on("error", error => {
+    console.error(
+      "WebSocket error:",
+      error.message
+    );
+  });
+});
+
+function cleanDisconnectedPlayers() {
+  players = players.filter(
+    p => p.connected || phase === "playing"
+  );
+
+  // Re-numbering is intentionally avoided while
+  // a live round is active.
 }
 
-const server =
-  http.createServer(
-    async (req, res) => {
-      try {
-        if (
-          req.method === "GET" &&
-          req.url === "/health"
-        ) {
-          json(res, 200, {
-            ok: true,
+/* ---------------- START ---------------- */
 
-            players:
-              connectedPlayers()
-                .length,
+server.listen(PORT, "0.0.0.0", () => {
+  console.log(
+    `Teen Patti server running on port ${PORT}`
+  );
+});
 
-            phase
-          });
+server.on("error", error => {
+  console.error(
+    "SERVER ERROR:",
+    error
+  );
 
-          return;
-        }
+  process.exit(1);
+});
+
+process.on("uncaughtException", error => {
+  console.error(
+    "UNCAUGHT EXCEPTION:",
+    error
+  );
+});
+
+process.on("unhandledRejection", error => {
+  console.error(
+    "UNHANDLED REJECTION:",
+    error
+  );
+});
