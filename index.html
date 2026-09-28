@@ -2,8 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-<title>Teen Patti Gold Online</title>
+<meta name="viewport"
+      content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+
+<title>Teen Patti Gold</title>
 
 <style>
 *{
@@ -18,7 +20,7 @@ html,body{
     height:100%;
     overflow:hidden;
     font-family:Arial,sans-serif;
-    background:#090c12;
+    background:#080b0d;
 }
 
 body{
@@ -34,283 +36,430 @@ body{
     max-width:600px;
     overflow:hidden;
     background:
-        radial-gradient(circle at 50% 45%,#18775e 0%,#0b4c3d 38%,#06352d 70%,#041f1d 100%);
+        radial-gradient(
+            ellipse at center,
+            #168a69 0%,
+            #0b7056 38%,
+            #07503f 70%,
+            #032d26 100%
+        );
 }
 
-/* WOOD / TABLE FRAME */
+/* OUTER FRAME */
+
 .game:before{
     content:"";
     position:absolute;
-    inset:0;
-    border:10px solid #25140c;
-    box-shadow:
-        inset 0 0 0 3px #a56b24,
-        inset 0 0 45px rgba(0,0,0,.9);
+    inset:8px;
+    z-index:100;
     pointer-events:none;
-    z-index:50;
+
+    border:5px solid #24140a;
+
+    box-shadow:
+        inset 0 0 0 3px #bd7c28,
+        inset 0 0 25px rgba(0,0,0,.75);
 }
 
-/* TABLE FELT */
+/* TABLE */
+
 .table{
     position:absolute;
-    left:4%;
-    right:4%;
-    top:16%;
-    bottom:15%;
-    border-radius:48% / 20%;
+
+    left:3.5%;
+    right:3.5%;
+
+    top:25%;
+    bottom:13%;
+
+    border-radius:47% / 20%;
+
     background:
         radial-gradient(
             ellipse at center,
-            #19926e 0%,
-            #0c6b52 48%,
-            #064a3c 78%,
-            #03372e 100%
+            #15906e 0%,
+            #0b765a 48%,
+            #075540 80%,
+            #04392f 100%
         );
-    border:7px solid #9b6425;
+
+    border:7px solid #2b180b;
+
     box-shadow:
-        0 0 0 5px #24140b,
+        0 0 0 4px #b87525,
         inset 0 0 35px rgba(0,0,0,.65),
-        0 12px 30px rgba(0,0,0,.65);
+        0 10px 25px rgba(0,0,0,.55);
 }
 
 .table-logo{
     position:absolute;
-    top:43%;
+
+    top:50%;
     left:50%;
+
     transform:translate(-50%,-50%);
-    width:170px;
-    height:100px;
-    border:2px solid rgba(255,220,130,.4);
+
+    width:175px;
+    height:105px;
+
+    border:2px solid rgba(239,205,113,.4);
     border-radius:50%;
+
     display:flex;
     align-items:center;
     justify-content:center;
+
     text-align:center;
-    color:rgba(255,224,150,.45);
+
+    color:rgba(255,224,150,.35);
+
+    font-size:21px;
     font-weight:bold;
-    font-size:22px;
     line-height:1.05;
     letter-spacing:2px;
-    transform-origin:center;
+}
+
+/* STATUS */
+
+.status{
+    position:absolute;
+    z-index:150;
+
+    top:8px;
+    left:50%;
+
+    transform:translateX(-50%);
+
+    min-width:190px;
+
+    padding:8px 20px;
+
+    border:1px solid #d8a943;
+    border-radius:25px;
+
+    background:rgba(5,7,10,.88);
+
+    color:white;
+
+    text-align:center;
+
+    font-size:12px;
+
+    box-shadow:0 3px 10px rgba(0,0,0,.4);
+}
+
+/* TOP BUTTONS */
+
+.top-controls{
+    position:absolute;
+
+    z-index:150;
+
+    top:62px;
+    right:17px;
+
+    display:flex;
+    gap:8px;
+}
+
+.icon-btn{
+    width:43px;
+    height:40px;
+
+    border-radius:10px;
+
+    border:1px solid #d9aa42;
+
+    background:rgba(5,7,10,.82);
+
+    color:white;
+
+    font-size:18px;
 }
 
 /* DEALER */
+
 .dealer{
     position:absolute;
-    z-index:15;
-    top:22px;
+
+    z-index:120;
+
+    top:55px;
     left:50%;
+
     transform:translateX(-50%);
+
     text-align:center;
 }
 
 .dealer-avatar{
     width:72px;
     height:72px;
+
     border-radius:50%;
-    border:3px solid #e7b64e;
-    background:
-        radial-gradient(circle at 50% 30%,#ffd6bd 0 16%,transparent 17%),
-        linear-gradient(145deg,#8c1831,#350b1b);
-    box-shadow:0 0 20px rgba(255,198,65,.45);
+
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:37px;
+
+    font-size:39px;
+
+    background:
+        radial-gradient(
+            circle at 50% 30%,
+            #ffd9c4 0 14%,
+            transparent 15%
+        ),
+        linear-gradient(
+            145deg,
+            #9c2039,
+            #3b0c1d
+        );
+
+    border:3px solid #e6b747;
+
+    box-shadow:
+        0 0 0 4px rgba(0,0,0,.25),
+        0 0 20px rgba(255,199,70,.4);
 }
 
 .dealer-name{
     margin-top:4px;
+
     color:#ffe08a;
+
     font-size:11px;
     font-weight:bold;
+
     text-shadow:0 2px 4px #000;
 }
 
-/* STATUS */
-.status{
-    position:absolute;
-    z-index:60;
-    top:8px;
-    left:50%;
-    transform:translateX(-50%);
-    min-width:180px;
-    padding:8px 18px;
-    border:1px solid #d9a83e;
-    border-radius:20px;
-    background:rgba(5,8,12,.86);
-    color:#fff;
-    text-align:center;
-    font-size:12px;
-}
-
-/* TOP CONTROLS */
-.top-controls{
-    position:absolute;
-    z-index:65;
-    top:52px;
-    right:13px;
-    display:flex;
-    gap:7px;
-}
-
-.icon-btn{
-    width:42px;
-    height:38px;
-    border:1px solid #d5a642;
-    border-radius:10px;
-    background:rgba(8,9,15,.8);
-    color:#fff;
-    font-size:18px;
-}
-
 /* POT */
+
 .pot{
     position:absolute;
-    z-index:12;
-    top:48%;
+
+    z-index:80;
+
+    top:49%;
     left:50%;
+
     transform:translate(-50%,-50%);
-    min-width:145px;
+
+    width:150px;
+
     text-align:center;
 }
 
 .pot-title{
-    color:#f8d47a;
+    color:#f5d277;
+
     font-size:12px;
     font-weight:bold;
-    letter-spacing:2px;
+
+    letter-spacing:3px;
 }
 
 .pot-value{
-    margin-top:3px;
-    color:#fff;
-    font-size:26px;
+    margin-top:2px;
+
+    color:white;
+
+    font-size:27px;
     font-weight:900;
-    text-shadow:0 2px 5px #000;
+
+    text-shadow:
+        0 2px 5px #000;
 }
 
 .chips{
-    margin:7px auto 0;
-    width:52px;
-    height:52px;
+    width:55px;
+    height:55px;
+
+    margin:8px auto 0;
+
     border-radius:50%;
+
     background:
         repeating-conic-gradient(
-            #fff 0deg 18deg,
-            #c9282f 18deg 36deg
+            #ffffff 0deg 18deg,
+            #c92c35 18deg 36deg
         );
+
     border:5px solid #eee;
-    box-shadow:0 4px 9px #000;
+
+    box-shadow:
+        0 4px 9px #000;
 }
 
 .chips:after{
     content:"";
+
     display:block;
-    width:28px;
-    height:28px;
-    margin:7px;
+
+    width:29px;
+    height:29px;
+
+    margin:8px;
+
     border-radius:50%;
-    background:#d42c32;
-    border:3px solid #fff;
+
+    background:#d72e36;
+
+    border:3px solid white;
 }
 
 /* PLAYERS */
+
 .players{
     position:absolute;
     inset:0;
-    z-index:20;
+
+    z-index:110;
 }
 
 .player{
     position:absolute;
-    width:110px;
+
+    width:112px;
+
     text-align:center;
-    color:#fff;
+
+    color:white;
+
+    transition:.25s;
 }
+
+/* BOTTOM PLAYER */
 
 .p0{
     left:50%;
-    bottom:98px;
+    bottom:82px;
+
     transform:translateX(-50%);
 }
 
+/* LEFT PLAYER */
+
 .p1{
-    left:8px;
-    top:45%;
+    left:7%;
+    top:49%;
+
+    transform:translateY(-50%);
 }
+
+/* TOP PLAYER */
 
 .p2{
     left:50%;
-    top:105px;
+    top:155px;
+
     transform:translateX(-50%);
 }
 
+/* RIGHT PLAYER */
+
 .p3{
-    right:8px;
-    top:45%;
+    right:7%;
+    top:49%;
+
+    transform:translateY(-50%);
 }
 
+/* AVATAR */
+
 .avatar{
-    width:48px;
-    height:48px;
+    width:50px;
+    height:50px;
+
     margin:auto;
+
     display:flex;
     align-items:center;
     justify-content:center;
+
     border-radius:50%;
-    background:linear-gradient(145deg,#f2c45e,#80500e);
+
+    background:
+        linear-gradient(
+            145deg,
+            #f5cc67,
+            #85540e
+        );
+
     border:2px solid #ffe18a;
-    box-shadow:0 3px 10px #000;
+
+    box-shadow:
+        0 3px 10px #000;
+
     font-size:23px;
 }
 
 .player.turn .avatar{
-    animation:turnPulse 1s infinite;
+    animation:turnGlow 1s infinite;
 }
 
-@keyframes turnPulse{
+@keyframes turnGlow{
+
     50%{
         box-shadow:
-            0 0 0 5px rgba(255,215,70,.25),
-            0 0 25px #ffd34d;
+            0 0 0 5px rgba(255,218,75,.25),
+            0 0 25px #ffd44c;
     }
 }
 
 .player-name{
     margin-top:3px;
+
     font-size:12px;
     font-weight:bold;
+
     text-shadow:0 2px 4px #000;
 }
 
 .player-money{
-    color:#ffd66a;
+    color:#ffd66b;
+
     font-size:11px;
+
+    text-shadow:0 1px 3px #000;
 }
+
+/* CARDS */
 
 .cards{
     display:flex;
+
     justify-content:center;
+
     height:48px;
-    margin-top:4px;
+
+    margin-top:5px;
 }
 
 .card{
-    position:relative;
-    width:34px;
-    height:46px;
+    width:35px;
+    height:47px;
+
     margin-left:-6px;
+
     border-radius:5px;
-    background:#fff;
+
+    background:white;
+
     color:#111;
-    border:1px solid #bbb;
-    box-shadow:0 3px 7px #000;
+
+    border:1px solid #aaa;
+
+    box-shadow:
+        0 3px 7px #000;
+
     display:flex;
-    flex-direction:column;
+
     align-items:center;
     justify-content:center;
-    font-size:12px;
+
+    font-size:13px;
     font-weight:bold;
 }
 
@@ -319,57 +468,85 @@ body{
 }
 
 .card.red{
-    color:#d01825;
+    color:#d21b27;
 }
+
+/* CARD BACK */
 
 .card.back{
     background:
         repeating-linear-gradient(
             45deg,
-            #65162b,
-            #65162b 4px,
-            #9f2840 4px,
-            #9f2840 8px
+            #64152b,
+            #64152b 4px,
+            #a32640 4px,
+            #a32640 8px
         );
-    border:2px solid #e1b74e;
+
+    border:2px solid #e4b94e;
 }
 
 .card.back:after{
     content:"♠";
-    color:#e8bd50;
+
+    color:#edc354;
+
     font-size:20px;
 }
 
-/* ACTION BAR */
+/* BOTTOM BUTTONS */
+
 .actions{
     position:absolute;
-    z-index:70;
-    left:9px;
-    right:9px;
-    bottom:10px;
+
+    z-index:160;
+
+    left:12px;
+    right:12px;
+    bottom:12px;
+
     display:flex;
-    gap:6px;
+
+    gap:7px;
 }
 
 .action{
     flex:1;
-    height:49px;
-    border-radius:10px;
+
+    height:50px;
+
+    border-radius:11px;
+
     border:1px solid #d8aa45;
-    background:linear-gradient(#42225e,#21102f);
-    color:#fff;
+
+    background:
+        linear-gradient(
+            #452460,
+            #21112f
+        );
+
+    color:white;
+
     font-size:10px;
+
     font-weight:bold;
-    box-shadow:0 4px 9px #000;
+
+    box-shadow:
+        0 4px 9px #000;
 }
 
 .action.gold{
-    background:linear-gradient(#f4d477,#a76d16);
-    color:#211300;
+    background:
+        linear-gradient(
+            #f4d477,
+            #a96e17
+        );
+
+    color:#251500;
 }
 
 .action:disabled{
-    opacity:.4;
+    opacity:.42;
 }
 
 .action:active{
@@ -377,22 +554,37 @@ body{
 }
 
 /* NOTICE */
+
 .notice{
     position:absolute;
-    z-index:100;
+
+    z-index:200;
+
     left:50%;
-    top:59%;
+    top:60%;
+
     transform:translate(-50%,-50%);
+
     width:max-content;
-    max-width:85%;
+
+    max-width:82%;
+
     padding:11px 18px;
+
     border-radius:12px;
-    border:1px solid #d8a942;
+
+    border:1px solid #d8a943;
+
     background:rgba(0,0,0,.88);
-    color:#fff;
+
+    color:white;
+
     text-align:center;
+
     opacity:0;
+
     pointer-events:none;
+
     transition:.25s;
 }
 
@@ -401,60 +593,101 @@ body{
 }
 
 /* JOIN */
+
 .overlay{
     position:absolute;
-    z-index:200;
+
+    z-index:300;
+
     inset:0;
+
     display:flex;
+
     align-items:center;
     justify-content:center;
-    background:rgba(0,0,0,.8);
+
+    background:rgba(0,0,0,.82);
 }
 
 .join-box{
     width:86%;
     max-width:340px;
+
     padding:25px;
+
     border-radius:18px;
-    border:2px solid #d6a63e;
-    background:linear-gradient(145deg,#31164d,#120b1b);
+
+    border:2px solid #d7a83f;
+
+    background:
+        linear-gradient(
+            145deg,
+            #32164d,
+            #120b1b
+        );
+
     box-shadow:0 15px 50px #000;
+
     text-align:center;
 }
 
 .join-box h1{
     color:#ffd76a;
+
     font-size:27px;
+
     margin-bottom:7px;
 }
 
 .join-box p{
-    color:#bbb;
+    color:#aaa;
+
     font-size:12px;
+
     margin-bottom:18px;
 }
 
 .join-box input{
     width:100%;
+
     padding:14px;
+
     border-radius:10px;
-    border:1px solid #9c7027;
+
+    border:1px solid #9d7027;
+
     background:#0d0b12;
-    color:#fff;
+
+    color:white;
+
     outline:none;
+
     text-align:center;
+
     font-size:16px;
+
     margin-bottom:12px;
 }
 
 .join-btn{
     width:100%;
+
     padding:14px;
+
     border:0;
+
     border-radius:10px;
-    background:linear-gradient(#ffd86d,#a96e13);
+
+    background:
+        linear-gradient(
+            #ffd86d,
+            #a96e13
+        );
+
     color:#241400;
+
     font-size:16px;
+
     font-weight:bold;
 }
 
@@ -462,28 +695,45 @@ body{
     display:none!important;
 }
 
-@media(max-width:380px){
+/* MOBILE */
 
-    .action{
-        font-size:9px;
-        height:46px;
-    }
+@media(max-width:420px){
 
-    .player{
-        width:90px;
+    .table{
+        top:25%;
+        bottom:14%;
     }
 
     .p1{
-        left:2px;
+        left:3%;
     }
 
     .p3{
-        right:2px;
+        right:3%;
     }
 
-    .table{
-        left:2%;
-        right:2%;
+    .player{
+        width:100px;
+    }
+
+    .p2{
+        top:150px;
+    }
+
+    .action{
+        height:48px;
+        font-size:9px;
+    }
+
+    .actions{
+        left:9px;
+        right:9px;
+        gap:5px;
+    }
+
+    .card{
+        width:33px;
+        height:45px;
     }
 }
 </style>
@@ -495,75 +745,147 @@ body{
 
     <div class="table">
         <div class="table-logo">
-            TEEN PATTI<br>GOLD
+            TEEN PATTI<br>
+            GOLD
         </div>
     </div>
 
+    <!-- JOIN -->
+
     <div id="joinOverlay" class="overlay">
+
         <div class="join-box">
+
             <h1>♠ TEEN PATTI ♥</h1>
-            <p>Join the table and play with friends</p>
+
+            <p>
+                Join the table and play with friends
+            </p>
 
             <input
                 id="nameInput"
+                type="text"
                 maxlength="14"
                 placeholder="Enter your name"
                 autocomplete="off"
             >
 
-            <button id="joinBtn" class="join-btn">
+            <button
+                id="joinBtn"
+                class="join-btn">
                 JOIN TABLE
             </button>
+
         </div>
+
     </div>
+
+    <!-- STATUS -->
 
     <div id="status" class="status">
         Connecting...
     </div>
 
+    <!-- TOP BUTTONS -->
+
     <div class="top-controls">
-        <button id="soundBtn" class="icon-btn">🔊</button>
-        <button id="leaveBtn" class="icon-btn">×</button>
+
+        <button
+            id="soundBtn"
+            class="icon-btn">
+            🔊
+        </button>
+
+        <button
+            id="leaveBtn"
+            class="icon-btn">
+            ×
+        </button>
+
     </div>
+
+    <!-- DEALER -->
 
     <div class="dealer">
-        <div class="dealer-avatar">👩</div>
-        <div class="dealer-name">DEALER</div>
+
+        <div class="dealer-avatar">
+            👩🏻
+        </div>
+
+        <div class="dealer-name">
+            DEALER
+        </div>
+
     </div>
 
-    <div id="players" class="players"></div>
+    <!-- PLAYERS -->
+
+    <div
+        id="players"
+        class="players">
+    </div>
+
+    <!-- POT -->
 
     <div class="pot">
-        <div class="pot-title">POT</div>
-        <div id="potValue" class="pot-value">₹0</div>
+
+        <div class="pot-title">
+            POT
+        </div>
+
+        <div
+            id="potValue"
+            class="pot-value">
+            ₹0
+        </div>
+
         <div class="chips"></div>
+
     </div>
 
-    <div id="notice" class="notice"></div>
+    <!-- NOTICE -->
+
+    <div
+        id="notice"
+        class="notice">
+    </div>
+
+    <!-- ACTIONS -->
 
     <div class="actions">
 
-        <button id="packBtn" class="action">
+        <button
+            id="packBtn"
+            class="action">
             PACK
         </button>
 
-        <button id="sideBtn" class="action">
+        <button
+            id="sideBtn"
+            class="action">
             SIDE SHOW
         </button>
 
-        <button id="chaalBtn" class="action gold">
+        <button
+            id="chaalBtn"
+            class="action gold">
             CHAAL
         </button>
 
-        <button id="chaal2Btn" class="action gold">
+        <button
+            id="chaal2Btn"
+            class="action gold">
             2X CHAAL
         </button>
 
-        <button id="showBtn" class="action">
+        <button
+            id="showBtn"
+            class="action">
             SHOW
         </button>
 
     </div>
+
 </div>
 
 <script>
@@ -572,131 +894,205 @@ body{
 let socket=null;
 let myId=null;
 let joined=false;
+
 let soundOn=true;
 let audioContext=null;
 
-const joinOverlay=document.getElementById("joinOverlay");
-const joinBtn=document.getElementById("joinBtn");
-const nameInput=document.getElementById("nameInput");
-const statusEl=document.getElementById("status");
-const playersEl=document.getElementById("players");
-const potValue=document.getElementById("potValue");
-const noticeEl=document.getElementById("notice");
+const joinOverlay=
+    document.getElementById("joinOverlay");
 
-const packBtn=document.getElementById("packBtn");
-const sideBtn=document.getElementById("sideBtn");
-const chaalBtn=document.getElementById("chaalBtn");
-const chaal2Btn=document.getElementById("chaal2Btn");
-const showBtn=document.getElementById("showBtn");
-const soundBtn=document.getElementById("soundBtn");
-const leaveBtn=document.getElementById("leaveBtn");
+const joinBtn=
+    document.getElementById("joinBtn");
 
-/* NEW GAME SOUNDS — NO VIDEO AUDIO */
+const nameInput=
+    document.getElementById("nameInput");
+
+const statusEl=
+    document.getElementById("status");
+
+const playersEl=
+    document.getElementById("players");
+
+const potValue=
+    document.getElementById("potValue");
+
+const noticeEl=
+    document.getElementById("notice");
+
+const packBtn=
+    document.getElementById("packBtn");
+
+const sideBtn=
+    document.getElementById("sideBtn");
+
+const chaalBtn=
+    document.getElementById("chaalBtn");
+
+const chaal2Btn=
+    document.getElementById("chaal2Btn");
+
+const showBtn=
+    document.getElementById("showBtn");
+
+const soundBtn=
+    document.getElementById("soundBtn");
+
+const leaveBtn=
+    document.getElementById("leaveBtn");
+
+
+/* =========================
+   GAME SOUND
+========================= */
 
 function initAudio(){
 
     if(!audioContext){
+
         audioContext=
-            new (window.AudioContext ||
-                 window.webkitAudioContext)();
+            new (
+                window.AudioContext ||
+                window.webkitAudioContext
+            )();
     }
 
-    if(audioContext.state==="suspended"){
+    if(
+        audioContext.state==="suspended"
+    ){
         audioContext.resume();
     }
 }
 
-function sound(freq,duration,type="sine"){
+function playTone(
+    frequency,
+    duration,
+    type="sine"
+){
 
     if(!soundOn) return;
 
     initAudio();
 
-    const osc=
+    const oscillator=
         audioContext.createOscillator();
 
     const gain=
         audioContext.createGain();
 
-    osc.type=type;
-    osc.frequency.value=freq;
+    oscillator.type=type;
+
+    oscillator.frequency.value=
+        frequency;
 
     gain.gain.setValueAtTime(
-        0.0001,
+        .0001,
         audioContext.currentTime
     );
 
     gain.gain.exponentialRampToValueAtTime(
-        0.12,
+        .1,
         audioContext.currentTime+.01
     );
 
     gain.gain.exponentialRampToValueAtTime(
-        0.0001,
-        audioContext.currentTime+duration
+        .0001,
+        audioContext.currentTime+
+        duration
     );
 
-    osc.connect(gain);
-    gain.connect(audioContext.destination);
+    oscillator.connect(gain);
 
-    osc.start();
-    osc.stop(
-        audioContext.currentTime+duration
+    gain.connect(
+        audioContext.destination
+    );
+
+    oscillator.start();
+
+    oscillator.stop(
+        audioContext.currentTime+
+        duration
     );
 }
 
-function dealSound(){
-    sound(520,.08,"triangle");
+function cardSound(){
+
+    playTone(500,.07,"triangle");
 
     setTimeout(()=>{
-        sound(680,.08,"triangle");
+        playTone(650,.07,"triangle");
     },90);
+
 }
 
 function chipSound(){
-    sound(850,.06,"square");
+
+    playTone(850,.05,"square");
 
     setTimeout(()=>{
-        sound(1100,.05,"square");
+        playTone(1100,.05,"square");
     },70);
+
 }
 
 function winSound(){
 
-    sound(523,.12,"sine");
+    playTone(523,.1);
 
     setTimeout(()=>{
-        sound(659,.12,"sine");
-    },130);
+        playTone(659,.1);
+    },120);
 
     setTimeout(()=>{
-        sound(784,.22,"sine");
-    },260);
+        playTone(784,.22);
+    },240);
+
 }
+
+
+/* =========================
+   NOTICE
+========================= */
 
 function showNotice(message){
 
-    noticeEl.textContent=message;
-    noticeEl.classList.add("show");
+    noticeEl.textContent=
+        message;
 
-    clearTimeout(showNotice.timer);
+    noticeEl.classList.add(
+        "show"
+    );
 
-    showNotice.timer=setTimeout(()=>{
-        noticeEl.classList.remove("show");
-    },2200);
+    clearTimeout(
+        showNotice.timer
+    );
+
+    showNotice.timer=
+        setTimeout(()=>{
+            noticeEl.classList.remove(
+                "show"
+            );
+        },2200);
 }
+
+
+/* =========================
+   CONNECTION
+========================= */
 
 function setStatus(text){
-    statusEl.textContent=text;
+
+    statusEl.textContent=
+        text;
 }
 
-function socketURL(){
+function getSocketURL(){
 
     return(
         location.protocol==="https:"
         ? "wss://"
         : "ws://"
-    )+location.host;
+    )+
+    location.host;
 }
 
 function connect(){
@@ -704,25 +1100,37 @@ function connect(){
     if(
         socket &&
         (
-            socket.readyState===WebSocket.OPEN ||
-            socket.readyState===WebSocket.CONNECTING
+            socket.readyState===
+            WebSocket.OPEN ||
+
+            socket.readyState===
+            WebSocket.CONNECTING
         )
     ){
         return;
     }
 
-    setStatus("Connecting...");
+    setStatus(
+        "Connecting..."
+    );
 
-    socket=new WebSocket(socketURL());
+    socket=
+        new WebSocket(
+            getSocketURL()
+        );
 
     socket.onopen=()=>{
 
-        setStatus("Connected");
+        setStatus(
+            "Connected"
+        );
 
         if(joined){
+
             send({
                 type:"join",
-                name:nameInput.value.trim()
+                name:
+                    nameInput.value.trim()
             });
         }
     };
@@ -732,8 +1140,14 @@ function connect(){
         let data;
 
         try{
-            data=JSON.parse(event.data);
+
+            data=
+                JSON.parse(
+                    event.data
+                );
+
         }catch{
+
             return;
         }
 
@@ -742,17 +1156,28 @@ function connect(){
 
     socket.onclose=()=>{
 
-        setStatus("Disconnected");
+        setStatus(
+            "Disconnected"
+        );
 
         if(joined){
-            showNotice("Connection lost");
+
+            showNotice(
+                "Connection lost"
+            );
         }
 
-        setTimeout(connect,2000);
+        setTimeout(
+            connect,
+            2000
+        );
     };
 
     socket.onerror=()=>{
-        setStatus("Connection error");
+
+        setStatus(
+            "Connection error"
+        );
     };
 }
 
@@ -760,190 +1185,324 @@ function send(data){
 
     if(
         !socket ||
-        socket.readyState!==WebSocket.OPEN
+        socket.readyState!==
+        WebSocket.OPEN
     ){
-        showNotice("Server not connected");
+
+        showNotice(
+            "Server not connected"
+        );
+
         return;
     }
 
-    socket.send(JSON.stringify(data));
+    socket.send(
+        JSON.stringify(data)
+    );
 }
+
+
+/* =========================
+   SERVER MESSAGE
+========================= */
 
 function handleMessage(data){
 
-    if(data.type==="welcome"){
+    if(
+        data.type==="welcome"
+    ){
 
         myId=data.id;
 
-        joinOverlay.classList.add("hidden");
+        joinOverlay.classList.add(
+            "hidden"
+        );
 
-        setStatus("Waiting for players...");
+        setStatus(
+            "Waiting for players..."
+        );
 
-        dealSound();
-
-        return;
-    }
-
-    if(data.type==="state"){
-
-        render(data);
-
-        if(data.phase==="playing"){
-            dealSound();
-        }
+        cardSound();
 
         return;
     }
 
-    if(data.type==="notice"){
+    if(
+        data.type==="state"
+    ){
 
-        showNotice(data.message||"");
+        renderGame(
+            data
+        );
 
         return;
     }
 
-    if(data.type==="result"){
+    if(
+        data.type==="notice"
+    ){
 
-        showNotice(data.message||"Round finished");
+        showNotice(
+            data.message || ""
+        );
+
+        return;
+    }
+
+    if(
+        data.type==="result"
+    ){
+
+        showNotice(
+            data.message ||
+            "Round finished"
+        );
 
         winSound();
 
         return;
     }
 
-    if(data.type==="full"){
+    if(
+        data.type==="full"
+    ){
 
-        showNotice("Table is full");
+        showNotice(
+            "Table is full"
+        );
 
         return;
     }
 
-    if(data.type==="error"){
+    if(
+        data.type==="error"
+    ){
 
-        showNotice(data.message||"Error");
+        showNotice(
+            data.message ||
+            "Error"
+        );
 
-        return;
     }
 }
 
-function positionClass(seat){
 
-    return[
+/* =========================
+   PLAYER POSITION
+========================= */
+
+function seatClass(seat){
+
+    const positions=[
         "p0",
         "p1",
         "p2",
         "p3"
-    ][Number(seat)]||"p0";
+    ];
+
+    return(
+        positions[
+            Number(seat)
+        ] || "p0"
+    );
 }
 
-function render(state){
+
+/* =========================
+   RENDER
+========================= */
+
+function renderGame(state){
 
     playersEl.innerHTML="";
 
-    const list=state.players||[];
+    const list=
+        state.players || [];
 
     list.forEach(player=>{
 
-        const box=document.createElement("div");
+        const box=
+            document.createElement(
+                "div"
+            );
 
         box.className=
             "player "+
-            positionClass(player.seat);
+            seatClass(
+                player.seat
+            );
 
         if(
-            player.id===state.turnPlayerId
+            player.id===
+            state.turnPlayerId
         ){
-            box.classList.add("turn");
+
+            box.classList.add(
+                "turn"
+            );
         }
 
-        const avatar=document.createElement("div");
+        const avatar=
+            document.createElement(
+                "div"
+            );
 
-        avatar.className="avatar";
+        avatar.className=
+            "avatar";
 
         avatar.textContent=
             player.id===myId
             ? "👤"
             : "🙂";
 
-        const name=document.createElement("div");
 
-        name.className="player-name";
+        const name=
+            document.createElement(
+                "div"
+            );
+
+        name.className=
+            "player-name";
 
         name.textContent=
-            player.name||"Player";
+            player.name ||
+            "Player";
 
-        const money=document.createElement("div");
 
-        money.className="player-money";
+        const money=
+            document.createElement(
+                "div"
+            );
+
+        money.className=
+            "player-money";
 
         money.textContent=
             "₹"+
-            Number(player.balance||0)
-            .toLocaleString();
+            Number(
+                player.balance || 0
+            ).toLocaleString();
 
-        const cards=document.createElement("div");
 
-        cards.className="cards";
+        const cards=
+            document.createElement(
+                "div"
+            );
 
-        const hand=player.cards||[];
+        cards.className=
+            "cards";
 
-        for(let i=0;i<3;i++){
+        const hand=
+            player.cards || [];
 
-            const card=document.createElement("div");
 
-            card.className="card";
+        for(
+            let i=0;
+            i<3;
+            i++
+        ){
 
-            const value=hand[i];
+            const card=
+                document.createElement(
+                    "div"
+                );
+
+            card.className=
+                "card";
+
+            const value=
+                hand[i];
+
 
             if(value){
 
-                const red=
+                if(
                     value.includes("♥") ||
-                    value.includes("♦");
+                    value.includes("♦")
+                ){
 
-                if(red){
-                    card.classList.add("red");
+                    card.classList.add(
+                        "red"
+                    );
                 }
 
-                card.textContent=value;
+                card.textContent=
+                    value;
 
             }else{
 
-                card.classList.add("back");
+                card.classList.add(
+                    "back"
+                );
             }
 
-            cards.appendChild(card);
+            cards.appendChild(
+                card
+            );
         }
 
-        box.appendChild(avatar);
-        box.appendChild(name);
-        box.appendChild(money);
-        box.appendChild(cards);
 
-        playersEl.appendChild(box);
+        box.appendChild(
+            avatar
+        );
+
+        box.appendChild(
+            name
+        );
+
+        box.appendChild(
+            money
+        );
+
+        box.appendChild(
+            cards
+        );
+
+        playersEl.appendChild(
+            box
+        );
     });
+
 
     potValue.textContent=
         "₹"+
-        Number(state.pot||0)
-        .toLocaleString();
+        Number(
+            state.pot || 0
+        ).toLocaleString();
+
 
     const mine=
-        list.find(p=>p.id===myId);
+        list.find(
+            p=>p.id===myId
+        );
+
 
     const myTurn=
         mine &&
-        state.turnPlayerId===myId &&
         state.phase==="playing" &&
+        state.turnPlayerId===myId &&
         !mine.packed;
 
-    packBtn.disabled=!myTurn;
-    sideBtn.disabled=!myTurn;
-    chaalBtn.disabled=!myTurn;
-    chaal2Btn.disabled=!myTurn;
-    showBtn.disabled=!myTurn;
 
-    if(state.phase==="playing"){
+    packBtn.disabled=
+        !myTurn;
+
+    sideBtn.disabled=
+        !myTurn;
+
+    chaalBtn.disabled=
+        !myTurn;
+
+    chaal2Btn.disabled=
+        !myTurn;
+
+    showBtn.disabled=
+        !myTurn;
+
+
+    if(
+        state.phase==="playing"
+    ){
 
         setStatus(
             myTurn
@@ -963,15 +1522,26 @@ function render(state){
     }
 }
 
+
+/* =========================
+   ACTIONS
+========================= */
+
 function action(type){
 
     initAudio();
+
     chipSound();
 
     send({
         type:type
     });
 }
+
+
+/* =========================
+   JOIN
+========================= */
 
 joinBtn.onclick=()=>{
 
@@ -980,7 +1550,9 @@ joinBtn.onclick=()=>{
 
     if(!name){
 
-        showNotice("Enter your name");
+        showNotice(
+            "Enter your name"
+        );
 
         nameInput.focus();
 
@@ -993,7 +1565,10 @@ joinBtn.onclick=()=>{
 
     connect();
 
-    if(socket.readyState===WebSocket.OPEN){
+    if(
+        socket.readyState===
+        WebSocket.OPEN
+    ){
 
         send({
             type:"join",
@@ -1002,12 +1577,21 @@ joinBtn.onclick=()=>{
     }
 };
 
-nameInput.onkeydown=(e)=>{
 
-    if(e.key==="Enter"){
+nameInput.onkeydown=(event)=>{
+
+    if(
+        event.key==="Enter"
+    ){
+
         joinBtn.click();
     }
 };
+
+
+/* =========================
+   BUTTONS
+========================= */
 
 packBtn.onclick=()=>{
     action("pack");
@@ -1029,18 +1613,27 @@ showBtn.onclick=()=>{
     action("show");
 };
 
+
 soundBtn.onclick=()=>{
 
     soundOn=!soundOn;
 
     soundBtn.textContent=
-        soundOn ? "🔊" : "🔇";
+        soundOn
+        ? "🔊"
+        : "🔇";
 
     if(soundOn){
+
         initAudio();
-        sound(700,.08);
+
+        playTone(
+            700,
+            .08
+        );
     }
 };
+
 
 leaveBtn.onclick=()=>{
 
@@ -1050,13 +1643,21 @@ leaveBtn.onclick=()=>{
 
     joined=false;
 
-    joinOverlay.classList.remove("hidden");
+    joinOverlay.classList.remove(
+        "hidden"
+    );
 
-    setStatus("Disconnected");
+    setStatus(
+        "Disconnected"
+    );
 };
 
+
+/* START */
+
 connect();
+
 </script>
 
 </body>
-        </html>
+    </html>
