@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-<title>Teen Patti Online</title>
+<title>Teen Patti Gold Online</title>
 
 <style>
 *{
@@ -18,7 +18,7 @@ html,body{
     height:100%;
     overflow:hidden;
     font-family:Arial,sans-serif;
-    background:#12091d;
+    background:#090c12;
 }
 
 body{
@@ -34,250 +34,363 @@ body{
     max-width:600px;
     overflow:hidden;
     background:
-        #221238 url("assets/reference-game.jpg")
-        center/cover no-repeat;
+        radial-gradient(circle at 50% 45%,#18775e 0%,#0b4c3d 38%,#06352d 70%,#041f1d 100%);
 }
 
-.overlay{
+/* WOOD / TABLE FRAME */
+.game:before{
+    content:"";
     position:absolute;
     inset:0;
-    z-index:100;
+    border:10px solid #25140c;
+    box-shadow:
+        inset 0 0 0 3px #a56b24,
+        inset 0 0 45px rgba(0,0,0,.9);
+    pointer-events:none;
+    z-index:50;
+}
+
+/* TABLE FELT */
+.table{
+    position:absolute;
+    left:4%;
+    right:4%;
+    top:16%;
+    bottom:15%;
+    border-radius:48% / 20%;
+    background:
+        radial-gradient(
+            ellipse at center,
+            #19926e 0%,
+            #0c6b52 48%,
+            #064a3c 78%,
+            #03372e 100%
+        );
+    border:7px solid #9b6425;
+    box-shadow:
+        0 0 0 5px #24140b,
+        inset 0 0 35px rgba(0,0,0,.65),
+        0 12px 30px rgba(0,0,0,.65);
+}
+
+.table-logo{
+    position:absolute;
+    top:43%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:170px;
+    height:100px;
+    border:2px solid rgba(255,220,130,.4);
+    border-radius:50%;
     display:flex;
     align-items:center;
     justify-content:center;
-    background:rgba(0,0,0,.72);
-}
-
-.join-box{
-    width:85%;
-    max-width:340px;
-    padding:25px;
     text-align:center;
-    border-radius:18px;
-    background:linear-gradient(145deg,#321653,#170b25);
-    border:2px solid #d5a447;
-    box-shadow:0 0 35px rgba(0,0,0,.8);
-}
-
-.join-box h2{
-    color:#ffd66b;
-    margin-bottom:18px;
-    font-size:27px;
-}
-
-.join-box input{
-    width:100%;
-    padding:14px;
-    margin-bottom:14px;
-    border:1px solid #a87524;
-    border-radius:10px;
-    outline:none;
-    color:white;
-    background:#12091d;
-    text-align:center;
-    font-size:16px;
-}
-
-.join-btn{
-    width:100%;
-    padding:14px;
-    border:0;
-    border-radius:10px;
-    background:linear-gradient(#ffd86b,#b97913);
-    color:#241000;
-    font-size:17px;
+    color:rgba(255,224,150,.45);
     font-weight:bold;
+    font-size:22px;
+    line-height:1.05;
+    letter-spacing:2px;
+    transform-origin:center;
 }
 
-.status{
+/* DEALER */
+.dealer{
     position:absolute;
-    top:10px;
+    z-index:15;
+    top:22px;
     left:50%;
     transform:translateX(-50%);
-    z-index:20;
-    min-width:180px;
-    padding:8px 15px;
     text-align:center;
-    color:#fff;
-    background:rgba(0,0,0,.65);
-    border:1px solid rgba(255,215,100,.5);
+}
+
+.dealer-avatar{
+    width:72px;
+    height:72px;
+    border-radius:50%;
+    border:3px solid #e7b64e;
+    background:
+        radial-gradient(circle at 50% 30%,#ffd6bd 0 16%,transparent 17%),
+        linear-gradient(145deg,#8c1831,#350b1b);
+    box-shadow:0 0 20px rgba(255,198,65,.45);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:37px;
+}
+
+.dealer-name{
+    margin-top:4px;
+    color:#ffe08a;
+    font-size:11px;
+    font-weight:bold;
+    text-shadow:0 2px 4px #000;
+}
+
+/* STATUS */
+.status{
+    position:absolute;
+    z-index:60;
+    top:8px;
+    left:50%;
+    transform:translateX(-50%);
+    min-width:180px;
+    padding:8px 18px;
+    border:1px solid #d9a83e;
     border-radius:20px;
+    background:rgba(5,8,12,.86);
+    color:#fff;
+    text-align:center;
     font-size:12px;
 }
 
+/* TOP CONTROLS */
+.top-controls{
+    position:absolute;
+    z-index:65;
+    top:52px;
+    right:13px;
+    display:flex;
+    gap:7px;
+}
+
+.icon-btn{
+    width:42px;
+    height:38px;
+    border:1px solid #d5a642;
+    border-radius:10px;
+    background:rgba(8,9,15,.8);
+    color:#fff;
+    font-size:18px;
+}
+
+/* POT */
+.pot{
+    position:absolute;
+    z-index:12;
+    top:48%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    min-width:145px;
+    text-align:center;
+}
+
+.pot-title{
+    color:#f8d47a;
+    font-size:12px;
+    font-weight:bold;
+    letter-spacing:2px;
+}
+
+.pot-value{
+    margin-top:3px;
+    color:#fff;
+    font-size:26px;
+    font-weight:900;
+    text-shadow:0 2px 5px #000;
+}
+
+.chips{
+    margin:7px auto 0;
+    width:52px;
+    height:52px;
+    border-radius:50%;
+    background:
+        repeating-conic-gradient(
+            #fff 0deg 18deg,
+            #c9282f 18deg 36deg
+        );
+    border:5px solid #eee;
+    box-shadow:0 4px 9px #000;
+}
+
+.chips:after{
+    content:"";
+    display:block;
+    width:28px;
+    height:28px;
+    margin:7px;
+    border-radius:50%;
+    background:#d42c32;
+    border:3px solid #fff;
+}
+
+/* PLAYERS */
 .players{
     position:absolute;
     inset:0;
-    z-index:10;
+    z-index:20;
 }
 
 .player{
     position:absolute;
-    width:105px;
-    min-height:92px;
+    width:110px;
     text-align:center;
-    color:white;
+    color:#fff;
 }
 
 .p0{
     left:50%;
-    bottom:105px;
+    bottom:98px;
     transform:translateX(-50%);
 }
 
 .p1{
     left:8px;
-    top:43%;
+    top:45%;
 }
 
 .p2{
     left:50%;
-    top:75px;
+    top:105px;
     transform:translateX(-50%);
 }
 
 .p3{
     right:8px;
-    top:43%;
+    top:45%;
 }
 
 .avatar{
-    width:45px;
-    height:45px;
+    width:48px;
+    height:48px;
     margin:auto;
     display:flex;
     align-items:center;
     justify-content:center;
     border-radius:50%;
-    background:linear-gradient(145deg,#f4c76a,#8a5313);
-    border:2px solid #ffe08a;
-    box-shadow:0 0 12px rgba(255,205,75,.55);
-    font-size:22px;
+    background:linear-gradient(145deg,#f2c45e,#80500e);
+    border:2px solid #ffe18a;
+    box-shadow:0 3px 10px #000;
+    font-size:23px;
 }
 
-.name{
+.player.turn .avatar{
+    animation:turnPulse 1s infinite;
+}
+
+@keyframes turnPulse{
+    50%{
+        box-shadow:
+            0 0 0 5px rgba(255,215,70,.25),
+            0 0 25px #ffd34d;
+    }
+}
+
+.player-name{
     margin-top:3px;
     font-size:12px;
     font-weight:bold;
-    text-shadow:0 2px 3px #000;
+    text-shadow:0 2px 4px #000;
 }
 
-.balance{
-    color:#ffd66b;
+.player-money{
+    color:#ffd66a;
     font-size:11px;
 }
 
 .cards{
-    height:40px;
-    margin-top:4px;
     display:flex;
     justify-content:center;
+    height:48px;
+    margin-top:4px;
 }
 
 .card{
-    width:30px;
-    height:40px;
-    margin:0 -3px;
-    border-radius:4px;
-    border:1px solid #aaa;
+    position:relative;
+    width:34px;
+    height:46px;
+    margin-left:-6px;
+    border-radius:5px;
     background:#fff;
     color:#111;
-    font-size:10px;
+    border:1px solid #bbb;
+    box-shadow:0 3px 7px #000;
     display:flex;
+    flex-direction:column;
     align-items:center;
     justify-content:center;
-    box-shadow:0 2px 5px #000;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.card:first-child{
+    margin-left:0;
+}
+
+.card.red{
+    color:#d01825;
 }
 
 .card.back{
     background:
-        linear-gradient(135deg,#7c1e2e 25%,#d7a13a 25%,#d7a13a 35%,#7c1e2e 35%);
-    color:transparent;
+        repeating-linear-gradient(
+            45deg,
+            #65162b,
+            #65162b 4px,
+            #9f2840 4px,
+            #9f2840 8px
+        );
+    border:2px solid #e1b74e;
 }
 
-.pot{
-    position:absolute;
-    top:49%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    z-index:8;
-    color:#ffe18a;
-    font-weight:bold;
-    text-align:center;
-    text-shadow:0 2px 5px #000;
-}
-
-.pot-value{
+.card.back:after{
+    content:"♠";
+    color:#e8bd50;
     font-size:20px;
 }
 
+/* ACTION BAR */
 .actions{
     position:absolute;
-    z-index:30;
-    left:0;
-    right:0;
-    bottom:8px;
+    z-index:70;
+    left:9px;
+    right:9px;
+    bottom:10px;
     display:flex;
-    justify-content:center;
-    gap:7px;
-    padding:0 7px;
+    gap:6px;
 }
 
 .action{
     flex:1;
-    max-width:95px;
-    min-height:43px;
-    border:1px solid #dcae48;
-    border-radius:9px;
-    background:linear-gradient(#4d286c,#241038);
+    height:49px;
+    border-radius:10px;
+    border:1px solid #d8aa45;
+    background:linear-gradient(#42225e,#21102f);
     color:#fff;
-    font-size:11px;
+    font-size:10px;
     font-weight:bold;
-    box-shadow:0 3px 8px #000;
-}
-
-.action:active{
-    transform:scale(.95);
+    box-shadow:0 4px 9px #000;
 }
 
 .action.gold{
-    background:linear-gradient(#f5d26b,#9b6515);
-    color:#1b0c00;
+    background:linear-gradient(#f4d477,#a76d16);
+    color:#211300;
 }
 
-.top-buttons{
-    position:absolute;
-    top:35px;
-    right:8px;
-    z-index:40;
-    display:flex;
-    gap:5px;
+.action:disabled{
+    opacity:.4;
 }
 
-.small-btn{
-    width:38px;
-    height:34px;
-    border:1px solid #d8aa49;
-    border-radius:8px;
-    background:rgba(26,11,38,.85);
-    color:#fff;
-    font-size:16px;
+.action:active{
+    transform:scale(.96);
 }
 
+/* NOTICE */
 .notice{
     position:absolute;
+    z-index:100;
     left:50%;
-    top:57%;
+    top:59%;
     transform:translate(-50%,-50%);
-    z-index:50;
-    min-width:200px;
-    max-width:90%;
-    padding:10px 16px;
+    width:max-content;
+    max-width:85%;
+    padding:11px 18px;
     border-radius:12px;
-    text-align:center;
+    border:1px solid #d8a942;
+    background:rgba(0,0,0,.88);
     color:#fff;
-    background:rgba(0,0,0,.82);
-    border:1px solid #d8aa49;
+    text-align:center;
     opacity:0;
     pointer-events:none;
     transition:.25s;
@@ -287,18 +400,91 @@ body{
     opacity:1;
 }
 
-.turn{
-    animation:pulse 1s infinite;
+/* JOIN */
+.overlay{
+    position:absolute;
+    z-index:200;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(0,0,0,.8);
 }
 
-@keyframes pulse{
-    50%{
-        filter:drop-shadow(0 0 12px #ffd65b);
-    }
+.join-box{
+    width:86%;
+    max-width:340px;
+    padding:25px;
+    border-radius:18px;
+    border:2px solid #d6a63e;
+    background:linear-gradient(145deg,#31164d,#120b1b);
+    box-shadow:0 15px 50px #000;
+    text-align:center;
+}
+
+.join-box h1{
+    color:#ffd76a;
+    font-size:27px;
+    margin-bottom:7px;
+}
+
+.join-box p{
+    color:#bbb;
+    font-size:12px;
+    margin-bottom:18px;
+}
+
+.join-box input{
+    width:100%;
+    padding:14px;
+    border-radius:10px;
+    border:1px solid #9c7027;
+    background:#0d0b12;
+    color:#fff;
+    outline:none;
+    text-align:center;
+    font-size:16px;
+    margin-bottom:12px;
+}
+
+.join-btn{
+    width:100%;
+    padding:14px;
+    border:0;
+    border-radius:10px;
+    background:linear-gradient(#ffd86d,#a96e13);
+    color:#241400;
+    font-size:16px;
+    font-weight:bold;
 }
 
 .hidden{
     display:none!important;
+}
+
+@media(max-width:380px){
+
+    .action{
+        font-size:9px;
+        height:46px;
+    }
+
+    .player{
+        width:90px;
+    }
+
+    .p1{
+        left:2px;
+    }
+
+    .p3{
+        right:2px;
+    }
+
+    .table{
+        left:2%;
+        right:2%;
+    }
 }
 </style>
 </head>
@@ -307,13 +493,19 @@ body{
 
 <div class="game">
 
+    <div class="table">
+        <div class="table-logo">
+            TEEN PATTI<br>GOLD
+        </div>
+    </div>
+
     <div id="joinOverlay" class="overlay">
         <div class="join-box">
-            <h2>♠ TEEN PATTI ♥</h2>
+            <h1>♠ TEEN PATTI ♥</h1>
+            <p>Join the table and play with friends</p>
 
             <input
                 id="nameInput"
-                type="text"
                 maxlength="14"
                 placeholder="Enter your name"
                 autocomplete="off"
@@ -329,21 +521,28 @@ body{
         Connecting...
     </div>
 
-    <div class="top-buttons">
-        <button id="soundBtn" class="small-btn">🔊</button>
-        <button id="packTop" class="small-btn">✕</button>
+    <div class="top-controls">
+        <button id="soundBtn" class="icon-btn">🔊</button>
+        <button id="leaveBtn" class="icon-btn">×</button>
+    </div>
+
+    <div class="dealer">
+        <div class="dealer-avatar">👩</div>
+        <div class="dealer-name">DEALER</div>
     </div>
 
     <div id="players" class="players"></div>
 
     <div class="pot">
-        <div> POT </div>
+        <div class="pot-title">POT</div>
         <div id="potValue" class="pot-value">₹0</div>
+        <div class="chips"></div>
     </div>
 
     <div id="notice" class="notice"></div>
 
     <div class="actions">
+
         <button id="packBtn" class="action">
             PACK
         </button>
@@ -363,103 +562,185 @@ body{
         <button id="showBtn" class="action">
             SHOW
         </button>
+
     </div>
-
-    <audio id="gameAudio" loop preload="auto">
-        <source src="assets/reference-audio.mp3" type="audio/mpeg">
-    </audio>
-
 </div>
 
 <script>
 "use strict";
 
-let socket = null;
-let myId = null;
-let gameState = null;
-let joined = false;
-let soundOn = true;
+let socket=null;
+let myId=null;
+let joined=false;
+let soundOn=true;
+let audioContext=null;
 
-const joinOverlay = document.getElementById("joinOverlay");
-const joinBtn = document.getElementById("joinBtn");
-const nameInput = document.getElementById("nameInput");
-const statusEl = document.getElementById("status");
-const playersEl = document.getElementById("players");
-const potValue = document.getElementById("potValue");
-const noticeEl = document.getElementById("notice");
-const audio = document.getElementById("gameAudio");
+const joinOverlay=document.getElementById("joinOverlay");
+const joinBtn=document.getElementById("joinBtn");
+const nameInput=document.getElementById("nameInput");
+const statusEl=document.getElementById("status");
+const playersEl=document.getElementById("players");
+const potValue=document.getElementById("potValue");
+const noticeEl=document.getElementById("notice");
 
-const packBtn = document.getElementById("packBtn");
-const sideBtn = document.getElementById("sideBtn");
-const chaalBtn = document.getElementById("chaalBtn");
-const chaal2Btn = document.getElementById("chaal2Btn");
-const showBtn = document.getElementById("showBtn");
-const packTop = document.getElementById("packTop");
-const soundBtn = document.getElementById("soundBtn");
+const packBtn=document.getElementById("packBtn");
+const sideBtn=document.getElementById("sideBtn");
+const chaalBtn=document.getElementById("chaalBtn");
+const chaal2Btn=document.getElementById("chaal2Btn");
+const showBtn=document.getElementById("showBtn");
+const soundBtn=document.getElementById("soundBtn");
+const leaveBtn=document.getElementById("leaveBtn");
+
+/* NEW GAME SOUNDS — NO VIDEO AUDIO */
+
+function initAudio(){
+
+    if(!audioContext){
+        audioContext=
+            new (window.AudioContext ||
+                 window.webkitAudioContext)();
+    }
+
+    if(audioContext.state==="suspended"){
+        audioContext.resume();
+    }
+}
+
+function sound(freq,duration,type="sine"){
+
+    if(!soundOn) return;
+
+    initAudio();
+
+    const osc=
+        audioContext.createOscillator();
+
+    const gain=
+        audioContext.createGain();
+
+    osc.type=type;
+    osc.frequency.value=freq;
+
+    gain.gain.setValueAtTime(
+        0.0001,
+        audioContext.currentTime
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+        0.12,
+        audioContext.currentTime+.01
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+        0.0001,
+        audioContext.currentTime+duration
+    );
+
+    osc.connect(gain);
+    gain.connect(audioContext.destination);
+
+    osc.start();
+    osc.stop(
+        audioContext.currentTime+duration
+    );
+}
+
+function dealSound(){
+    sound(520,.08,"triangle");
+
+    setTimeout(()=>{
+        sound(680,.08,"triangle");
+    },90);
+}
+
+function chipSound(){
+    sound(850,.06,"square");
+
+    setTimeout(()=>{
+        sound(1100,.05,"square");
+    },70);
+}
+
+function winSound(){
+
+    sound(523,.12,"sine");
+
+    setTimeout(()=>{
+        sound(659,.12,"sine");
+    },130);
+
+    setTimeout(()=>{
+        sound(784,.22,"sine");
+    },260);
+}
 
 function showNotice(message){
-    noticeEl.textContent = message;
+
+    noticeEl.textContent=message;
     noticeEl.classList.add("show");
 
     clearTimeout(showNotice.timer);
 
-    showNotice.timer = setTimeout(()=>{
+    showNotice.timer=setTimeout(()=>{
         noticeEl.classList.remove("show");
     },2200);
 }
 
-function setStatus(message){
-    statusEl.textContent = message;
+function setStatus(text){
+    statusEl.textContent=text;
 }
 
-function getSocketURL(){
+function socketURL(){
 
-    const protocol =
-        location.protocol === "https:"
-        ? "wss:"
-        : "ws:";
-
-    return protocol + "//" + location.host;
+    return(
+        location.protocol==="https:"
+        ? "wss://"
+        : "ws://"
+    )+location.host;
 }
 
 function connect(){
 
-    if(socket &&
-       (socket.readyState === WebSocket.OPEN ||
-        socket.readyState === WebSocket.CONNECTING)){
+    if(
+        socket &&
+        (
+            socket.readyState===WebSocket.OPEN ||
+            socket.readyState===WebSocket.CONNECTING
+        )
+    ){
         return;
     }
 
     setStatus("Connecting...");
 
-    socket = new WebSocket(getSocketURL());
+    socket=new WebSocket(socketURL());
 
-    socket.addEventListener("open",()=>{
+    socket.onopen=()=>{
 
         setStatus("Connected");
 
         if(joined){
             send({
                 type:"join",
-                name:nameInput.value.trim() || "Player"
+                name:nameInput.value.trim()
             });
         }
-    });
+    };
 
-    socket.addEventListener("message",(event)=>{
+    socket.onmessage=(event)=>{
 
         let data;
 
         try{
-            data = JSON.parse(event.data);
+            data=JSON.parse(event.data);
         }catch{
             return;
         }
 
         handleMessage(data);
-    });
+    };
 
-    socket.addEventListener("close",()=>{
+    socket.onclose=()=>{
 
         setStatus("Disconnected");
 
@@ -468,18 +749,20 @@ function connect(){
         }
 
         setTimeout(connect,2000);
-    });
+    };
 
-    socket.addEventListener("error",()=>{
+    socket.onerror=()=>{
         setStatus("Connection error");
-    });
+    };
 }
 
 function send(data){
 
-    if(!socket ||
-       socket.readyState !== WebSocket.OPEN){
-        showNotice("Not connected");
+    if(
+        !socket ||
+        socket.readyState!==WebSocket.OPEN
+    ){
+        showNotice("Server not connected");
         return;
     }
 
@@ -488,289 +771,292 @@ function send(data){
 
 function handleMessage(data){
 
-    if(data.type === "welcome"){
+    if(data.type==="welcome"){
 
-        myId = data.id;
-
-        joined = true;
+        myId=data.id;
 
         joinOverlay.classList.add("hidden");
 
         setStatus("Waiting for players...");
 
-        if(soundOn){
-            audio.play().catch(()=>{});
+        dealSound();
+
+        return;
+    }
+
+    if(data.type==="state"){
+
+        render(data);
+
+        if(data.phase==="playing"){
+            dealSound();
         }
 
         return;
     }
 
-    if(data.type === "state"){
+    if(data.type==="notice"){
 
-        gameState = data;
-
-        renderState();
+        showNotice(data.message||"");
 
         return;
     }
 
-    if(data.type === "notice"){
+    if(data.type==="result"){
 
-        showNotice(data.message || "");
+        showNotice(data.message||"Round finished");
 
-        return;
-    }
-
-    if(data.type === "result"){
-
-        if(data.message){
-            showNotice(data.message);
-        }
+        winSound();
 
         return;
     }
 
-    if(data.type === "full"){
+    if(data.type==="full"){
 
         showNotice("Table is full");
 
         return;
     }
 
-    if(data.type === "error"){
+    if(data.type==="error"){
 
-        showNotice(data.message || "Error");
+        showNotice(data.message||"Error");
 
         return;
     }
 }
 
-function playerPosition(index){
+function positionClass(seat){
 
-    return [
+    return[
         "p0",
         "p1",
         "p2",
         "p3"
-    ][index] || "p0";
+    ][Number(seat)]||"p0";
 }
 
-function renderState(){
+function render(state){
 
-    if(!gameState){
-        return;
-    }
+    playersEl.innerHTML="";
 
-    playersEl.innerHTML = "";
+    const list=state.players||[];
 
-    const players = gameState.players || [];
+    list.forEach(player=>{
 
-    players.forEach((player,index)=>{
+        const box=document.createElement("div");
 
-        const el = document.createElement("div");
+        box.className=
+            "player "+
+            positionClass(player.seat);
 
-        el.className =
-            "player " +
-            playerPosition(player.seat ?? index);
-
-        if(player.id === gameState.turnPlayerId){
-            el.classList.add("turn");
+        if(
+            player.id===state.turnPlayerId
+        ){
+            box.classList.add("turn");
         }
 
-        const avatar =
-            document.createElement("div");
+        const avatar=document.createElement("div");
 
-        avatar.className = "avatar";
+        avatar.className="avatar";
 
-        avatar.textContent =
-            player.id === myId
+        avatar.textContent=
+            player.id===myId
             ? "👤"
             : "🙂";
 
-        const name =
-            document.createElement("div");
+        const name=document.createElement("div");
 
-        name.className = "name";
+        name.className="player-name";
 
-        name.textContent =
-            player.name || "Player";
+        name.textContent=
+            player.name||"Player";
 
-        const balance =
-            document.createElement("div");
+        const money=document.createElement("div");
 
-        balance.className = "balance";
+        money.className="player-money";
 
-        balance.textContent =
-            "₹" + Number(player.balance || 0).toLocaleString();
+        money.textContent=
+            "₹"+
+            Number(player.balance||0)
+            .toLocaleString();
 
-        const cards =
-            document.createElement("div");
+        const cards=document.createElement("div");
 
-        cards.className = "cards";
+        cards.className="cards";
 
-        const hand =
-            player.cards || [];
+        const hand=player.cards||[];
 
         for(let i=0;i<3;i++){
 
-            const card =
-                document.createElement("div");
+            const card=document.createElement("div");
 
-            card.className = "card";
+            card.className="card";
 
-            if(
-                player.id !== myId &&
-                gameState.phase === "playing"
-            ){
+            const value=hand[i];
 
-                card.classList.add("back");
+            if(value){
 
-                card.textContent = "";
+                const red=
+                    value.includes("♥") ||
+                    value.includes("♦");
+
+                if(red){
+                    card.classList.add("red");
+                }
+
+                card.textContent=value;
 
             }else{
 
-                card.textContent =
-                    hand[i] || "🂠";
+                card.classList.add("back");
             }
 
             cards.appendChild(card);
         }
 
-        el.appendChild(avatar);
-        el.appendChild(name);
-        el.appendChild(balance);
-        el.appendChild(cards);
+        box.appendChild(avatar);
+        box.appendChild(name);
+        box.appendChild(money);
+        box.appendChild(cards);
 
-        playersEl.appendChild(el);
+        playersEl.appendChild(box);
     });
 
-    potValue.textContent =
-        "₹" +
-        Number(gameState.pot || 0).toLocaleString();
+    potValue.textContent=
+        "₹"+
+        Number(state.pot||0)
+        .toLocaleString();
 
-    if(gameState.phase === "playing"){
+    const mine=
+        list.find(p=>p.id===myId);
+
+    const myTurn=
+        mine &&
+        state.turnPlayerId===myId &&
+        state.phase==="playing" &&
+        !mine.packed;
+
+    packBtn.disabled=!myTurn;
+    sideBtn.disabled=!myTurn;
+    chaalBtn.disabled=!myTurn;
+    chaal2Btn.disabled=!myTurn;
+    showBtn.disabled=!myTurn;
+
+    if(state.phase==="playing"){
 
         setStatus(
-            gameState.turnPlayerId === myId
+            myTurn
             ? "YOUR TURN"
-            : "Playing..."
+            : "Players "+
+              list.length+
+              "/4"
         );
-
-    }else if(gameState.phase === "finished"){
-
-        setStatus("Round finished");
 
     }else{
 
         setStatus(
-            "Players " +
-            players.length +
+            "Players "+
+            list.length+
             "/4"
         );
     }
-
-    const mine =
-        players.find(p=>p.id === myId);
-
-    const disabled =
-        !mine ||
-        mine.packed ||
-        gameState.turnPlayerId !== myId ||
-        gameState.phase !== "playing";
-
-    packBtn.disabled = disabled;
-    sideBtn.disabled = disabled;
-    chaalBtn.disabled = disabled;
-    chaal2Btn.disabled = disabled;
-    showBtn.disabled = disabled;
 }
 
 function action(type){
+
+    initAudio();
+    chipSound();
 
     send({
         type:type
     });
 }
 
-joinBtn.addEventListener("click",()=>{
+joinBtn.onclick=()=>{
 
-    const name =
+    const name=
         nameInput.value.trim();
 
     if(!name){
 
-        nameInput.focus();
-
         showNotice("Enter your name");
+
+        nameInput.focus();
 
         return;
     }
 
-    joined = true;
+    initAudio();
+
+    joined=true;
 
     connect();
 
-    if(socket &&
-       socket.readyState === WebSocket.OPEN){
+    if(socket.readyState===WebSocket.OPEN){
 
         send({
             type:"join",
             name:name
         });
     }
-});
+};
 
-nameInput.addEventListener("keydown",(e)=>{
+nameInput.onkeydown=(e)=>{
 
-    if(e.key === "Enter"){
+    if(e.key==="Enter"){
         joinBtn.click();
     }
-});
+};
 
-packBtn.addEventListener("click",()=>{
+packBtn.onclick=()=>{
     action("pack");
-});
+};
 
-packTop.addEventListener("click",()=>{
-    action("pack");
-});
-
-sideBtn.addEventListener("click",()=>{
+sideBtn.onclick=()=>{
     action("sideshow");
-});
+};
 
-chaalBtn.addEventListener("click",()=>{
+chaalBtn.onclick=()=>{
     action("chaal");
-});
+};
 
-chaal2Btn.addEventListener("click",()=>{
+chaal2Btn.onclick=()=>{
     action("chaal2");
-});
+};
 
-showBtn.addEventListener("click",()=>{
+showBtn.onclick=()=>{
     action("show");
-});
+};
 
-soundBtn.addEventListener("click",()=>{
+soundBtn.onclick=()=>{
 
-    soundOn = !soundOn;
+    soundOn=!soundOn;
+
+    soundBtn.textContent=
+        soundOn ? "🔊" : "🔇";
 
     if(soundOn){
-
-        soundBtn.textContent = "🔊";
-
-        audio.play().catch(()=>{});
-
-    }else{
-
-        soundBtn.textContent = "🔇";
-
-        audio.pause();
+        initAudio();
+        sound(700,.08);
     }
-});
+};
+
+leaveBtn.onclick=()=>{
+
+    if(socket){
+        socket.close();
+    }
+
+    joined=false;
+
+    joinOverlay.classList.remove("hidden");
+
+    setStatus("Disconnected");
+};
 
 connect();
 </script>
 
 </body>
-</html>
+        </html>
