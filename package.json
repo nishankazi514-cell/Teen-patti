@@ -2,13 +2,10 @@
   "name": "teen-patti-online",
   "version": "1.0.0",
   "private": true,
-  "engines": {
-    "node": ">=18"
-  },
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
-    "ws": "8.18.3"
+    "ws": "^8.18.3"
   }
 }
