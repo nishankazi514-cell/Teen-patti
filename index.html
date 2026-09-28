@@ -1,1488 +1,1315 @@
 <!doctype html>
 <html lang="en">
-
 <head>
-
 <meta charset="utf-8">
+<meta name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 
-<meta
-  name="viewport"
-  content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"
->
-
-<title>Teen Patti Gold Online</title>
+<title>Teen Patti Gold — Online</title>
 
 <style>
-
 *{
-  box-sizing:border-box;
-  -webkit-tap-highlight-color:transparent;
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
 }
 
-html,
+html,body{
+    margin:0;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    background:#000;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
 body{
-  margin:0;
-  width:100%;
-  height:100%;
-  overflow:hidden;
-  background:#061a15;
-  font-family:Arial,Helvetica,sans-serif;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
-body{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  color:#fff;
+.stage{
+    position:relative;
+    width:min(100vw,100vh * 2.16);
+    aspect-ratio:1080/500;
+    overflow:hidden;
+
+    background:
+        #221238
+        url("assets/reference-game.jpg")
+        center/cover
+        no-repeat;
+
+    box-shadow:0 0 35px #000;
 }
 
-:root{
-  --gold:#f2c64b;
-  --gold2:#ffdf78;
-  --green:#087b60;
-  --green2:#0b9b72;
-  --dark:#06261d;
-  --purple:#251334;
+.stage:after{
+    content:"";
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    background:
+        linear-gradient(
+            180deg,
+            rgba(0,0,0,.05),
+            transparent 35%,
+            rgba(0,0,0,.08)
+        );
 }
 
-.game{
-  position:relative;
-  width:100vw;
-  height:100vh;
-  max-width:520px;
-  overflow:hidden;
-
-  background:
-    radial-gradient(
-      circle at 50% 58%,
-      #12a77a 0,
-      #08775d 42%,
-      #043a2e 78%,
-      #021d17 100%
-    );
-}
-
-.game:before{
-  content:"";
-  position:absolute;
-  inset:13px;
-
-  border:3px solid #b47a22;
-
-  box-shadow:
-    inset 0 0 0 3px #4b2810,
-    inset 0 0 35px #0008,
-    0 0 0 2px #15100b;
-
-  pointer-events:none;
-  z-index:30;
-}
-
-.header{
-  position:absolute;
-  top:12px;
-  left:50%;
-  transform:translateX(-50%);
-
-  width:49%;
-  height:43px;
-
-  border:1px solid #c99b31;
-  border-radius:25px;
-
-  background:#071613e8;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  font-size:15px;
-
-  z-index:40;
-
-  box-shadow:
-    0 3px 15px #0008;
-}
-
-.iconbtn{
-  position:absolute;
-
-  top:22px;
-
-  width:58px;
-  height:58px;
-
-  border:1px solid #d4a83e;
-  border-radius:14px;
-
-  background:#071713e8;
-
-  color:#fff;
-
-  font-size:24px;
-
-  z-index:40;
+.hit{
+    position:absolute;
+    border:0;
+    background:transparent;
+    cursor:pointer;
+    z-index:20;
+    touch-action:manipulation;
 }
 
 .sound{
-  right:72px;
+    right:2.4%;
+    top:4%;
+    width:4%;
+    height:10%;
 }
 
-.menu{
-  right:12px;
+.pack{
+    left:14.5%;
+    bottom:1.5%;
+    width:7.2%;
+    height:16%;
 }
 
-.dealer{
-  position:absolute;
-
-  top:72px;
-  left:50%;
-
-  transform:translateX(-50%);
-
-  width:145px;
-
-  text-align:center;
-
-  z-index:25;
+.side{
+    left:22.5%;
+    bottom:1.5%;
+    width:8.2%;
+    height:16%;
 }
 
-.dealer-ring{
-  width:105px;
-  height:105px;
-
-  margin:auto;
-
-  border-radius:50%;
-
-  border:5px solid var(--gold);
-
-  background:#4d0d2c;
-
-  box-shadow:
-    0 0 22px #ffd85a88,
-    0 5px 20px #0008;
-
-  overflow:hidden;
-
-  display:flex;
-
-  align-items:flex-start;
-  justify-content:center;
+.chaal{
+    left:50.8%;
+    bottom:1.5%;
+    width:8.2%;
+    height:16%;
 }
 
-.dealer-ring img{
-  width:100%;
-  height:100%;
-
-  object-fit:cover;
-
-  object-position:center 18%;
-
-  display:block;
+.chaal2{
+    left:59.5%;
+    bottom:1.5%;
+    width:9%;
+    height:16%;
 }
 
-.dealer-name{
-  margin-top:6px;
-
-  color:#ffe17a;
-
-  font-size:15px;
-
-  font-weight:800;
-
-  text-shadow:
-    0 2px 5px #000;
+.showBtn{
+    left:68.8%;
+    bottom:1.5%;
+    width:8.5%;
+    height:16%;
 }
 
-.table{
-  position:absolute;
+.toast{
+    position:absolute;
+    z-index:50;
+    left:50%;
+    top:8%;
+    transform:translateX(-50%);
 
-  left:4%;
-  right:4%;
+    padding:7px 15px;
 
-  top:335px;
-  bottom:175px;
+    border:1px solid #e8bd55;
+    border-radius:14px;
 
-  border-radius:
-    48% 48% 44% 44% /
-    24% 24% 30% 30%;
+    background:rgba(22,10,33,.94);
+    color:#fff;
 
-  background:
-    radial-gradient(
-      circle at 50% 44%,
-      #0ea579,
-      #087b5e 60%,
-      #07533f 100%
-    );
+    font-weight:700;
+    font-size:clamp(10px,1.4vw,16px);
 
-  border:10px solid #4b2a16;
+    opacity:0;
+    transition:.2s;
 
-  box-shadow:
-    0 0 0 5px #c1872c,
-    inset 0 0 55px #001f18,
-    0 12px 35px #0009;
-
-  z-index:5;
+    pointer-events:none;
+    white-space:nowrap;
 }
 
-.table:after{
-  content:"";
-
-  position:absolute;
-
-  inset:27% 22%;
-
-  border:
-    2px solid #a9b95c66;
-
-  border-radius:50%;
-
-  box-shadow:
-    inset 0 0 30px #003c2d66;
+.toast.show{
+    opacity:1;
 }
 
-.logo{
-  position:absolute;
+.status{
+    position:absolute;
+    z-index:25;
+    left:50%;
+    bottom:2%;
+    transform:translateX(-50%);
 
-  left:50%;
-  top:48%;
+    min-width:15%;
 
-  transform:
-    translate(-50%,-50%);
+    text-align:center;
 
-  font-size:27px;
+    color:#fff;
+    font-weight:800;
+    font-size:clamp(11px,1.7vw,18px);
 
-  line-height:1.05;
+    text-shadow:0 1px 3px #000;
 
-  text-align:center;
-
-  font-weight:900;
-
-  color:#a3a86c55;
-
-  z-index:2;
+    pointer-events:none;
 }
 
-.pot{
-  position:absolute;
-
-  left:50%;
-  top:40%;
-
-  transform:
-    translate(-50%,-50%);
-
-  text-align:center;
-
-  z-index:10;
-
-  text-shadow:
-    0 2px 5px #000;
+.players{
+    position:absolute;
+    inset:0;
+    z-index:15;
+    pointer-events:none;
 }
 
-.pot small{
-  display:block;
+.p{
+    position:absolute;
 
-  color:#ffe079;
+    min-width:82px;
 
-  font-size:15px;
+    text-align:center;
 
-  letter-spacing:3px;
+    color:#fff;
+
+    text-shadow:0 1px 4px #000;
+
+    font-size:clamp(9px,1.2vw,14px);
+
+    font-weight:800;
 }
 
-.pot strong{
-  display:block;
+.p .avatar{
+    width:44px;
+    height:44px;
 
-  font-size:38px;
+    margin:auto;
 
-  margin-top:2px;
+    border-radius:50%;
+
+    border:2px solid #f4c84b;
+
+    background:rgba(30,10,45,.9);
+
+    display:grid;
+    place-items:center;
 }
 
-.chip{
-  width:82px;
-  height:82px;
+.p .cards{
+    margin-top:3px;
 
-  border-radius:50%;
+    display:flex;
+    justify-content:center;
 
-  background:
-    radial-gradient(
-      circle,
-      #e4313d 0 42%,
-      #fff 43% 57%,
-      #c72b37 58% 67%,
-      #fff 68% 76%,
-      #a71927 77%
-    );
-
-  border:4px solid #eee;
-
-  box-shadow:
-    0 4px 14px #0008;
-
-  margin:10px auto;
+    gap:2px;
 }
 
-.seat{
-  position:absolute;
+.card{
+    width:24px;
+    height:34px;
 
-  z-index:15;
+    border-radius:4px;
 
-  width:145px;
+    background:#fff;
+    color:#111;
 
-  text-align:center;
+    display:grid;
+    place-items:center;
 
-  color:#fff;
+    font-size:9px;
+    font-weight:900;
 
-  text-shadow:
-    0 2px 5px #000;
-
-  font-size:14px;
-
-  font-weight:800;
-}
-
-.seat .ava{
-  width:62px;
-  height:62px;
-
-  border-radius:50%;
-
-  margin:auto;
-
-  border:3px solid var(--gold);
-
-  background:
-    linear-gradient(
-      #2a2145,
-      #10152c
-    );
-
-  display:grid;
-  place-items:center;
-
-  font-size:27px;
-
-  box-shadow:
-    0 0 15px #ffd65c66;
-}
-
-.seat .bal{
-  color:#ffd95e;
-
-  font-size:13px;
-
-  margin-top:3px;
-}
-
-.seat .cards{
-  display:flex;
-
-  justify-content:center;
-
-  gap:3px;
-
-  margin-top:6px;
-}
-
-.seat .back{
-  width:38px;
-  height:55px;
-
-  border-radius:6px;
-
-  border:2px solid #e6bb47;
-
-  background:
-    repeating-linear-gradient(
-      135deg,
-      #741a3e 0 6px,
-      #a11f50 6px 9px
-    );
-
-  box-shadow:
-    0 3px 8px #0009;
-
-  display:grid;
-
-  place-items:center;
-
-  color:#ffd45d;
-
-  font-size:18px;
-}
-
-.seat .card{
-  width:43px;
-  height:58px;
-
-  border-radius:6px;
-
-  background:#fff;
-
-  color:#111;
-
-  border:1px solid #ddd;
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:center;
-
-  font-size:18px;
-
-  font-weight:900;
-
-  box-shadow:
-    0 3px 8px #0009;
-}
-
-.seat .red{
-  color:#d21f2f;
-}
-
-.topseat{
-  left:50%;
-
-  transform:
-    translateX(-50%);
-
-  top:190px;
-}
-
-.leftseat{
-  left:19px;
-
-  top:48%;
-}
-
-.rightseat{
-  right:19px;
-
-  top:48%;
+    box-shadow:0 1px 5px #000;
 }
 
 .me{
-  left:50%;
-
-  transform:
-    translateX(-50%);
-
-  bottom:115px;
+    left:50%;
+    bottom:21%;
+    transform:translateX(-50%);
 }
 
-.controls{
-  position:absolute;
-
-  left:14px;
-  right:14px;
-
-  bottom:17px;
-
-  display:grid;
-
-  grid-template-columns:
-    1fr
-    1.15fr
-    1fr
-    1.15fr
-    1fr;
-
-  gap:7px;
-
-  z-index:50;
+.top{
+    left:50%;
+    top:9%;
+    transform:translateX(-50%);
 }
 
-.btn{
-  height:62px;
-
-  border-radius:13px;
-
-  border:1px solid #d9ab42;
-
-  color:#fff;
-
-  background:
-    linear-gradient(
-      #2b1740,
-      #170b25
-    );
-
-  font-weight:900;
-
-  font-size:13px;
-
-  box-shadow:
-    0 4px 10px #0008;
+.leftp{
+    left:6%;
+    top:43%;
+    transform:translateY(-50%);
 }
 
-.btn.gold{
-  background:
-    linear-gradient(
-      #f2ce63,
-      #b77612
-    );
-
-  color:#241500;
+.rightp{
+    right:6%;
+    top:43%;
+    transform:translateY(-50%);
 }
 
-.btn:disabled{
-  opacity:.35;
+/* JOIN OVERLAY */
+
+.start{
+    position:fixed;
+    inset:0;
+
+    z-index:1000;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:rgba(0,0,0,.72);
+
+    color:white;
+
+    padding:20px;
 }
 
-.turn{
-  animation:pulse 1s infinite;
-}
+.startBox{
+    width:min(90vw,500px);
 
-.hidden{
-  display:none!important;
-}
+    padding:28px 24px;
 
-.notice{
-  position:absolute;
+    border:2px solid #f4c84b;
+    border-radius:22px;
 
-  left:50%;
-  top:47px;
+    background:
+        linear-gradient(
+            145deg,
+            #24133c,
+            #101722
+        );
 
-  transform:
-    translateX(-50%);
-
-  z-index:60;
-
-  padding:7px 12px;
-
-  border:1px solid #d5a83f;
-
-  border-radius:14px;
-
-  background:#140c20e8;
-
-  font-size:12px;
-
-  opacity:0;
-
-  transition:.2s;
-
-  pointer-events:none;
-
-  white-space:nowrap;
-}
-
-.notice.show{
-  opacity:1;
-}
-
-.overlay{
-  position:absolute;
-
-  inset:0;
-
-  background:#00110dd9;
-
-  z-index:100;
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:center;
-
-  padding:28px;
-}
-
-.panel{
-  width:min(92%,430px);
-
-  border:3px solid var(--gold);
-
-  border-radius:25px;
-
-  background:
-    linear-gradient(
-      145deg,
-      #241437,
-      #0c1820
-    );
-
-  padding:28px 22px;
-
-  box-shadow:
-    0 15px 45px #000b;
-
-  text-align:center;
-}
-
-.panel img{
-  width:130px;
-  height:130px;
-
-  border-radius:50%;
-
-  object-fit:cover;
-
-  object-position:center 18%;
-
-  border:5px solid var(--gold);
-
-  box-shadow:
-    0 0 25px #ffd55a66;
-}
-
-.panel h1{
-  margin:16px 0 4px;
-
-  color:#ffd75b;
-
-  font-size:36px;
-}
-
-.panel p{
-  margin:0 0 20px;
-
-  color:#c8c8cf;
-}
-
-.name{
-  width:100%;
-  height:50px;
-
-  border-radius:12px;
-
-  border:1px solid #c99c3c;
-
-  background:#080d12;
-
-  color:#fff;
-
-  padding:0 15px;
-
-  font-size:17px;
-
-  text-align:center;
-
-  outline:none;
-
-  margin-bottom:12px;
-}
-
-.join{
-  width:100%;
-  height:58px;
-
-  border:1px solid #ffe083;
-
-  border-radius:14px;
-
-  background:
-    linear-gradient(
-      #ffd85c,
-      #b87a16
-    );
-
-  font-size:19px;
-
-  font-weight:900;
-
-  color:#1d1300;
-}
-
-@keyframes pulse{
-
-  50%{
     box-shadow:
-      0 0 20px #ffe06a;
-  }
+        0 0 30px rgba(244,200,75,.25),
+        0 15px 50px rgba(0,0,0,.65);
 
+    text-align:center;
 }
 
-@media(max-height:760px){
+.startLogo{
+    width:130px;
+    height:130px;
 
-  .dealer{
-    top:62px;
-  }
+    margin:0 auto 18px;
 
-  .dealer-ring{
-    width:88px;
-    height:88px;
-  }
+    border-radius:50%;
 
-  .topseat{
-    top:158px;
-  }
+    border:6px solid #f4c84b;
 
-  .table{
-    top:285px;
-    bottom:158px;
-  }
+    background:
+        url("assets/reference-game.jpg")
+        center/cover
+        no-repeat;
 
-  .me{
-    bottom:101px;
-  }
-
-  .controls{
-    bottom:10px;
-  }
-
-  .btn{
-    height:54px;
-    font-size:11px;
-  }
-
-  .seat .ava{
-    width:55px;
-    height:55px;
-  }
-
+    box-shadow:
+        0 0 25px rgba(244,200,75,.35);
 }
 
+.startTitle{
+    color:#ffd85c;
+
+    font-size:clamp(30px,7vw,54px);
+
+    font-weight:900;
+
+    letter-spacing:1px;
+
+    margin-bottom:5px;
+}
+
+.startSub{
+    color:#ddd;
+
+    font-size:clamp(14px,3vw,21px);
+
+    margin-bottom:25px;
+}
+
+.nameInput{
+    width:100%;
+
+    height:58px;
+
+    padding:0 18px;
+
+    border-radius:16px;
+
+    border:1px solid #d3ad42;
+
+    outline:none;
+
+    background:#070d12;
+
+    color:#fff;
+
+    font-size:18px;
+
+    text-align:center;
+}
+
+.nameInput:focus{
+    border-color:#ffd85c;
+
+    box-shadow:
+        0 0 0 2px rgba(255,216,92,.15);
+}
+
+.joinBtn{
+    width:100%;
+
+    height:62px;
+
+    margin-top:18px;
+
+    border:0;
+
+    border-radius:17px;
+
+    background:
+        linear-gradient(
+            #ffd85c,
+            #d99a18
+        );
+
+    color:#171717;
+
+    font-size:20px;
+
+    font-weight:900;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 5px 15px rgba(0,0,0,.35);
+
+    touch-action:manipulation;
+
+    transition:
+        transform .12s,
+        filter .12s;
+}
+
+.joinBtn:active{
+    transform:scale(.97);
+}
+
+.joinBtn:disabled{
+    opacity:.65;
+    cursor:wait;
+}
+
+.joinStatus{
+    min-height:22px;
+
+    margin-top:12px;
+
+    color:#ffd85c;
+
+    font-size:13px;
+}
+
+/* CONNECTION ERROR */
+
+.retryBtn{
+    display:none;
+
+    margin:10px auto 0;
+
+    padding:10px 20px;
+
+    border:1px solid #f4c84b;
+    border-radius:10px;
+
+    background:#2b0b45;
+
+    color:#fff;
+
+    font-weight:800;
+}
+
+/* MOBILE */
+
+@media(max-aspect-ratio:1/1){
+
+    .stage{
+        width:100vw;
+    }
+
+    .startBox{
+        width:min(88vw,430px);
+        padding:25px 20px;
+    }
+
+    .startLogo{
+        width:115px;
+        height:115px;
+    }
+
+    .joinBtn{
+        height:60px;
+    }
+}
 </style>
-
 </head>
 
 <body>
 
-<div class="game" id="game">
-
-<div
-  class="header"
-  id="count"
->
-Players 0/4
-</div>
-
-<button
-  class="iconbtn sound"
-  id="sound"
->
-🔊
-</button>
-
-<button
-  class="iconbtn menu"
-  id="menu"
->
-✕
-</button>
-
-<div class="dealer">
-
-  <div class="dealer-ring">
-
-    <img
-      src="assets/dealer.png"
-      alt="Dealer"
-    >
-
-  </div>
-
-  <div class="dealer-name">
-    DEALER
-  </div>
-
-</div>
-
-<div class="table">
-
-  <div class="logo">
-    TEEN PATTI<br>
-    GOLD
-  </div>
-
-  <div class="pot">
-
-    <small>
-      POT
-    </small>
-
-    <strong id="pot">
-      ₹0
-    </strong>
-
-    <div class="chip"></div>
-
-  </div>
-
-  <div id="seats"></div>
-
-</div>
-
-<div class="controls">
-
-  <button
-    class="btn"
-    id="pack"
-  >
-    PACK
-  </button>
-
-  <button
-    class="btn"
-    id="side"
-  >
-    SIDE SHOW
-  </button>
-
-  <button
-    class="btn gold"
-    id="chaal"
-  >
-    CHAAL
-  </button>
-
-  <button
-    class="btn gold"
-    id="chaal2"
-  >
-    2X CHAAL
-  </button>
-
-  <button
-    class="btn"
-    id="show"
-  >
-    SHOW
-  </button>
-
-</div>
-
-<div
-  class="notice"
-  id="notice"
-></div>
-
-<div
-  class="overlay"
-  id="overlay"
->
-
-  <div class="panel">
-
-    <img
-      src="assets/dealer.png"
-      alt="Dealer"
-    >
-
-    <h1>
-      TEEN PATTI
-    </h1>
-
-    <p>
-      GOLD ONLINE TABLE
-    </p>
-
-    <input
-      class="name"
-      id="name"
-      maxlength="16"
-      placeholder="Your name"
-    >
+<div class="stage" id="stage">
 
     <button
-      class="join"
-      id="join"
-    >
-      JOIN TABLE
+        class="hit sound"
+        id="soundBtn"
+        aria-label="Toggle sound">
     </button>
 
-  </div>
+    <button
+        class="hit pack"
+        id="packBtn"
+        aria-label="Pack">
+    </button>
+
+    <button
+        class="hit side"
+        id="sideBtn"
+        aria-label="Side Show">
+    </button>
+
+    <button
+        class="hit chaal"
+        id="chaalBtn"
+        aria-label="Chaal">
+    </button>
+
+    <button
+        class="hit chaal2"
+        id="chaal2Btn"
+        aria-label="Chaal 2x">
+    </button>
+
+    <button
+        class="hit showBtn"
+        id="showBtn"
+        aria-label="Show">
+    </button>
+
+    <div
+        class="players"
+        id="players">
+    </div>
+
+    <div
+        class="toast"
+        id="toast">
+    </div>
+
+    <div
+        class="status"
+        id="status">
+        Ready
+    </div>
 
 </div>
 
+
+<!-- JOIN SCREEN -->
+
+<div
+    class="start"
+    id="start">
+
+    <div class="startBox">
+
+        <div class="startLogo"></div>
+
+        <div class="startTitle">
+            TEEN PATTI
+        </div>
+
+        <div class="startSub">
+            GOLD ONLINE TABLE
+        </div>
+
+        <input
+            id="playerName"
+            class="nameInput"
+            type="text"
+            maxlength="18"
+            autocomplete="off"
+            placeholder="Enter your name"
+            value="Nishan"
+        >
+
+        <button
+            id="startBtn"
+            class="joinBtn"
+            type="button">
+            JOIN TABLE
+        </button>
+
+        <div
+            id="joinStatus"
+            class="joinStatus">
+        </div>
+
+        <button
+            id="retryBtn"
+            class="retryBtn"
+            type="button">
+            RETRY
+        </button>
+
+    </div>
+
 </div>
+
+
+<audio
+    id="bgAudio"
+    src="assets/reference-audio.mp3"
+    preload="auto"
+    loop>
+</audio>
+
 
 <script>
 
-const $ =
-  id =>
-    document.getElementById(id);
+"use strict";
 
-let playerId =
-  localStorage.getItem(
-    "tp_pid"
-  ) || "";
+
+/* =========================
+   ELEMENTS
+========================= */
+
+const audio =
+    document.getElementById("bgAudio");
+
+const start =
+    document.getElementById("start");
+
+const startBtn =
+    document.getElementById("startBtn");
+
+const retryBtn =
+    document.getElementById("retryBtn");
+
+const playerName =
+    document.getElementById("playerName");
+
+const joinStatus =
+    document.getElementById("joinStatus");
+
+const toast =
+    document.getElementById("toast");
+
+const status =
+    document.getElementById("status");
+
+const playersEl =
+    document.getElementById("players");
+
+
+/* =========================
+   VARIABLES
+========================= */
 
 let muted = false;
 
-let state = null;
+let me = null;
 
-let audioContext = null;
+let ws = null;
 
-function toast(text){
+let connecting = false;
 
-  const notice =
-    $("notice");
+let joinTimer = null;
 
-  notice.textContent =
-    text;
 
-  notice.classList.add(
-    "show"
-  );
+/* =========================
+   TOAST
+========================= */
 
-  clearTimeout(
-    toast.timer
-  );
+function say(text){
 
-  toast.timer =
-    setTimeout(
-      () =>
-        notice.classList.remove(
-          "show"
-        ),
-      1800
-    );
+    toast.textContent = text;
+
+    toast.classList.add("show");
+
+    clearTimeout(say.timer);
+
+    say.timer = setTimeout(() => {
+
+        toast.classList.remove("show");
+
+    }, 1600);
 }
 
-function playSound(
-  frequency = 500,
-  duration = 0.08
-){
 
-  if(muted){
-    return;
-  }
+/* =========================
+   SAFE SEND
+========================= */
 
-  try{
-
-    audioContext =
-      audioContext ||
-      new (
-        window.AudioContext ||
-        window.webkitAudioContext
-      )();
-
-    const oscillator =
-      audioContext.createOscillator();
-
-    const gain =
-      audioContext.createGain();
-
-    oscillator.frequency.value =
-      frequency;
-
-    gain.gain.value =
-      0.035;
-
-    oscillator.connect(
-      gain
-    );
-
-    gain.connect(
-      audioContext.destination
-    );
-
-    oscillator.start();
-
-    oscillator.stop(
-      audioContext.currentTime +
-      duration
-    );
-
-  }catch(e){}
-
-}
-
-function escapeHtml(value){
-
-  return String(value)
-    .replace(
-      /[&<>"']/g,
-      char => ({
-        "&":"&amp;",
-        "<":"&lt;",
-        ">":"&gt;",
-        '"':"&quot;",
-        "'":"&#39;"
-      }[char])
-    );
-
-}
-
-function cardHtml(card){
-
-  if(!card){
-    return "";
-  }
-
-  const red =
-    card.suit === "♥" ||
-    card.suit === "♦";
-
-  return `
-    <div
-      class="card ${red ? "red" : ""}"
-    >
-      ${escapeHtml(card.rank)}
-      ${card.suit}
-    </div>
-  `;
-}
-
-function render(gameState){
-
-  state =
-    gameState;
-
-  const online =
-    gameState.players
-      .filter(
-        p => p.connected
-      )
-      .length;
-
-  $("count").textContent =
-    `Players ${online}/4`;
-
-  $("pot").textContent =
-    "₹" +
-    Number(
-      gameState.pot || 0
-    ).toLocaleString();
-
-  const positions = [
-    "me",
-    "topseat",
-    "leftseat",
-    "rightseat"
-  ];
-
-  $("seats").innerHTML =
-    gameState.players
-      .map(player => {
-
-        const mine =
-          player.id ===
-          playerId;
-
-        const showCards =
-          mine ||
-          gameState.phase ===
-          "finished";
-
-        let cardsHtml = "";
-
-        if(showCards){
-
-          cardsHtml =
-            (player.cards || [])
-              .map(cardHtml)
-              .join("");
-
-        }else{
-
-          cardsHtml = `
-            <div class="back">♠</div>
-            <div class="back">♠</div>
-            <div class="back">♠</div>
-          `;
-
-        }
-
-        const avatar =
-          player.seat === 0
-            ? "🙂"
-            : player.seat === 1
-              ? "👩"
-              : player.seat === 2
-                ? "😎"
-                : "🧑";
-
-        return `
-          <div
-            class="
-              seat
-              ${positions[player.seat] || ""}
-              ${
-                gameState.turn ===
-                player.id
-                  ? "turn"
-                  : ""
-              }
-            "
-          >
-
-            <div class="ava">
-              ${avatar}
-            </div>
-
-            <div>
-              ${escapeHtml(
-                player.name
-              )}
-
-              ${
-                player.packed
-                  ? " — PACKED"
-                  : ""
-              }
-            </div>
-
-            <div class="bal">
-              ₹${Number(
-                player.balance || 0
-              ).toLocaleString()}
-            </div>
-
-            <div class="cards">
-              ${cardsHtml}
-            </div>
-
-          </div>
-        `;
-
-      })
-      .join("");
-
-  const me =
-    gameState.players.find(
-      p =>
-        p.id === playerId
-    );
-
-  const myTurn =
-    gameState.turn ===
-      playerId &&
-    gameState.phase ===
-      "playing" &&
-    !me?.packed;
-
-  [
-    "pack",
-    "side",
-    "chaal",
-    "chaal2",
-    "show"
-  ].forEach(id => {
-
-    $(id).disabled =
-      !myTurn;
-
-  });
-
-}
-
-async function joinTable(){
-
-  const name =
-    $("name")
-      .value
-      .trim() ||
-    "Player";
-
-  localStorage.setItem(
-    "tp_name",
-    name
-  );
-
-  try{
-
-    const response =
-      await fetch(
-        "/join",
-        {
-          method:"POST",
-
-          headers:{
-            "Content-Type":
-              "application/json"
-          },
-
-          body:
-            JSON.stringify({
-              id:
-                playerId ||
-                null,
-
-              name
-            })
-        }
-      );
-
-    const data =
-      await response.json();
-
-    if(!response.ok){
-      throw new Error(
-        data.error ||
-        "Join failed"
-      );
-    }
-
-    playerId =
-      data.id;
-
-    localStorage.setItem(
-      "tp_pid",
-      playerId
-    );
-
-    $("overlay")
-      .classList
-      .add("hidden");
-
-    playSound(
-      650,
-      0.12
-    );
-
-    connect();
-
-  }catch(error){
-
-    toast(
-      error.message
-    );
-
-  }
-
-}
-
-function connect(){
-
-  const stream =
-    new EventSource(
-      "/stream?id=" +
-      encodeURIComponent(
-        playerId
-      )
-    );
-
-  stream.onopen =
-    () => {
-
-      toast(
-        "Connected"
-      );
-
-    };
-
-  stream.onmessage =
-    event => {
-
-      try{
-
-        const message =
-          JSON.parse(
-            event.data
-          );
-
-        if(
-          message.type ===
-          "welcome"
-        ){
-
-          playSound(
-            800,
-            0.08
-          );
-
-        }
-
-        else if(
-          message.type ===
-          "state"
-        ){
-
-          render(
-            message
-          );
-
-        }
-
-        else if(
-          message.type ===
-          "notice"
-        ){
-
-          toast(
-            message.text
-          );
-
-          playSound(
-            420,
-            0.06
-          );
-
-        }
-
-        else if(
-          message.type ===
-          "result"
-        ){
-
-          toast(
-            message.winnerName +
-            " won ₹" +
-            Number(
-              message.pot
-            ).toLocaleString()
-          );
-
-          playSound(
-            900,
-            0.18
-          );
-
-        }
-
-        else if(
-          message.type ===
-          "error"
-        ){
-
-          toast(
-            message.text
-          );
-
-        }
-
-      }catch(e){}
-
-    };
-
-  stream.onerror =
-    () => {
-
-      stream.close();
-
-      toast(
-        "Reconnecting..."
-      );
-
-      setTimeout(
-        () => {
-
-          if(
-            playerId
-          ){
-            connect();
-          }
-
-        },
-        1800
-      );
-
-    };
-
-}
-
-async function action(
-  actionName
-){
-
-  if(!playerId){
-    return;
-  }
-
-  try{
-
-    await fetch(
-      "/action",
-      {
-        method:"POST",
-
-        headers:{
-          "Content-Type":
-            "application/json"
-        },
-
-        body:
-          JSON.stringify({
-            id:
-              playerId,
-
-            action:
-              actionName
-          })
-      }
-    );
+function send(action){
 
     if(
-      actionName === "chaal" ||
-      actionName === "chaal2"
+        ws &&
+        ws.readyState === WebSocket.OPEN
     ){
 
-      playSound(
-        620,
-        0.07
-      );
+        ws.send(
+            JSON.stringify({
+                type:"action",
+                action:action
+            })
+        );
 
     }else{
 
-      playSound(
-        430,
-        0.07
-      );
+        say("Not connected");
+
+    }
+}
+
+
+/* =========================
+   CARD
+========================= */
+
+function cardText(card){
+
+    if(!card){
+        return "";
+    }
+
+    return (
+        String(card.rank || "") +
+        String(card.suit || "")
+    );
+}
+
+
+/* =========================
+   RENDER
+========================= */
+
+function render(state){
+
+    if(!state){
+        return;
+    }
+
+    playersEl.innerHTML = "";
+
+    const positions = [
+        "me",
+        "top",
+        "leftp",
+        "rightp"
+    ];
+
+    if(Array.isArray(state.players)){
+
+        state.players.forEach(
+            (p,index) => {
+
+                const d =
+                    document.createElement("div");
+
+                d.className =
+                    "p " +
+                    (
+                        positions[p.seat] ||
+                        positions[index] ||
+                        "top"
+                    );
+
+                const mine =
+                    p.id === me;
+
+                const cards =
+                    (
+                        mine ||
+                        state.phase === "finished"
+                    )
+                    ? (p.cards || [])
+                    : [];
+
+                d.innerHTML = `
+
+                    <div class="avatar">
+                        ${Number(p.seat || 0) + 1}
+                    </div>
+
+                    <div>
+                        ${escapeHtml(p.name || "Player")}
+                        ${
+                            p.packed
+                            ? " — PACKED"
+                            : ""
+                        }
+                    </div>
+
+                    <div>
+                        ${Number(
+                            p.balance || 0
+                        ).toLocaleString()}
+                    </div>
+
+                    <div class="cards">
+
+                        ${cards.map(
+                            card => `
+                                <div class="card">
+                                    ${cardText(card)}
+                                </div>
+                            `
+                        ).join("")}
+
+                    </div>
+                `;
+
+                playersEl.appendChild(d);
+
+            }
+        );
 
     }
 
-  }catch(e){
 
-    toast(
-      "Connection lost"
-    );
+    if(state.turn === me){
 
-  }
+        status.textContent =
+            "YOUR TURN";
+
+    }
+    else if(state.phase === "waiting"){
+
+        const connected =
+            Array.isArray(state.players)
+            ? state.players.filter(
+                p => p.connected
+            ).length
+            : 0;
+
+        status.textContent =
+            `Waiting for players (${connected}/4)`;
+
+    }
+    else if(state.phase === "finished"){
+
+        status.textContent =
+            `Round finished • Pot ${state.pot || 0}`;
+
+    }
+    else{
+
+        status.textContent =
+            `Pot ${state.pot || 0} • Waiting`;
+
+    }
 
 }
 
-$("join").onclick =
-  joinTable;
 
-$("name").value =
-  localStorage.getItem(
-    "tp_name"
-  ) || "";
+/* =========================
+   HTML ESCAPE
+========================= */
 
-$("pack").onclick =
-  () => action("pack");
+function escapeHtml(value){
 
-$("side").onclick =
-  () => action("sideshow");
+    return String(value)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
 
-$("chaal").onclick =
-  () => action("chaal");
 
-$("chaal2").onclick =
-  () => action("chaal2");
+/* =========================
+   CONNECT
+========================= */
 
-$("show").onclick =
-  () => action("show");
+function connect(){
 
-$("sound").onclick =
-  () => {
-
-    muted =
-      !muted;
-
-    $("sound").textContent =
-      muted
-        ? "🔇"
-        : "🔊";
-
-    toast(
-      muted
-        ? "Sound off"
-        : "Sound on"
-    );
-
-    if(!muted){
-      playSound();
+    if(connecting){
+        return;
     }
 
-  };
+    if(
+        ws &&
+        (
+            ws.readyState === WebSocket.OPEN ||
+            ws.readyState === WebSocket.CONNECTING
+        )
+    ){
+        return;
+    }
 
-$("menu").onclick =
-  () => {
+    connecting = true;
 
-    toast(
-      "Table menu"
-    );
+    clearTimeout(joinTimer);
 
-  };
+    startBtn.disabled = true;
+
+    retryBtn.style.display = "none";
+
+    joinStatus.textContent =
+        "Connecting to table...";
+
+    status.textContent =
+        "Connecting...";
+
+
+    const protocol =
+        location.protocol === "https:"
+        ? "wss:"
+        : "ws:";
+
+
+    const socketUrl =
+        `${protocol}//${location.host}`;
+
+
+    try{
+
+        ws = new WebSocket(socketUrl);
+
+    }catch(error){
+
+        handleConnectionError(
+            "Connection could not start"
+        );
+
+        return;
+
+    }
+
+
+    /*
+       IMPORTANT:
+       Give Render/WebSocket enough time.
+    */
+
+    joinTimer = setTimeout(() => {
+
+        if(
+            !ws ||
+            ws.readyState !== WebSocket.OPEN
+        ){
+
+            try{
+                ws.close();
+            }catch(e){}
+
+            handleConnectionError(
+                "Server connection timed out"
+            );
+
+        }
+
+    },10000);
+
+
+    ws.onopen = () => {
+
+        connecting = false;
+
+        clearTimeout(joinTimer);
+
+        status.textContent =
+            "Connected";
+
+        joinStatus.textContent =
+            "Joining table...";
+
+
+        /*
+           The current server automatically creates
+           the player when WebSocket connects.
+        */
+
+        say("Connected");
+
+
+        /*
+           Keep browser audio permission alive.
+        */
+
+        audio.muted = muted;
+
+        audio.play().catch(() => {});
+
+    };
+
+
+    ws.onmessage = event => {
+
+        let message;
+
+        try{
+
+            message =
+                JSON.parse(event.data);
+
+        }catch(error){
+
+            return;
+
+        }
+
+
+        if(message.type === "welcome"){
+
+            me = message.id;
+
+            connecting = false;
+
+            clearTimeout(joinTimer);
+
+            start.style.display = "none";
+
+            startBtn.disabled = false;
+
+            joinStatus.textContent = "";
+
+            status.textContent =
+                "Joined table";
+
+            say("Joined table");
+
+            audio.play().catch(() => {});
+
+            return;
+        }
+
+
+        if(message.type === "state"){
+
+            render(message);
+
+            return;
+        }
+
+
+        if(message.type === "notice"){
+
+            say(message.text || "");
+
+            return;
+        }
+
+
+        if(message.type === "result"){
+
+            say(
+                `${message.winnerName || "Player"} won ${message.pot || 0}`
+            );
+
+            return;
+        }
+
+
+        if(message.type === "full"){
+
+            connecting = false;
+
+            startBtn.disabled = false;
+
+            status.textContent =
+                "Table full";
+
+            joinStatus.textContent =
+                "Table is full. Try again later.";
+
+            start.style.display = "flex";
+
+            say("Table is full");
+
+            return;
+        }
+
+
+        if(message.type === "error"){
+
+            say(
+                message.text ||
+                "Game error"
+            );
+
+            return;
+        }
+
+    };
+
+
+    ws.onerror = () => {
+
+        handleConnectionError(
+            "Unable to connect to game server"
+        );
+
+    };
+
+
+    ws.onclose = () => {
+
+        clearTimeout(joinTimer);
+
+        connecting = false;
+
+        startBtn.disabled = false;
+
+        if(me){
+
+            status.textContent =
+                "Disconnected";
+
+            say("Server disconnected");
+
+        }else{
+
+            handleConnectionError(
+                "Server connection failed"
+            );
+
+        }
+
+    };
+
+}
+
+
+/* =========================
+   CONNECTION ERROR
+========================= */
+
+function handleConnectionError(message){
+
+    clearTimeout(joinTimer);
+
+    connecting = false;
+
+    startBtn.disabled = false;
+
+    status.textContent =
+        "Connection failed";
+
+    joinStatus.textContent =
+        message;
+
+    retryBtn.style.display =
+        "block";
+
+    start.style.display =
+        "flex";
+
+    say(message);
+
+}
+
+
+/* =========================
+   JOIN BUTTON
+========================= */
+
+function joinTable(){
+
+    if(connecting){
+        return;
+    }
+
+
+    /*
+       Prevent blank name.
+    */
+
+    const name =
+        playerName.value.trim();
+
+
+    if(!name){
+
+        playerName.value =
+            "Nishan";
+
+    }
+
+
+    /*
+       IMPORTANT FIX:
+       UI immediately enters connecting state.
+       It no longer looks like the JOIN button
+       did nothing while waiting for WebSocket.
+    */
+
+    startBtn.disabled = true;
+
+    startBtn.textContent =
+        "CONNECTING...";
+
+    joinStatus.textContent =
+        "Connecting to table...";
+
+    status.textContent =
+        "Connecting...";
+
+
+    connect();
+
+
+    setTimeout(() => {
+
+        if(!connecting){
+
+            startBtn.textContent =
+                "JOIN TABLE";
+
+        }
+
+    },300);
+
+}
+
+
+/* =========================
+   JOIN CLICK
+========================= */
+
+startBtn.addEventListener(
+    "click",
+    joinTable,
+    {
+        passive:true
+    }
+);
+
+
+/* =========================
+   RETRY
+========================= */
+
+retryBtn.addEventListener(
+    "click",
+    () => {
+
+        retryBtn.style.display =
+            "none";
+
+        startBtn.textContent =
+            "JOIN TABLE";
+
+        joinTable();
+
+    },
+    {
+        passive:true
+    }
+);
+
+
+/* =========================
+   ENTER KEY
+========================= */
+
+playerName.addEventListener(
+    "keydown",
+    event => {
+
+        if(event.key === "Enter"){
+
+            event.preventDefault();
+
+            joinTable();
+
+        }
+
+    }
+);
+
+
+/* =========================
+   SOUND
+========================= */
+
+document
+.getElementById("soundBtn")
+.addEventListener(
+    "click",
+    () => {
+
+        muted = !muted;
+
+        audio.muted = muted;
+
+        say(
+            muted
+            ? "Sound off"
+            : "Sound on"
+        );
+
+        if(!muted){
+
+            audio.play().catch(() => {});
+
+        }
+
+    }
+);
+
+
+/* =========================
+   GAME BUTTONS
+========================= */
+
+document
+.getElementById("packBtn")
+.addEventListener(
+    "click",
+    () => send("pack")
+);
+
+
+document
+.getElementById("sideBtn")
+.addEventListener(
+    "click",
+    () => send("sideshow")
+);
+
+
+document
+.getElementById("chaalBtn")
+.addEventListener(
+    "click",
+    () => send("chaal")
+);
+
+
+document
+.getElementById("chaal2Btn")
+.addEventListener(
+    "click",
+    () => send("chaal2")
+);
+
+
+document
+.getElementById("showBtn")
+.addEventListener(
+    "click",
+    () => send("show")
+);
+
+
+/* =========================
+   INITIAL STATE
+========================= */
+
+status.textContent =
+    "Ready";
 
 </script>
 
 </body>
-</html>
+  </html>
