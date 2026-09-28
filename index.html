@@ -3,10 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport"
-      content="width=device-width, initial-scale=1.0,
-      maximum-scale=1.0,user-scalable=no,viewport-fit=cover">
+      content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 
-<title>Teen Patti Gold - Online</title>
+<title>Teen Patti Gold Online</title>
 
 <style>
 *{
@@ -20,7 +19,7 @@ html,body{
     width:100%;
     height:100%;
     overflow:hidden;
-    background:#071c18;
+    background:#071b16;
     font-family:Arial,Helvetica,sans-serif;
 }
 
@@ -28,99 +27,84 @@ body{
     display:flex;
     justify-content:center;
     align-items:center;
-    color:#fff;
 }
 
 /* =========================
-   MAIN GAME
+   GAME TABLE
 ========================= */
 
 .game{
     position:relative;
-    width:100%;
-    height:100%;
-    max-width:700px;
+    width:100vw;
+    height:100vh;
+    max-width:520px;
     overflow:hidden;
+
     background:
-        radial-gradient(circle at 50% 42%,#08795e 0%,#075c49 35%,#034334 72%,#022c24 100%);
+        radial-gradient(
+            ellipse at center,
+            #11916e 0%,
+            #087457 42%,
+            #04503f 72%,
+            #02352c 100%
+        );
+
+    border-left:5px solid #8b551e;
+    border-right:5px solid #8b551e;
 }
 
-/* top decorative light */
-.game:before{
+/* outside border */
+
+.game::before{
     content:"";
     position:absolute;
-    left:50%;
-    top:16%;
-    transform:translateX(-50%);
-    width:75%;
-    height:40%;
-    background:radial-gradient(
-        ellipse,
-        rgba(0,255,187,.12),
-        transparent 70%
-    );
+    inset:14px;
+    border:4px solid #a96b26;
     pointer-events:none;
+    z-index:1;
 }
 
-/* =========================
-   TOP BAR
-========================= */
+/* table oval */
 
-.topbar{
+.table{
     position:absolute;
-    top:12px;
-    left:50%;
-    transform:translateX(-50%);
-    width:48%;
-    min-width:210px;
-    height:48px;
-    border:1px solid #d8ad45;
-    border-radius:30px;
-    background:rgba(4,17,16,.94);
+    left:4%;
+    right:4%;
+    top:24%;
+    bottom:12%;
+
+    border:9px solid #8a511f;
+    border-radius:48%;
+
     box-shadow:
-        0 4px 18px rgba(0,0,0,.45),
-        inset 0 0 12px rgba(255,205,85,.08);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    z-index:50;
+        inset 0 0 35px rgba(0,0,0,.65),
+        0 0 0 5px #392016,
+        0 0 30px rgba(0,0,0,.45);
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            #119875 0%,
+            #087b5f 48%,
+            #05604c 75%,
+            #034738 100%
+        );
+
+    z-index:2;
 }
 
-.players-count{
-    font-size:16px;
-    font-weight:700;
-    letter-spacing:.2px;
-}
+/* inner table */
 
-/* =========================
-   TOP BUTTONS
-========================= */
-
-.top-actions{
+.table::after{
+    content:"";
     position:absolute;
-    right:16px;
-    top:74px;
-    display:flex;
-    gap:10px;
-    z-index:60;
-}
+    left:20%;
+    right:20%;
+    top:39%;
+    bottom:30%;
 
-.icon-btn{
-    width:58px;
-    height:58px;
-    border:1px solid #d8ad45;
-    border-radius:16px;
-    background:rgba(3,18,17,.88);
-    color:#fff;
-    font-size:25px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    box-shadow:0 5px 16px rgba(0,0,0,.35);
-}
-
-.icon-btn:active{
-    transform:scale(.94);
+    border:3px solid rgba(221,201,87,.55);
+    border-radius:50%;
 }
 
 /* =========================
@@ -129,273 +113,281 @@ body{
 
 .dealer{
     position:absolute;
-    top:70px;
+    z-index:10;
+
+    top:5%;
     left:50%;
+
     transform:translateX(-50%);
-    width:130px;
+
+    width:125px;
+
     text-align:center;
-    z-index:35;
 }
 
-.dealer-avatar{
-    position:relative;
-    width:108px;
-    height:108px;
+.dealer-photo{
+    width:112px;
+    height:112px;
+
     margin:auto;
 
     border-radius:50%;
-    overflow:hidden;
+
+    border:6px solid #e8b83f;
 
     background:
-        radial-gradient(circle,#9c1739 0%,#470b24 72%);
-
-    border:4px solid #e9bd4b;
+        radial-gradient(circle,#7b173f,#350d24);
 
     box-shadow:
-        0 0 0 5px rgba(45,24,10,.8),
-        0 0 25px rgba(255,193,45,.5);
+        0 0 15px rgba(255,205,60,.65),
+        inset 0 0 10px rgba(0,0,0,.7);
 
-    isolation:isolate;
+    overflow:hidden;
 }
 
-.dealer-avatar::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    border-radius:50%;
-    border:2px solid rgba(255,240,160,.35);
-    pointer-events:none;
-    z-index:3;
-}
-
-.dealer-avatar img{
-    position:absolute;
-    left:0;
-    top:0;
-
+.dealer-photo img{
     width:100%;
     height:100%;
-
     display:block;
-
     object-fit:cover;
     object-position:center top;
-
-    border:0;
-    border-radius:50%;
-
-    clip-path:circle(50% at 50% 50%);
-
-    z-index:1;
 }
 
-.dealer-label{
-    margin-top:8px;
-    color:#ffe28b;
-    font-size:16px;
-    font-weight:800;
-    text-shadow:0 2px 5px #000;
+.dealer-name{
+    margin-top:5px;
+    color:#ffe28a;
+    font-size:18px;
+    font-weight:900;
+    text-shadow:0 2px 4px #000;
 }
 
 /* =========================
-   TABLE
+   TOP BAR
 ========================= */
 
-.table{
+.players-count{
     position:absolute;
+    z-index:30;
 
-    left:3%;
-    right:3%;
+    top:1.2%;
+    left:50%;
 
-    top:25%;
-    bottom:11%;
+    transform:translateX(-50%);
 
-    border-radius:48% 48% 45% 45% / 22% 22% 20% 20%;
+    min-width:165px;
 
-    background:
-        radial-gradient(
-            ellipse at center,
-            #0b9972 0%,
-            #087b5e 42%,
-            #05634e 75%,
-            #034a3b 100%
-        );
+    padding:9px 20px;
 
-    border:9px solid #392018;
+    border:1px solid #d8ad43;
+    border-radius:25px;
 
-    box-shadow:
-        inset 0 0 0 5px #c88927,
-        inset 0 0 35px rgba(0,0,0,.65),
-        0 10px 30px rgba(0,0,0,.6);
+    background:rgba(4,14,12,.9);
 
-    z-index:5;
+    color:#fff;
+
+    text-align:center;
+
+    font-size:17px;
+    font-weight:700;
 }
 
-.table-inner{
+/* =========================
+   TOP BUTTONS
+========================= */
+
+.top-buttons{
     position:absolute;
-    inset:15px;
-    border-radius:48% 48% 45% 45% / 22% 22% 20% 20%;
-    border:1px solid rgba(236,195,80,.4);
-    pointer-events:none;
+    z-index:40;
+
+    right:3%;
+    top:7%;
+    
+    display:flex;
+    gap:8px;
+}
+
+.icon-btn{
+    width:64px;
+    height:64px;
+
+    border:1px solid #d8ad43;
+    border-radius:15px;
+
+    background:rgba(4,15,14,.82);
+
+    color:#fff;
+
+    font-size:29px;
+
+    box-shadow:0 3px 10px rgba(0,0,0,.4);
 }
 
 /* =========================
    POT
 ========================= */
 
-.pot-area{
+.pot{
     position:absolute;
+    z-index:15;
+
+    top:49%;
     left:50%;
-    top:43%;
+
     transform:translate(-50%,-50%);
-    width:230px;
+
     text-align:center;
-    z-index:20;
+
+    color:#fff;
 }
 
-.pot-title{
-    color:#f4d36d;
-    font-size:18px;
-    font-weight:800;
+.pot-label{
+    color:#ffe079;
+    font-size:20px;
+    font-weight:700;
     letter-spacing:3px;
-    margin-bottom:3px;
 }
 
 .pot-value{
+    margin-top:5px;
+
     font-size:42px;
     font-weight:900;
-    color:#fff;
-    text-shadow:
-        0 2px 4px #000,
-        0 0 12px rgba(255,255,255,.2);
-}
 
-.pot-ring{
-    width:170px;
-    height:100px;
-    margin:5px auto 0;
-    border:2px solid rgba(222,211,105,.55);
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-.pot-chip{
-    width:76px;
-    height:76px;
-    border-radius:50%;
-    background:
-        repeating-conic-gradient(
-            #fff 0 14deg,
-            #d6283e 14deg 28deg
-        );
-    border:5px solid #eee;
-    box-shadow:
-        0 5px 14px rgba(0,0,0,.5),
-        inset 0 0 0 5px #eee;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-.pot-chip:after{
-    content:"";
-    width:44px;
-    height:44px;
-    border-radius:50%;
-    background:#d72b3e;
-    border:3px solid #fff;
+    text-shadow:0 3px 5px #000;
 }
 
 /* =========================
-   PLAYER SEATS
+   CHIP
+========================= */
+
+.chip{
+    position:absolute;
+
+    left:50%;
+    top:57%;
+
+    transform:translate(-50%,-50%);
+
+    width:92px;
+    height:92px;
+
+    border-radius:50%;
+
+    background:
+        repeating-conic-gradient(
+            #fff 0deg 14deg,
+            #c92735 14deg 28deg
+        );
+
+    border:6px solid #eee;
+
+    box-shadow:
+        0 5px 12px rgba(0,0,0,.55);
+
+    z-index:20;
+}
+
+.chip::after{
+    content:"";
+
+    position:absolute;
+    left:21px;
+    top:21px;
+
+    width:38px;
+    height:38px;
+
+    border-radius:50%;
+
+    background:#d32838;
+
+    border:5px solid #fff;
+}
+
+/* =========================
+   PLAYER
 ========================= */
 
 .player{
     position:absolute;
-    width:145px;
-    min-height:120px;
-    text-align:center;
     z-index:25;
-    transition:.25s ease;
+
+    width:150px;
+
+    text-align:center;
+
+    color:#fff;
+
+    text-shadow:0 2px 4px #000;
 }
 
-.player.me{
-    left:50%;
-    bottom:-2px;
-    transform:translateX(-50%);
-}
+.player-avatar{
+    width:72px;
+    height:72px;
 
-.player.left{
-    left:3px;
-    top:43%;
-    transform:translateY(-50%);
-}
-
-.player.right{
-    right:3px;
-    top:43%;
-    transform:translateY(-50%);
-}
-
-.player.top{
-    left:50%;
-    top:1%;
-    transform:translateX(-50%);
-}
-
-/* avatar */
-
-.avatar{
-    position:relative;
-    width:60px;
-    height:60px;
     margin:auto;
+
     border-radius:50%;
 
+    border:4px solid #e8b83f;
+
     background:
-        linear-gradient(145deg,#ffd96a,#9d6410);
-
-    border:3px solid #f5d36d;
-
-    box-shadow:
-        0 0 0 3px rgba(75,42,9,.8),
-        0 4px 14px rgba(0,0,0,.5);
+        radial-gradient(circle,#ffd84e,#9a6413);
 
     display:flex;
     align-items:center;
     justify-content:center;
 
-    font-size:29px;
-}
+    font-size:37px;
 
-.avatar-icon{
-    filter:drop-shadow(0 2px 2px #000);
+    box-shadow:
+        0 0 15px rgba(255,218,80,.65);
 }
 
 .player-name{
-    margin-top:5px;
-    font-size:15px;
+    margin-top:4px;
+
+    font-size:17px;
     font-weight:800;
-    text-shadow:0 2px 4px #000;
-    white-space:nowrap;
 }
 
 .player-balance{
     margin-top:2px;
-    color:#ffe277;
-    font-size:14px;
+
+    color:#ffe35f;
+
+    font-size:15px;
     font-weight:700;
-    text-shadow:0 2px 3px #000;
 }
 
-.player-state{
-    margin-top:3px;
-    min-height:15px;
-    color:#ff8f8f;
-    font-size:11px;
-    font-weight:800;
+/* positions */
+
+.player-bottom{
+    left:50%;
+    bottom:12%;
+
+    transform:translateX(-50%);
+}
+
+.player-top{
+    left:50%;
+    top:19%;
+
+    transform:translateX(-50%);
+}
+
+.player-left{
+    left:2%;
+    top:49%;
+
+    transform:translateY(-50%);
+}
+
+.player-right{
+    right:2%;
+    top:49%;
+
+    transform:translateY(-50%);
 }
 
 /* =========================
@@ -405,35 +397,32 @@ body{
 .cards{
     display:flex;
     justify-content:center;
-    align-items:flex-start;
-    margin-top:7px;
-    height:72px;
+
+    margin-top:8px;
 }
 
 .card{
-    position:relative;
-    width:47px;
-    height:68px;
+    width:56px;
+    height:78px;
 
     margin-left:-7px;
 
     border-radius:7px;
-    border:2px solid #e0ad38;
 
     background:#fff;
 
-    box-shadow:
-        0 4px 10px rgba(0,0,0,.55);
+    border:2px solid #ddd;
+
+    color:#111;
 
     display:flex;
-    flex-direction:column;
-    align-items:center;
     justify-content:center;
+    align-items:center;
 
+    font-size:19px;
     font-weight:900;
-    font-size:20px;
 
-    transform:rotate(0deg);
+    box-shadow:0 4px 8px rgba(0,0,0,.55);
 }
 
 .card:first-child{
@@ -441,165 +430,102 @@ body{
 }
 
 .card.red{
-    color:#d52435;
+    color:#d21d2b;
 }
 
-.card.black{
-    color:#111;
-}
+/* card back */
 
 .card-back{
+    width:56px;
+    height:78px;
+
+    margin-left:-7px;
+
+    border-radius:7px;
+
+    border:3px solid #e2b53e;
+
     background:
         repeating-linear-gradient(
             45deg,
-            #6b1536 0,
-            #6b1536 7px,
-            #a91d45 7px,
-            #a91d45 12px
+            #67122f 0,
+            #67122f 7px,
+            #92183b 7px,
+            #92183b 14px
         );
-    border:2px solid #e8b842;
-    color:#ffd15d;
-    font-size:25px;
-}
 
-.card-back:after{
-    content:"♠";
-}
-
-.card-rank{
-    line-height:20px;
-}
-
-.card-suit{
-    font-size:17px;
-    line-height:17px;
-}
-
-/* =========================
-   TURN
-========================= */
-
-.turn-ring{
-    position:absolute;
-    inset:-7px;
-    border-radius:50%;
-    border:3px solid transparent;
-    pointer-events:none;
-}
-
-.player.active .turn-ring{
-    border-color:#ffe36c;
-    box-shadow:
-        0 0 12px #ffd83d,
-        0 0 25px rgba(255,210,60,.65);
-    animation:pulse 1s infinite;
-}
-
-@keyframes pulse{
-    0%,100%{opacity:.6}
-    50%{opacity:1}
-}
-
-.turn-badge{
-    display:none;
-    position:absolute;
-    top:-25px;
-    left:50%;
-    transform:translateX(-50%);
-    background:#f0bd36;
-    color:#321900;
-    border-radius:10px;
-    padding:3px 8px;
-    font-size:10px;
-    font-weight:900;
-}
-
-.player.active .turn-badge{
-    display:block;
-}
-
-/* =========================
-   TIMER
-========================= */
-
-.timer{
-    position:absolute;
-    top:53%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    width:44px;
-    height:44px;
-    border-radius:50%;
-    border:3px solid #f0c44e;
-    background:rgba(5,25,21,.9);
     display:flex;
     align-items:center;
     justify-content:center;
-    font-weight:900;
-    font-size:16px;
-    z-index:30;
-    opacity:0;
+
+    color:#ffd44d;
+
+    font-size:24px;
+
+    box-shadow:0 4px 8px rgba(0,0,0,.5);
 }
 
-.timer.show{
-    opacity:1;
+.card-back:first-child{
+    margin-left:0;
 }
 
 /* =========================
-   BOTTOM ACTIONS
+   ACTION BAR
 ========================= */
 
 .actions{
     position:absolute;
-    left:10px;
-    right:10px;
-    bottom:10px;
+    z-index:50;
+
+    left:2%;
+    right:2%;
+    bottom:2%;
 
     display:grid;
-    grid-template-columns:1fr 1.25fr 1fr 1.15fr 1fr;
-    gap:8px;
 
-    z-index:70;
+    grid-template-columns:
+        1fr 1.1fr 1fr 1.1fr 1fr;
+
+    gap:7px;
 }
 
 .action{
-    min-height:62px;
+    height:62px;
 
     border-radius:15px;
-    border:1px solid #d7aa42;
 
-    color:#fff;
+    border:1px solid #d9a932;
+
     background:
         linear-gradient(
             180deg,
-            #32164d,
-            #180c2b
+            #3b1855,
+            #21102e
         );
 
-    box-shadow:
-        0 5px 12px rgba(0,0,0,.45);
+    color:#fff;
 
-    font-size:13px;
+    font-size:14px;
     font-weight:900;
+
+    box-shadow:
+        inset 0 1px rgba(255,255,255,.1),
+        0 3px 8px rgba(0,0,0,.45);
+}
+
+.action.chaal{
+    background:
+        linear-gradient(
+            180deg,
+            #f1c94d,
+            #a66d13
+        );
+
+    color:#241800;
 }
 
 .action:active{
     transform:scale(.96);
-}
-
-.action.primary{
-    color:#2d2107;
-    background:
-        linear-gradient(
-            180deg,
-            #f7d56b,
-            #b77d18
-        );
-}
-
-.action:disabled{
-    opacity:.38;
-    filter:grayscale(.4);
 }
 
 /* =========================
@@ -608,24 +534,25 @@ body{
 
 .status{
     position:absolute;
-    left:50%;
-    bottom:82px;
-    transform:translateX(-50%);
-    z-index:80;
+    z-index:60;
 
-    padding:7px 18px;
+    bottom:10%;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    padding:5px 16px;
 
     border-radius:20px;
 
-    background:rgba(2,17,15,.85);
-    border:1px solid rgba(236,190,67,.5);
+    background:rgba(0,0,0,.5);
 
     color:#fff;
 
-    font-size:12px;
-    font-weight:800;
+    font-size:13px;
 
-    white-space:nowrap;
+    pointer-events:none;
 }
 
 /* =========================
@@ -634,23 +561,28 @@ body{
 
 .toast{
     position:absolute;
-    top:20%;
+
+    z-index:100;
+
     left:50%;
-    transform:translate(-50%,-10px);
+    top:15%;
 
-    z-index:200;
+    transform:translateX(-50%);
 
-    padding:11px 17px;
+    padding:9px 17px;
 
-    border-radius:20px;
+    border-radius:18px;
 
-    background:rgba(0,0,0,.9);
-    border:1px solid #e4b947;
+    background:rgba(0,0,0,.88);
 
-    font-size:13px;
+    border:1px solid #e7bd50;
+
+    color:#fff;
+
     font-weight:800;
 
     opacity:0;
+
     pointer-events:none;
 
     transition:.25s;
@@ -660,375 +592,197 @@ body{
 
 .toast.show{
     opacity:1;
-    transform:translate(-50%,0);
 }
 
 /* =========================
-   JOIN SCREEN
+   CONNECT SCREEN
 ========================= */
 
-.join-screen{
+.connect-screen{
     position:fixed;
+
     inset:0;
+
     z-index:500;
 
     display:flex;
-    justify-content:center;
+
     align-items:center;
+    justify-content:center;
 
     background:
         radial-gradient(
-            circle,
-            rgba(9,103,78,.8),
-            rgba(0,0,0,.95)
+            circle at center,
+            rgba(15,104,78,.95),
+            rgba(0,0,0,.97)
         );
 }
 
-.join-box{
-    width:min(88%,390px);
+.connect-box{
+    width:min(88vw,420px);
 
-    padding:30px 22px;
+    padding:38px 24px;
 
     text-align:center;
 
-    border-radius:25px;
+    border:3px solid #e4b53e;
 
-    border:2px solid #d8ad45;
+    border-radius:30px;
 
     background:
         linear-gradient(
             145deg,
-            rgba(38,17,54,.98),
-            rgba(8,29,24,.98)
+            #261338,
+            #111722
         );
 
     box-shadow:
-        0 15px 50px rgba(0,0,0,.8),
-        0 0 35px rgba(222,176,59,.15);
+        0 0 40px rgba(0,0,0,.8);
 }
 
-.join-logo{
-    width:80px;
-    height:80px;
-    margin:0 auto 14px;
+.connect-dealer{
+    width:125px;
+    height:125px;
+
+    margin:auto;
 
     border-radius:50%;
 
+    border:5px solid #e8b83f;
+
     overflow:hidden;
 
-    border:3px solid #e8bd4c;
-
-    background:#3b0c1d;
+    background:#43152c;
 }
 
-.join-logo img{
+.connect-dealer img{
     width:100%;
     height:100%;
+
     object-fit:cover;
     object-position:center top;
-    display:block;
 }
 
-.join-title{
-    font-size:28px;
+.connect-title{
+    margin-top:20px;
+
+    color:#ffd85d;
+
+    font-size:35px;
+
     font-weight:900;
-    color:#f7d46c;
 }
 
-.join-sub{
+.connect-sub{
     margin-top:8px;
-    color:#d8d8d8;
-    font-size:13px;
+
+    color:#ddd;
+
+    font-size:18px;
 }
 
-.join-btn{
-    margin-top:22px;
+.connect-status{
+    margin-top:30px;
 
-    width:100%;
-    height:55px;
+    padding:18px;
 
-    border:1px solid #ffe084;
-    border-radius:15px;
+    border-radius:18px;
 
     background:
         linear-gradient(
             180deg,
-            #f2ca58,
-            #a66c12
+            #f2ca51,
+            #ae7417
         );
 
-    color:#271900;
+    color:#201500;
 
-    font-size:17px;
+    font-size:21px;
+
     font-weight:900;
 }
 
-/* =========================
-   WINNER
-========================= */
+/* hide when connected */
 
-.winner{
-    position:fixed;
-    inset:0;
-    z-index:400;
-
+.connect-screen.hide{
     display:none;
-    align-items:center;
-    justify-content:center;
-
-    background:rgba(0,0,0,.72);
-}
-
-.winner.show{
-    display:flex;
-}
-
-.winner-box{
-    width:min(88%,370px);
-
-    padding:30px 20px;
-
-    text-align:center;
-
-    border-radius:25px;
-
-    border:2px solid #e8bd4d;
-
-    background:
-        linear-gradient(
-            145deg,
-            #321647,
-            #071e18
-        );
-
-    box-shadow:
-        0 15px 50px rgba(0,0,0,.8);
-}
-
-.win-title{
-    color:#ffd965;
-    font-size:28px;
-    font-weight:900;
-}
-
-.win-name{
-    margin-top:12px;
-    font-size:22px;
-    font-weight:900;
-}
-
-.win-pot{
-    margin-top:7px;
-    color:#78ffcf;
-    font-size:18px;
-    font-weight:800;
-}
-
-.win-close{
-    margin-top:22px;
-    width:100%;
-    height:50px;
-    border:1px solid #e7bc50;
-    border-radius:13px;
-    background:#d39b26;
-    font-weight:900;
-}
-
-/* =========================
-   CHIP ANIMATION
-========================= */
-
-.flying-chip{
-    position:absolute;
-    left:50%;
-    top:50%;
-    width:30px;
-    height:30px;
-    border-radius:50%;
-
-    background:
-        repeating-conic-gradient(
-            #fff 0 15deg,
-            #d52a3e 15deg 30deg
-        );
-
-    border:3px solid #fff;
-
-    z-index:100;
-
-    animation:chipFly .55s ease-out forwards;
-    pointer-events:none;
-}
-
-@keyframes chipFly{
-    from{
-        transform:translate(-50%,-50%) scale(.5);
-        opacity:0;
-    }
-
-    25%{
-        opacity:1;
-    }
-
-    to{
-        transform:
-            translate(
-                calc(-50% + var(--x)),
-                calc(-50% + var(--y))
-            )
-            scale(.7);
-        opacity:0;
-    }
 }
 
 /* =========================
    MOBILE
 ========================= */
 
-@media(max-width:500px){
-
-    .topbar{
-        top:7px;
-        height:44px;
-        min-width:190px;
-    }
-
-    .players-count{
-        font-size:14px;
-    }
-
-    .top-actions{
-        top:64px;
-        right:9px;
-    }
-
-    .icon-btn{
-        width:52px;
-        height:52px;
-        font-size:22px;
-    }
+@media(max-width:430px){
 
     .dealer{
-        top:69px;
+        top:7%;
+        width:105px;
     }
 
-    .dealer-avatar{
-        width:96px;
-        height:96px;
+    .dealer-photo{
+        width:92px;
+        height:92px;
     }
 
-    .dealer-label{
-        font-size:14px;
+    .dealer-name{
+        font-size:16px;
     }
 
     .table{
-        top:25%;
-        bottom:10%;
-        left:4%;
-        right:4%;
-        border-width:7px;
+        top:27%;
+        bottom:13%;
     }
 
-    .pot-area{
-        top:43%;
+    .player{
+        width:125px;
+    }
+
+    .player-avatar{
+        width:64px;
+        height:64px;
+        font-size:31px;
+    }
+
+    .player-name{
+        font-size:15px;
+    }
+
+    .player-balance{
+        font-size:13px;
+    }
+
+    .card,
+    .card-back{
+        width:52px;
+        height:72px;
     }
 
     .pot-value{
         font-size:38px;
     }
 
-    .pot-title{
-        font-size:16px;
-    }
-
-    .player{
-        width:120px;
-    }
-
-    .player.left{
-        left:-5px;
-    }
-
-    .player.right{
-        right:-5px;
-    }
-
-    .avatar{
-        width:54px;
-        height:54px;
-    }
-
-    .player-name{
-        font-size:13px;
-    }
-
-    .player-balance{
-        font-size:12px;
-    }
-
-    .card{
-        width:43px;
-        height:62px;
-        font-size:18px;
-    }
-
-    .cards{
-        height:67px;
-    }
-
-    .actions{
-        left:5px;
-        right:5px;
-        gap:5px;
-    }
-
-    .action{
-        min-height:58px;
-        font-size:10px;
-        border-radius:12px;
-    }
-
-    .status{
-        bottom:76px;
-        font-size:10px;
-    }
-
-    .timer{
-        top:53%;
-        width:40px;
-        height:40px;
-        font-size:14px;
-    }
-}
-
-/* very small phones */
-
-@media(max-height:700px){
-
-    .dealer{
-        top:57px;
-    }
-
-    .dealer-avatar{
+    .chip{
         width:82px;
         height:82px;
     }
 
-    .table{
-        top:22%;
-        bottom:12%;
-    }
-
-    .player.me{
-        bottom:-7px;
-    }
-
-    .actions{
-        bottom:5px;
+    .chip::after{
+        left:18px;
+        top:18px;
     }
 
     .action{
-        min-height:50px;
+        height:58px;
+        font-size:12px;
+    }
+
+    .top-buttons{
+        top:8%;
+    }
+
+    .icon-btn{
+        width:57px;
+        height:57px;
     }
 }
 </style>
@@ -1036,202 +790,123 @@ body{
 
 <body>
 
-<div class="game" id="game">
+<div class="game">
 
-    <!-- TOP -->
-    <div class="topbar">
-        <div class="players-count" id="playersCount">
-            Players 0/4
-        </div>
+    <div class="players-count" id="playersCount">
+        Players 0/4
     </div>
 
-    <div class="top-actions">
+    <div class="top-buttons">
         <button class="icon-btn" id="soundBtn">🔊</button>
-        <button class="icon-btn" id="reloadBtn">×</button>
+        <button class="icon-btn" id="exitBtn">×</button>
     </div>
 
     <!-- DEALER -->
+
     <div class="dealer">
-        <div class="dealer-avatar">
-            <img src="assets/dealer.png" alt="Dealer">
+
+        <div class="dealer-photo">
+
+            <img
+                src="assets/dealer.png"
+                alt="Dealer"
+                onerror="this.style.display='none';this.parentElement.innerHTML='👩';"
+            >
+
         </div>
-        <div class="dealer-label">DEALER</div>
+
+        <div class="dealer-name">
+            DEALER
+        </div>
+
     </div>
 
     <!-- TABLE -->
-    <div class="table">
 
-        <div class="table-inner"></div>
+    <div class="table"></div>
 
-        <!-- PLAYERS -->
-        <div class="player me" id="player0">
-            <div class="avatar">
-                <span class="avatar-icon">👤</span>
-                <div class="turn-ring"></div>
-                <div class="turn-badge">YOUR TURN</div>
-            </div>
+    <!-- POT -->
 
-            <div class="player-name">Waiting...</div>
-            <div class="player-balance">₹0</div>
-            <div class="player-state"></div>
+    <div class="pot">
 
-            <div class="cards"></div>
+        <div class="pot-label">
+            POT
         </div>
 
-        <div class="player left" id="player1">
-            <div class="avatar">
-                <span class="avatar-icon">🙂</span>
-                <div class="turn-ring"></div>
-                <div class="turn-badge">TURN</div>
-            </div>
-
-            <div class="player-name">Empty</div>
-            <div class="player-balance">₹0</div>
-            <div class="player-state"></div>
-
-            <div class="cards"></div>
-        </div>
-
-        <div class="player top" id="player2">
-            <div class="avatar">
-                <span class="avatar-icon">🙂</span>
-                <div class="turn-ring"></div>
-                <div class="turn-badge">TURN</div>
-            </div>
-
-            <div class="player-name">Empty</div>
-            <div class="player-balance">₹0</div>
-            <div class="player-state"></div>
-
-            <div class="cards"></div>
-        </div>
-
-        <div class="player right" id="player3">
-            <div class="avatar">
-                <span class="avatar-icon">🙂</span>
-                <div class="turn-ring"></div>
-                <div class="turn-badge">TURN</div>
-            </div>
-
-            <div class="player-name">Empty</div>
-            <div class="player-balance">₹0</div>
-            <div class="player-state"></div>
-
-            <div class="cards"></div>
-        </div>
-
-        <!-- POT -->
-        <div class="pot-area">
-            <div class="pot-title">POT</div>
-
-            <div class="pot-value" id="potValue">
-                ₹0
-            </div>
-
-            <div class="pot-ring">
-                <div class="pot-chip"></div>
-            </div>
-        </div>
-
-        <div class="timer" id="timer">
-            20
+        <div class="pot-value" id="pot">
+            ₹0
         </div>
 
     </div>
 
-    <!-- STATUS -->
+    <div class="chip"></div>
+
+    <!-- PLAYERS -->
+
+    <div id="players"></div>
+
     <div class="status" id="status">
         Connecting...
     </div>
 
+    <div class="toast" id="toast"></div>
+
     <!-- ACTIONS -->
+
     <div class="actions">
 
-        <button class="action"
-                id="packBtn"
-                disabled>
+        <button class="action" onclick="gameAction('pack')">
             PACK
         </button>
 
-        <button class="action"
-                id="sideBtn"
-                disabled>
+        <button class="action" onclick="gameAction('sideshow')">
             SIDE SHOW
         </button>
 
-        <button class="action primary"
-                id="chaalBtn"
-                disabled>
+        <button class="action chaal" onclick="gameAction('chaal')">
             CHAAL
         </button>
 
-        <button class="action primary"
-                id="chaal2Btn"
-                disabled>
+        <button class="action chaal" onclick="gameAction('chaal2')">
             2X CHAAL
         </button>
 
-        <button class="action"
-                id="showBtn"
-                disabled>
+        <button class="action" onclick="gameAction('show')">
             SHOW
         </button>
 
     </div>
 
-    <div class="toast" id="toast"></div>
-
 </div>
 
 
-<!-- JOIN SCREEN -->
+<!-- CONNECTING -->
 
-<div class="join-screen" id="joinScreen">
+<div class="connect-screen" id="connectScreen">
 
-    <div class="join-box">
+    <div class="connect-box">
 
-        <div class="join-logo">
-            <img src="assets/dealer.png" alt="Teen Patti">
+        <div class="connect-dealer">
+
+            <img
+                src="assets/dealer.png"
+                alt="Dealer"
+                onerror="this.style.display='none';this.parentElement.innerHTML='👩';"
+            >
+
         </div>
 
-        <div class="join-title">
+        <div class="connect-title">
             TEEN PATTI
         </div>
 
-        <div class="join-sub">
+        <div class="connect-sub">
             GOLD ONLINE TABLE
         </div>
 
-        <button class="join-btn" id="joinBtn">
-            JOIN TABLE
-        </button>
-
-    </div>
-
-</div>
-
-
-<!-- WINNER -->
-
-<div class="winner" id="winner">
-
-    <div class="winner-box">
-
-        <div class="win-title">
-            🏆 WINNER
+        <div class="connect-status" id="connectStatus">
+            CONNECTING...
         </div>
-
-        <div class="win-name" id="winnerName">
-            Player
-        </div>
-
-        <div class="win-pot" id="winnerPot">
-            ₹0
-        </div>
-
-        <button class="win-close" id="winnerClose">
-            CONTINUE
-        </button>
 
     </div>
 
@@ -1240,180 +915,51 @@ body{
 
 <script>
 
-/* =========================================================
-   TEEN PATTI ONLINE CLIENT
-========================================================= */
-
-const game = document.getElementById("game");
-
-const joinScreen = document.getElementById("joinScreen");
-const joinBtn = document.getElementById("joinBtn");
-
-const playersCount = document.getElementById("playersCount");
-const potValue = document.getElementById("potValue");
-
-const statusEl = document.getElementById("status");
-const toast = document.getElementById("toast");
-
-const soundBtn = document.getElementById("soundBtn");
-const reloadBtn = document.getElementById("reloadBtn");
-
-const packBtn = document.getElementById("packBtn");
-const sideBtn = document.getElementById("sideBtn");
-const chaalBtn = document.getElementById("chaalBtn");
-const chaal2Btn = document.getElementById("chaal2Btn");
-const showBtn = document.getElementById("showBtn");
-
-const timerEl = document.getElementById("timer");
-
-const winner = document.getElementById("winner");
-const winnerName = document.getElementById("winnerName");
-const winnerPot = document.getElementById("winnerPot");
-const winnerClose = document.getElementById("winnerClose");
+/* =====================================================
+   GAME VARIABLES
+===================================================== */
 
 let socket = null;
+
 let myId = null;
-let mySeat = 0;
 
-let currentState = null;
+let muted = false;
 
-let soundEnabled = true;
-
-let countdown = 20;
-let countdownInterval = null;
-
-let audioContext = null;
+let reconnectTimer = null;
 
 
-/* =========================================================
-   SOUND SYSTEM
-   New game sounds - no video audio
-========================================================= */
+/* =====================================================
+   ELEMENTS
+===================================================== */
 
-function unlockSound(){
+const connectScreen =
+    document.getElementById("connectScreen");
 
-    if(!audioContext){
+const connectStatus =
+    document.getElementById("connectStatus");
 
-        const AudioCtx =
-            window.AudioContext ||
-            window.webkitAudioContext;
+const status =
+    document.getElementById("status");
 
-        if(AudioCtx){
-            audioContext = new AudioCtx();
-        }
-    }
+const playersCount =
+    document.getElementById("playersCount");
 
-    if(audioContext &&
-       audioContext.state === "suspended"){
+const playersBox =
+    document.getElementById("players");
 
-        audioContext.resume();
-    }
-}
+const potBox =
+    document.getElementById("pot");
 
+const toast =
+    document.getElementById("toast");
 
-function tone(
-    frequency = 500,
-    duration = .08,
-    type = "sine",
-    volume = .035
-){
-
-    if(!soundEnabled || !audioContext){
-        return;
-    }
-
-    try{
-
-        const osc =
-            audioContext.createOscillator();
-
-        const gain =
-            audioContext.createGain();
-
-        osc.type = type;
-
-        osc.frequency.value = frequency;
-
-        gain.gain.setValueAtTime(
-            0,
-            audioContext.currentTime
-        );
-
-        gain.gain.linearRampToValueAtTime(
-            volume,
-            audioContext.currentTime + .01
-        );
-
-        gain.gain.exponentialRampToValueAtTime(
-            .001,
-            audioContext.currentTime + duration
-        );
-
-        osc.connect(gain);
-        gain.connect(audioContext.destination);
-
-        osc.start();
-
-        osc.stop(
-            audioContext.currentTime + duration
-        );
-
-    }catch(e){}
-}
+const soundBtn =
+    document.getElementById("soundBtn");
 
 
-function soundClick(){
-    tone(520,.06,"sine",.035);
-}
-
-
-function soundCard(){
-    tone(700,.05,"triangle",.04);
-
-    setTimeout(()=>{
-        tone(900,.04,"triangle",.025);
-    },55);
-}
-
-
-function soundChip(){
-
-    tone(280,.06,"square",.025);
-
-    setTimeout(()=>{
-        tone(440,.07,"square",.025);
-    },70);
-
-}
-
-
-function soundWin(){
-
-    tone(523,.12,"triangle",.045);
-
-    setTimeout(()=>{
-        tone(659,.12,"triangle",.045);
-    },130);
-
-    setTimeout(()=>{
-        tone(784,.18,"triangle",.05);
-    },260);
-
-}
-
-
-function soundPack(){
-
-    tone(240,.12,"sawtooth",.025);
-
-}
-
-
-/* =========================================================
+/* =====================================================
    TOAST
-========================================================= */
-
-let toastTimer = null;
+===================================================== */
 
 function showToast(message){
 
@@ -1421,422 +967,18 @@ function showToast(message){
 
     toast.classList.add("show");
 
-    clearTimeout(toastTimer);
+    clearTimeout(window.toastTimer);
 
-    toastTimer = setTimeout(()=>{
-
-        toast.classList.remove("show");
-
-    },1800);
-}
-
-
-/* =========================================================
-   FORMAT
-========================================================= */
-
-function money(value){
-
-    return "₹" +
-        Number(value || 0)
-        .toLocaleString("en-IN");
-}
-
-
-/* =========================================================
-   CARD
-========================================================= */
-
-function createCard(card){
-
-    if(!card){
-        return "";
-    }
-
-    const red =
-        card.suit === "♥" ||
-        card.suit === "♦";
-
-    return `
-        <div class="card ${red ? "red" : "black"}">
-
-            <div class="card-rank">
-                ${card.rank}
-            </div>
-
-            <div class="card-suit">
-                ${card.suit}
-            </div>
-
-        </div>
-    `;
-}
-
-
-function createBack(){
-
-    return `
-        <div class="card card-back"></div>
-    `;
-}
-
-
-/* =========================================================
-   PLAYER POSITION
-========================================================= */
-
-const seatElements = {
-
-    0: document.getElementById("player0"),
-    1: document.getElementById("player1"),
-    2: document.getElementById("player2"),
-    3: document.getElementById("player3")
-
-};
-
-
-/* =========================================================
-   RENDER PLAYER
-========================================================= */
-
-function renderPlayer(player){
-
-    const el =
-        seatElements[player.seat];
-
-    if(!el){
-        return;
-    }
-
-    const name =
-        el.querySelector(".player-name");
-
-    const balance =
-        el.querySelector(".player-balance");
-
-    const state =
-        el.querySelector(".player-state");
-
-    const cards =
-        el.querySelector(".cards");
-
-    const avatar =
-        el.querySelector(".avatar-icon");
-
-
-    if(!player.connected){
-
-        name.textContent = "Disconnected";
-
-        balance.textContent =
-            money(player.balance);
-
-        state.textContent = "";
-
-        cards.innerHTML = "";
-
-        avatar.textContent = "⚪";
-
-        el.classList.remove("active");
-
-        return;
-    }
-
-
-    name.textContent =
-        player.id === myId
-            ? player.name
-            : player.name;
-
-
-    balance.textContent =
-        money(player.balance);
-
-
-    if(player.packed){
-
-        state.textContent = "PACKED";
-
-    }else{
-
-        state.textContent = "";
-
-    }
-
-
-    avatar.textContent =
-        player.id === myId
-            ? "👤"
-            : "🙂";
-
-
-    el.classList.remove("active");
-
-
-    if(
-        currentState &&
-        currentState.turn === player.id &&
-        !player.packed &&
-        currentState.phase === "playing"
-    ){
-
-        el.classList.add("active");
-
-    }
-
-
-    let html = "";
-
-
-    if(player.packed){
-
-        html = "";
-
-    }
-
-    else if(
-        player.id === myId
-    ){
-
-        if(player.cards &&
-           player.cards.length){
-
-            html =
-                player.cards
-                .map(createCard)
-                .join("");
-
-            soundCardOnce();
-
-        }
-
-    }
-
-    else if(
-        currentState &&
-        currentState.phase === "finished" &&
-        player.cards
-    ){
-
-        html =
-            player.cards
-            .map(createCard)
-            .join("");
-
-    }
-
-    else if(
-        currentState &&
-        currentState.phase === "playing"
-    ){
-
-        html =
-            createBack() +
-            createBack() +
-            createBack();
-
-    }
-
-
-    cards.innerHTML = html;
-}
-
-
-/* =========================================================
-   PREVENT CARD SOUND SPAM
-========================================================= */
-
-let lastCardRound = 0;
-
-function soundCardOnce(){
-
-    if(
-        currentState &&
-        currentState.round !== lastCardRound
-    ){
-
-        lastCardRound =
-            currentState.round;
-
+    window.toastTimer =
         setTimeout(()=>{
-            soundCard();
-        },80);
-
-    }
-
+            toast.classList.remove("show");
+        },1800);
 }
 
 
-/* =========================================================
-   RENDER STATE
-========================================================= */
-
-function renderState(state){
-
-    currentState = state;
-
-
-    const connectedPlayers =
-        (state.players || [])
-        .filter(p => p.connected);
-
-
-    playersCount.textContent =
-        `Players ${connectedPlayers.length}/4`;
-
-
-    potValue.textContent =
-        money(state.pot);
-
-
-    /* reset all seats */
-
-    for(let i=0;i<4;i++){
-
-        const el =
-            seatElements[i];
-
-        el.querySelector(".player-name")
-            .textContent = "Empty";
-
-        el.querySelector(".player-balance")
-            .textContent = "₹0";
-
-        el.querySelector(".player-state")
-            .textContent = "";
-
-        el.querySelector(".cards")
-            .innerHTML = "";
-
-        el.querySelector(".avatar-icon")
-            .textContent = "🙂";
-
-        el.classList.remove("active");
-    }
-
-
-    /* players */
-
-    for(const player of state.players){
-
-        renderPlayer(player);
-
-    }
-
-
-    updateButtons();
-
-
-    /* status */
-
-    if(state.phase === "waiting"){
-
-        statusEl.textContent =
-            `Waiting for players • ${connectedPlayers.length}/4`;
-
-        hideTimer();
-
-    }
-
-    else if(state.phase === "playing"){
-
-        if(state.turn === myId){
-
-            statusEl.textContent =
-                "YOUR TURN • Make your move";
-
-            startCountdown();
-
-        }else{
-
-            const current =
-                state.players.find(
-                    p => p.id === state.turn
-                );
-
-            statusEl.textContent =
-                current
-                    ? `${current.name}'s turn`
-                    : "Waiting...";
-
-            hideTimer();
-        }
-
-    }
-
-    else if(state.phase === "finished"){
-
-        statusEl.textContent =
-            "Round finished";
-
-        hideTimer();
-
-    }
-
-}
-
-
-/* =========================================================
-   BUTTON CONTROL
-========================================================= */
-
-function updateButtons(){
-
-    if(!currentState){
-
-        disableButtons(true);
-        return;
-
-    }
-
-
-    const myPlayer =
-        currentState.players.find(
-            p => p.id === myId
-        );
-
-
-    const myTurn =
-        currentState.phase === "playing" &&
-        currentState.turn === myId &&
-        myPlayer &&
-        !myPlayer.packed;
-
-
-    disableButtons(!myTurn);
-
-
-    if(myPlayer &&
-       myPlayer.balance < 100){
-
-        chaalBtn.disabled = true;
-
-    }
-
-    if(myPlayer &&
-       myPlayer.balance < 200){
-
-        chaal2Btn.disabled = true;
-
-    }
-
-}
-
-
-function disableButtons(disabled){
-
-    packBtn.disabled = disabled;
-    sideBtn.disabled = disabled;
-    chaalBtn.disabled = disabled;
-    chaal2Btn.disabled = disabled;
-    showBtn.disabled = disabled;
-
-}
-
-
-/* =========================================================
-   WEBSOCKET
-========================================================= */
+/* =====================================================
+   CONNECT
+===================================================== */
 
 function connect(){
 
@@ -1847,143 +989,153 @@ function connect(){
             socket.readyState === WebSocket.CONNECTING
         )
     ){
-
         return;
-
     }
 
+    connectStatus.textContent =
+        "CONNECTING...";
+
+    status.textContent =
+        "Connecting...";
 
     const protocol =
         location.protocol === "https:"
-            ? "wss:"
-            : "ws:";
+        ? "wss:"
+        : "ws:";
+
+    try{
+
+        socket =
+            new WebSocket(
+                protocol +
+                "//" +
+                location.host
+            );
+
+    }catch(error){
+
+        retryConnection();
+
+        return;
+    }
 
 
-    const url =
-        protocol +
-        "//" +
-        location.host;
+    socket.onopen = function(){
 
+        console.log(
+            "WebSocket connected"
+        );
 
-    statusEl.textContent =
-        "Connecting...";
+        connectStatus.textContent =
+            "CONNECTED";
 
-
-    socket =
-        new WebSocket(url);
-
-
-    socket.onopen = ()=>{
-
-        statusEl.textContent =
+        status.textContent =
             "Connected";
 
-        showToast("Connected to table");
+        showToast(
+            "Connected to table"
+        );
+
+        /*
+         * IMPORTANT:
+         * server sends welcome after connection.
+         */
 
     };
 
 
-    socket.onmessage = event =>{
+    socket.onmessage = function(event){
 
-        let message;
+        let data;
 
         try{
 
-            message =
+            data =
                 JSON.parse(event.data);
 
-        }catch(e){
+        }catch(error){
 
             return;
-
         }
 
 
-        /* WELCOME */
+        /* =====================
+           WELCOME
+        ===================== */
 
-        if(message.type === "welcome"){
+        if(data.type === "welcome"){
 
             myId =
-                message.id;
+                data.id;
 
-            mySeat =
-                message.seat;
-
-            joinScreen.style.display =
-                "none";
+            connectScreen.classList.add(
+                "hide"
+            );
 
             showToast(
                 "Joined table"
             );
 
-            tone(620,.1,"triangle",.04);
+            status.textContent =
+                "Waiting for players...";
 
             return;
         }
 
 
-        /* STATE */
+        /* =====================
+           STATE
+        ===================== */
 
-        if(message.type === "state"){
+        if(data.type === "state"){
 
-            renderState(message);
-
-            return;
-        }
-
-
-        /* NOTICE */
-
-        if(message.type === "notice"){
-
-            showToast(message.text);
-
-
-            if(
-                message.text &&
-                message.text.toLowerCase()
-                    .includes("chaal")
-            ){
-
-                soundChip();
-                animateChip();
-
-            }
-
-
-            if(
-                message.text &&
-                message.text.toLowerCase()
-                    .includes("packed")
-            ){
-
-                soundPack();
-
-            }
-
+            renderGame(data);
 
             return;
         }
 
 
-        /* RESULT */
+        /* =====================
+           NOTICE
+        ===================== */
 
-        if(message.type === "result"){
+        if(data.type === "notice"){
 
-            showWinner(message);
-
-            soundWin();
+            showToast(
+                data.text || ""
+            );
 
             return;
         }
 
 
-        /* FULL */
+        /* =====================
+           RESULT
+        ===================== */
 
-        if(message.type === "full"){
+        if(data.type === "result"){
 
-            statusEl.textContent =
+            showToast(
+                (data.winnerName || "Player") +
+                " won ₹" +
+                (data.pot || 0)
+            );
+
+            return;
+        }
+
+
+        /* =====================
+           FULL
+        ===================== */
+
+        if(data.type === "full"){
+
+            connectStatus.textContent =
                 "TABLE FULL";
+
+            status.textContent =
+                "Table full";
 
             showToast(
                 "Table is full"
@@ -1993,51 +1145,255 @@ function connect(){
         }
 
 
-        /* ERROR */
+        /* =====================
+           ERROR
+        ===================== */
 
-        if(message.type === "error"){
+        if(data.type === "error"){
 
-            showToast(message.text);
+            showToast(
+                data.text || "Game error"
+            );
 
-            return;
         }
 
     };
 
 
-    socket.onerror = ()=>{
+    socket.onerror = function(){
 
-        statusEl.textContent =
-            "Connection error";
-
-        showToast(
-            "Connection error"
+        console.log(
+            "WebSocket error"
         );
+
+        connectStatus.textContent =
+            "RECONNECTING...";
 
     };
 
 
-    socket.onclose = ()=>{
+    socket.onclose = function(){
 
-        statusEl.textContent =
+        status.textContent =
             "Disconnected";
 
-        disableButtons(true);
+        connectStatus.textContent =
+            "RECONNECTING...";
 
-        showToast(
-            "Server disconnected"
-        );
+        /*
+         * Automatically reconnect.
+         */
+
+        retryConnection();
 
     };
 
 }
 
 
-/* =========================================================
-   SEND ACTION
-========================================================= */
+/* =====================================================
+   RETRY
+===================================================== */
 
-function sendAction(action){
+function retryConnection(){
+
+    clearTimeout(
+        reconnectTimer
+    );
+
+    reconnectTimer =
+        setTimeout(
+            connect,
+            2000
+        );
+
+}
+
+
+/* =====================================================
+   RENDER GAME
+===================================================== */
+
+function renderGame(state){
+
+    const list =
+        state.players || [];
+
+    playersCount.textContent =
+        "Players " +
+        list.length +
+        "/4";
+
+
+    potBox.textContent =
+        "₹" +
+        Number(
+            state.pot || 0
+        ).toLocaleString();
+
+
+    playersBox.innerHTML = "";
+
+
+    /*
+     * Four fixed seats
+     */
+
+    list.forEach(function(player){
+
+        let className =
+            "player ";
+
+        if(player.seat === 0){
+
+            className +=
+                "player-bottom";
+
+        }else if(player.seat === 1){
+
+            className +=
+                "player-left";
+
+        }else if(player.seat === 2){
+
+            className +=
+                "player-top";
+
+        }else{
+
+            className +=
+                "player-right";
+
+        }
+
+
+        const div =
+            document.createElement(
+                "div"
+            );
+
+        div.className =
+            className;
+
+
+        const isMe =
+            player.id === myId;
+
+
+        /*
+         * Only own cards are visible
+         * during the round.
+         */
+
+        const cards =
+            (
+                isMe ||
+                state.phase === "finished"
+            )
+            ? (player.cards || [])
+            : null;
+
+
+        let cardsHTML = "";
+
+
+        if(cards){
+
+            cards.forEach(function(card){
+
+                let red =
+                    card.suit === "♥" ||
+                    card.suit === "♦";
+
+
+                cardsHTML +=
+                    `<div class="card ${red ? "red" : ""}">
+                        ${card.rank}${card.suit}
+                    </div>`;
+
+            });
+
+        }else{
+
+            cardsHTML =
+                `
+                <div class="card-back">♠</div>
+                <div class="card-back">♠</div>
+                <div class="card-back">♠</div>
+                `;
+
+        }
+
+
+        div.innerHTML = `
+
+            <div class="player-avatar">
+                ${isMe ? "👤" : "🙂"}
+            </div>
+
+            <div class="player-name">
+                ${escapeHTML(
+                    player.name || "Player"
+                )}
+            </div>
+
+            <div class="player-balance">
+                ₹${Number(
+                    player.balance || 0
+                ).toLocaleString()}
+            </div>
+
+            <div class="cards">
+                ${cardsHTML}
+            </div>
+
+        `;
+
+
+        playersBox.appendChild(
+            div
+        );
+
+    });
+
+
+    /* =====================
+       STATUS
+    ===================== */
+
+    if(state.turn === myId){
+
+        status.textContent =
+            "YOUR TURN";
+
+    }else if(
+        state.phase === "waiting"
+    ){
+
+        status.textContent =
+            "Waiting for players...";
+
+    }else if(
+        state.phase === "finished"
+    ){
+
+        status.textContent =
+            "Round finished";
+
+    }else{
+
+        status.textContent =
+            "Waiting...";
+    }
+
+}
+
+
+/* =====================================================
+   ACTION
+===================================================== */
+
+function gameAction(action){
 
     if(
         !socket ||
@@ -2045,348 +1401,118 @@ function sendAction(action){
     ){
 
         showToast(
-            "Not connected"
+            "Connecting..."
         );
 
         return;
-
-    }
-
-
-    if(!currentState){
-
-        return;
-
-    }
-
-
-    if(
-        currentState.phase !== "playing" ||
-        currentState.turn !== myId
-    ){
-
-        showToast(
-            "Wait for your turn"
-        );
-
-        return;
-
     }
 
 
     socket.send(
         JSON.stringify({
+
             type:"action",
+
             action:action
+
         })
     );
 
-
-    soundClick();
-
 }
 
 
-/* =========================================================
-   COUNTDOWN
-========================================================= */
-
-function startCountdown(){
-
-    clearInterval(
-        countdownInterval
-    );
-
-
-    countdown = 20;
-
-
-    timerEl.textContent =
-        countdown;
-
-    timerEl.classList.add("show");
-
-
-    countdownInterval =
-        setInterval(()=>{
-
-            countdown--;
-
-            timerEl.textContent =
-                Math.max(0,countdown);
-
-
-            if(countdown <= 5 &&
-               countdown > 0){
-
-                tone(
-                    500,
-                    .045,
-                    "square",
-                    .018
-                );
-
-            }
-
-
-            if(countdown <= 0){
-
-                clearInterval(
-                    countdownInterval
-                );
-
-            }
-
-        },1000);
-
-}
-
-
-function hideTimer(){
-
-    clearInterval(
-        countdownInterval
-    );
-
-    timerEl.classList.remove(
-        "show"
-    );
-
-}
-
-
-/* =========================================================
-   CHIP ANIMATION
-========================================================= */
-
-function animateChip(){
-
-    const chip =
-        document.createElement("div");
-
-    chip.className =
-        "flying-chip";
-
-
-    const x =
-        (Math.random() * 100 - 50) +
-        "px";
-
-
-    const y =
-        (Math.random() * 80 - 40) +
-        "px";
-
-
-    chip.style.setProperty(
-        "--x",
-        x
-    );
-
-    chip.style.setProperty(
-        "--y",
-        y
-    );
-
-
-    game.appendChild(chip);
-
-
-    setTimeout(()=>{
-        chip.remove();
-    },600);
-
-}
-
-
-/* =========================================================
-   WINNER
-========================================================= */
-
-function showWinner(message){
-
-    winnerName.textContent =
-        message.winnerName ||
-        "Player";
-
-
-    winnerPot.textContent =
-        "Won " +
-        money(message.pot);
-
-
-    winner.classList.add(
-        "show"
-    );
-
-}
-
-
-winnerClose.onclick = ()=>{
-
-    winner.classList.remove(
-        "show"
-    );
-
-};
-
-
-/* =========================================================
-   BUTTONS
-========================================================= */
-
-packBtn.onclick = ()=>{
-
-    soundPack();
-
-    sendAction("pack");
-
-};
-
-
-sideBtn.onclick = ()=>{
-
-    soundClick();
-
-    sendAction("sideshow");
-
-};
-
-
-chaalBtn.onclick = ()=>{
-
-    soundChip();
-
-    animateChip();
-
-    sendAction("chaal");
-
-};
-
-
-chaal2Btn.onclick = ()=>{
-
-    soundChip();
-
-    animateChip();
-
-    animateChip();
-
-    sendAction("chaal2");
-
-};
-
-
-showBtn.onclick = ()=>{
-
-    soundClick();
-
-    sendAction("show");
-
-};
-
-
-/* =========================================================
-   SOUND BUTTON
-========================================================= */
-
-soundBtn.onclick = ()=>{
-
-    unlockSound();
-
-    soundEnabled =
-        !soundEnabled;
-
+/* =====================================================
+   SOUND
+===================================================== */
+
+soundBtn.onclick =
+function(){
+
+    muted =
+        !muted;
 
     soundBtn.textContent =
-        soundEnabled
-            ? "🔊"
-            : "🔇";
+        muted
+        ? "🔇"
+        : "🔊";
 
-
-    if(soundEnabled){
-
-        tone(
-            650,
-            .08,
-            "sine",
-            .035
-        );
-
-        showToast(
-            "Sound ON"
-        );
-
-    }else{
-
-        showToast(
-            "Sound OFF"
-        );
-
-    }
-
-};
-
-
-/* =========================================================
-   RELOAD / LEAVE
-========================================================= */
-
-reloadBtn.onclick = ()=>{
-
-    if(
-        confirm(
-            "Leave this table?"
-        )
-    ){
-
-        if(socket){
-
-            socket.close();
-
-        }
-
-        location.reload();
-
-    }
-
-};
-
-
-/* =========================================================
-   JOIN
-========================================================= */
-
-joinBtn.onclick = ()=>{
-
-    unlockSound();
-
-    tone(
-        520,
-        .08,
-        "triangle",
-        .04
+    showToast(
+        muted
+        ? "Sound OFF"
+        : "Sound ON"
     );
 
+};
 
-    joinBtn.disabled = true;
 
-    joinBtn.textContent =
+/* =====================================================
+   EXIT
+===================================================== */
+
+document
+.getElementById("exitBtn")
+.onclick =
+function(){
+
+    if(
+        socket &&
+        socket.readyState === WebSocket.OPEN
+    ){
+
+        socket.close();
+
+    }
+
+    connectScreen.classList.remove(
+        "hide"
+    );
+
+    connectStatus.textContent =
         "CONNECTING...";
-
 
     connect();
 
 };
 
 
-/* =========================================================
-   START
-========================================================= */
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
 
-disableButtons(true);
+function escapeHTML(value){
+
+    return String(value)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+
+}
+
+
+/* =====================================================
+   AUTO START
+===================================================== */
+
+/*
+ * No JOIN button.
+ * Page automatically connects.
+ */
+
+window.addEventListener(
+    "load",
+    function(){
+
+        setTimeout(
+            connect,
+            300
+        );
+
+    }
+);
 
 </script>
 
 </body>
-      </html>
+</html>
