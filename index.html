@@ -1,36 +1,776 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>Teen Patti Gold — Reference UI</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>Teen Patti Online</title>
+
 <style>
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000;font-family:Arial,Helvetica,sans-serif}body{display:flex;align-items:center;justify-content:center}.stage{position:relative;width:min(100vw,100vh * 2.16);aspect-ratio:1080/500;overflow:hidden;background:#221238 url('assets/reference-game.jpg') center/cover no-repeat;box-shadow:0 0 35px #000}.stage:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(0,0,0,.05),transparent 35%,rgba(0,0,0,.08));}.hit{position:absolute;border:0;background:transparent;cursor:pointer;z-index:20}.sound{right:2.4%;top:4%;width:4%;height:10%}.pack{left:14.5%;bottom:1.5%;width:7.2%;height:16%}.side{left:22.5%;bottom:1.5%;width:8.2%;height:16%}.chaal{left:50.8%;bottom:1.5%;width:8.2%;height:16%}.chaal2{left:59.5%;bottom:1.5%;width:9%;height:16%}.toast{position:absolute;z-index:30;left:50%;top:8%;transform:translateX(-50%);padding:6px 13px;border:1px solid #e8bd55;border-radius:14px;background:rgba(22,10,33,.9);color:#fff;font-weight:700;font-size:clamp(10px,1.4vw,16px);opacity:0;transition:.2s;pointer-events:none;white-space:nowrap}.toast.show{opacity:1}.status{position:absolute;z-index:25;left:50%;bottom:2%;transform:translateX(-50%);min-width:15%;text-align:center;color:#fff;font-weight:800;font-size:clamp(11px,1.7vw,18px);text-shadow:0 1px 3px #000;pointer-events:none}.start{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.72);color:white}.start button{border:2px solid #f4c84b;border-radius:18px;padding:16px 28px;background:linear-gradient(#6b1b98,#2b0b45);color:#fff;font-size:18px;font-weight:800;box-shadow:0 0 25px rgba(199,93,255,.5)}
-@media(max-aspect-ratio:1/1){.stage{width:100vw}.start button{font-size:16px}}
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    -webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    font-family:Arial,sans-serif;
+    background:#12091d;
+}
+
+body{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.game{
+    position:relative;
+    width:100%;
+    height:100%;
+    max-width:600px;
+    overflow:hidden;
+    background:
+        #221238 url("assets/reference-game.jpg")
+        center/cover no-repeat;
+}
+
+.overlay{
+    position:absolute;
+    inset:0;
+    z-index:100;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(0,0,0,.72);
+}
+
+.join-box{
+    width:85%;
+    max-width:340px;
+    padding:25px;
+    text-align:center;
+    border-radius:18px;
+    background:linear-gradient(145deg,#321653,#170b25);
+    border:2px solid #d5a447;
+    box-shadow:0 0 35px rgba(0,0,0,.8);
+}
+
+.join-box h2{
+    color:#ffd66b;
+    margin-bottom:18px;
+    font-size:27px;
+}
+
+.join-box input{
+    width:100%;
+    padding:14px;
+    margin-bottom:14px;
+    border:1px solid #a87524;
+    border-radius:10px;
+    outline:none;
+    color:white;
+    background:#12091d;
+    text-align:center;
+    font-size:16px;
+}
+
+.join-btn{
+    width:100%;
+    padding:14px;
+    border:0;
+    border-radius:10px;
+    background:linear-gradient(#ffd86b,#b97913);
+    color:#241000;
+    font-size:17px;
+    font-weight:bold;
+}
+
+.status{
+    position:absolute;
+    top:10px;
+    left:50%;
+    transform:translateX(-50%);
+    z-index:20;
+    min-width:180px;
+    padding:8px 15px;
+    text-align:center;
+    color:#fff;
+    background:rgba(0,0,0,.65);
+    border:1px solid rgba(255,215,100,.5);
+    border-radius:20px;
+    font-size:12px;
+}
+
+.players{
+    position:absolute;
+    inset:0;
+    z-index:10;
+}
+
+.player{
+    position:absolute;
+    width:105px;
+    min-height:92px;
+    text-align:center;
+    color:white;
+}
+
+.p0{
+    left:50%;
+    bottom:105px;
+    transform:translateX(-50%);
+}
+
+.p1{
+    left:8px;
+    top:43%;
+}
+
+.p2{
+    left:50%;
+    top:75px;
+    transform:translateX(-50%);
+}
+
+.p3{
+    right:8px;
+    top:43%;
+}
+
+.avatar{
+    width:45px;
+    height:45px;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:50%;
+    background:linear-gradient(145deg,#f4c76a,#8a5313);
+    border:2px solid #ffe08a;
+    box-shadow:0 0 12px rgba(255,205,75,.55);
+    font-size:22px;
+}
+
+.name{
+    margin-top:3px;
+    font-size:12px;
+    font-weight:bold;
+    text-shadow:0 2px 3px #000;
+}
+
+.balance{
+    color:#ffd66b;
+    font-size:11px;
+}
+
+.cards{
+    height:40px;
+    margin-top:4px;
+    display:flex;
+    justify-content:center;
+}
+
+.card{
+    width:30px;
+    height:40px;
+    margin:0 -3px;
+    border-radius:4px;
+    border:1px solid #aaa;
+    background:#fff;
+    color:#111;
+    font-size:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 2px 5px #000;
+}
+
+.card.back{
+    background:
+        linear-gradient(135deg,#7c1e2e 25%,#d7a13a 25%,#d7a13a 35%,#7c1e2e 35%);
+    color:transparent;
+}
+
+.pot{
+    position:absolute;
+    top:49%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    z-index:8;
+    color:#ffe18a;
+    font-weight:bold;
+    text-align:center;
+    text-shadow:0 2px 5px #000;
+}
+
+.pot-value{
+    font-size:20px;
+}
+
+.actions{
+    position:absolute;
+    z-index:30;
+    left:0;
+    right:0;
+    bottom:8px;
+    display:flex;
+    justify-content:center;
+    gap:7px;
+    padding:0 7px;
+}
+
+.action{
+    flex:1;
+    max-width:95px;
+    min-height:43px;
+    border:1px solid #dcae48;
+    border-radius:9px;
+    background:linear-gradient(#4d286c,#241038);
+    color:#fff;
+    font-size:11px;
+    font-weight:bold;
+    box-shadow:0 3px 8px #000;
+}
+
+.action:active{
+    transform:scale(.95);
+}
+
+.action.gold{
+    background:linear-gradient(#f5d26b,#9b6515);
+    color:#1b0c00;
+}
+
+.top-buttons{
+    position:absolute;
+    top:35px;
+    right:8px;
+    z-index:40;
+    display:flex;
+    gap:5px;
+}
+
+.small-btn{
+    width:38px;
+    height:34px;
+    border:1px solid #d8aa49;
+    border-radius:8px;
+    background:rgba(26,11,38,.85);
+    color:#fff;
+    font-size:16px;
+}
+
+.notice{
+    position:absolute;
+    left:50%;
+    top:57%;
+    transform:translate(-50%,-50%);
+    z-index:50;
+    min-width:200px;
+    max-width:90%;
+    padding:10px 16px;
+    border-radius:12px;
+    text-align:center;
+    color:#fff;
+    background:rgba(0,0,0,.82);
+    border:1px solid #d8aa49;
+    opacity:0;
+    pointer-events:none;
+    transition:.25s;
+}
+
+.notice.show{
+    opacity:1;
+}
+
+.turn{
+    animation:pulse 1s infinite;
+}
+
+@keyframes pulse{
+    50%{
+        filter:drop-shadow(0 0 12px #ffd65b);
+    }
+}
+
+.hidden{
+    display:none!important;
+}
 </style>
 </head>
+
 <body>
-<div class="stage" id="stage" aria-label="Teen Patti game">
-  <button class="hit sound" id="soundBtn" aria-label="Toggle sound"></button>
-  <button class="hit pack" id="packBtn" aria-label="Pack"></button>
-  <button class="hit side" id="sideBtn" aria-label="Side Show"></button>
-  <button class="hit chaal" id="chaalBtn" aria-label="Chaal"></button>
-  <button class="hit chaal2" id="chaal2Btn" aria-label="Chaal 2x"></button>
-  <div class="toast" id="toast"></div>
-  <div class="status" id="status">13.46 L</div>
+
+<div class="game">
+
+    <div id="joinOverlay" class="overlay">
+        <div class="join-box">
+            <h2>♠ TEEN PATTI ♥</h2>
+
+            <input
+                id="nameInput"
+                type="text"
+                maxlength="14"
+                placeholder="Enter your name"
+                autocomplete="off"
+            >
+
+            <button id="joinBtn" class="join-btn">
+                JOIN TABLE
+            </button>
+        </div>
+    </div>
+
+    <div id="status" class="status">
+        Connecting...
+    </div>
+
+    <div class="top-buttons">
+        <button id="soundBtn" class="small-btn">🔊</button>
+        <button id="packTop" class="small-btn">✕</button>
+    </div>
+
+    <div id="players" class="players"></div>
+
+    <div class="pot">
+        <div> POT </div>
+        <div id="potValue" class="pot-value">₹0</div>
+    </div>
+
+    <div id="notice" class="notice"></div>
+
+    <div class="actions">
+        <button id="packBtn" class="action">
+            PACK
+        </button>
+
+        <button id="sideBtn" class="action">
+            SIDE SHOW
+        </button>
+
+        <button id="chaalBtn" class="action gold">
+            CHAAL
+        </button>
+
+        <button id="chaal2Btn" class="action gold">
+            2X CHAAL
+        </button>
+
+        <button id="showBtn" class="action">
+            SHOW
+        </button>
+    </div>
+
+    <audio id="gameAudio" loop preload="auto">
+        <source src="assets/reference-audio.mp3" type="audio/mpeg">
+    </audio>
+
 </div>
-<div class="start" id="start"><button id="startBtn">ENTER TABLE</button></div>
-<audio id="bgAudio" src="assets/reference-audio.mp3" preload="auto" loop></audio>
+
 <script>
-const audio=document.getElementById('bgAudio'), start=document.getElementById('start'), toast=document.getElementById('toast'), status=document.getElementById('status');
-let muted=false, balance=13460, bet=1600;
-function say(t){toast.textContent=t;toast.classList.add('show');clearTimeout(say.t);say.t=setTimeout(()=>toast.classList.remove('show'),1200)}
-async function begin(){try{audio.muted=false;await audio.play()}catch(e){}start.style.display='none';say('Table active');}
-document.getElementById('startBtn').onclick=begin;
-document.getElementById('soundBtn').onclick=()=>{muted=!muted;audio.muted=muted;say(muted?'Sound off':'Sound on')};
-document.getElementById('packBtn').onclick=()=>{say('You packed');status.textContent='PACKED';};
-document.getElementById('sideBtn').onclick=()=>{say('Forced Side Show');};
-document.getElementById('chaalBtn').onclick=()=>{if(balance>=bet){balance-=bet;say('Chaal '+bet.toLocaleString());status.textContent=(balance/1000).toFixed(2)+' K';}else say('Insufficient chips')};
-document.getElementById('chaal2Btn').onclick=()=>{const b=bet*2;if(balance>=b){balance-=b;say('Chaal 2x '+b.toLocaleString());status.textContent=(balance/1000).toFixed(2)+' K';}else say('Insufficient chips')};
+"use strict";
+
+let socket = null;
+let myId = null;
+let gameState = null;
+let joined = false;
+let soundOn = true;
+
+const joinOverlay = document.getElementById("joinOverlay");
+const joinBtn = document.getElementById("joinBtn");
+const nameInput = document.getElementById("nameInput");
+const statusEl = document.getElementById("status");
+const playersEl = document.getElementById("players");
+const potValue = document.getElementById("potValue");
+const noticeEl = document.getElementById("notice");
+const audio = document.getElementById("gameAudio");
+
+const packBtn = document.getElementById("packBtn");
+const sideBtn = document.getElementById("sideBtn");
+const chaalBtn = document.getElementById("chaalBtn");
+const chaal2Btn = document.getElementById("chaal2Btn");
+const showBtn = document.getElementById("showBtn");
+const packTop = document.getElementById("packTop");
+const soundBtn = document.getElementById("soundBtn");
+
+function showNotice(message){
+    noticeEl.textContent = message;
+    noticeEl.classList.add("show");
+
+    clearTimeout(showNotice.timer);
+
+    showNotice.timer = setTimeout(()=>{
+        noticeEl.classList.remove("show");
+    },2200);
+}
+
+function setStatus(message){
+    statusEl.textContent = message;
+}
+
+function getSocketURL(){
+
+    const protocol =
+        location.protocol === "https:"
+        ? "wss:"
+        : "ws:";
+
+    return protocol + "//" + location.host;
+}
+
+function connect(){
+
+    if(socket &&
+       (socket.readyState === WebSocket.OPEN ||
+        socket.readyState === WebSocket.CONNECTING)){
+        return;
+    }
+
+    setStatus("Connecting...");
+
+    socket = new WebSocket(getSocketURL());
+
+    socket.addEventListener("open",()=>{
+
+        setStatus("Connected");
+
+        if(joined){
+            send({
+                type:"join",
+                name:nameInput.value.trim() || "Player"
+            });
+        }
+    });
+
+    socket.addEventListener("message",(event)=>{
+
+        let data;
+
+        try{
+            data = JSON.parse(event.data);
+        }catch{
+            return;
+        }
+
+        handleMessage(data);
+    });
+
+    socket.addEventListener("close",()=>{
+
+        setStatus("Disconnected");
+
+        if(joined){
+            showNotice("Connection lost");
+        }
+
+        setTimeout(connect,2000);
+    });
+
+    socket.addEventListener("error",()=>{
+        setStatus("Connection error");
+    });
+}
+
+function send(data){
+
+    if(!socket ||
+       socket.readyState !== WebSocket.OPEN){
+        showNotice("Not connected");
+        return;
+    }
+
+    socket.send(JSON.stringify(data));
+}
+
+function handleMessage(data){
+
+    if(data.type === "welcome"){
+
+        myId = data.id;
+
+        joined = true;
+
+        joinOverlay.classList.add("hidden");
+
+        setStatus("Waiting for players...");
+
+        if(soundOn){
+            audio.play().catch(()=>{});
+        }
+
+        return;
+    }
+
+    if(data.type === "state"){
+
+        gameState = data;
+
+        renderState();
+
+        return;
+    }
+
+    if(data.type === "notice"){
+
+        showNotice(data.message || "");
+
+        return;
+    }
+
+    if(data.type === "result"){
+
+        if(data.message){
+            showNotice(data.message);
+        }
+
+        return;
+    }
+
+    if(data.type === "full"){
+
+        showNotice("Table is full");
+
+        return;
+    }
+
+    if(data.type === "error"){
+
+        showNotice(data.message || "Error");
+
+        return;
+    }
+}
+
+function playerPosition(index){
+
+    return [
+        "p0",
+        "p1",
+        "p2",
+        "p3"
+    ][index] || "p0";
+}
+
+function renderState(){
+
+    if(!gameState){
+        return;
+    }
+
+    playersEl.innerHTML = "";
+
+    const players = gameState.players || [];
+
+    players.forEach((player,index)=>{
+
+        const el = document.createElement("div");
+
+        el.className =
+            "player " +
+            playerPosition(player.seat ?? index);
+
+        if(player.id === gameState.turnPlayerId){
+            el.classList.add("turn");
+        }
+
+        const avatar =
+            document.createElement("div");
+
+        avatar.className = "avatar";
+
+        avatar.textContent =
+            player.id === myId
+            ? "👤"
+            : "🙂";
+
+        const name =
+            document.createElement("div");
+
+        name.className = "name";
+
+        name.textContent =
+            player.name || "Player";
+
+        const balance =
+            document.createElement("div");
+
+        balance.className = "balance";
+
+        balance.textContent =
+            "₹" + Number(player.balance || 0).toLocaleString();
+
+        const cards =
+            document.createElement("div");
+
+        cards.className = "cards";
+
+        const hand =
+            player.cards || [];
+
+        for(let i=0;i<3;i++){
+
+            const card =
+                document.createElement("div");
+
+            card.className = "card";
+
+            if(
+                player.id !== myId &&
+                gameState.phase === "playing"
+            ){
+
+                card.classList.add("back");
+
+                card.textContent = "";
+
+            }else{
+
+                card.textContent =
+                    hand[i] || "🂠";
+            }
+
+            cards.appendChild(card);
+        }
+
+        el.appendChild(avatar);
+        el.appendChild(name);
+        el.appendChild(balance);
+        el.appendChild(cards);
+
+        playersEl.appendChild(el);
+    });
+
+    potValue.textContent =
+        "₹" +
+        Number(gameState.pot || 0).toLocaleString();
+
+    if(gameState.phase === "playing"){
+
+        setStatus(
+            gameState.turnPlayerId === myId
+            ? "YOUR TURN"
+            : "Playing..."
+        );
+
+    }else if(gameState.phase === "finished"){
+
+        setStatus("Round finished");
+
+    }else{
+
+        setStatus(
+            "Players " +
+            players.length +
+            "/4"
+        );
+    }
+
+    const mine =
+        players.find(p=>p.id === myId);
+
+    const disabled =
+        !mine ||
+        mine.packed ||
+        gameState.turnPlayerId !== myId ||
+        gameState.phase !== "playing";
+
+    packBtn.disabled = disabled;
+    sideBtn.disabled = disabled;
+    chaalBtn.disabled = disabled;
+    chaal2Btn.disabled = disabled;
+    showBtn.disabled = disabled;
+}
+
+function action(type){
+
+    send({
+        type:type
+    });
+}
+
+joinBtn.addEventListener("click",()=>{
+
+    const name =
+        nameInput.value.trim();
+
+    if(!name){
+
+        nameInput.focus();
+
+        showNotice("Enter your name");
+
+        return;
+    }
+
+    joined = true;
+
+    connect();
+
+    if(socket &&
+       socket.readyState === WebSocket.OPEN){
+
+        send({
+            type:"join",
+            name:name
+        });
+    }
+});
+
+nameInput.addEventListener("keydown",(e)=>{
+
+    if(e.key === "Enter"){
+        joinBtn.click();
+    }
+});
+
+packBtn.addEventListener("click",()=>{
+    action("pack");
+});
+
+packTop.addEventListener("click",()=>{
+    action("pack");
+});
+
+sideBtn.addEventListener("click",()=>{
+    action("sideshow");
+});
+
+chaalBtn.addEventListener("click",()=>{
+    action("chaal");
+});
+
+chaal2Btn.addEventListener("click",()=>{
+    action("chaal2");
+});
+
+showBtn.addEventListener("click",()=>{
+    action("show");
+});
+
+soundBtn.addEventListener("click",()=>{
+
+    soundOn = !soundOn;
+
+    if(soundOn){
+
+        soundBtn.textContent = "🔊";
+
+        audio.play().catch(()=>{});
+
+    }else{
+
+        soundBtn.textContent = "🔇";
+
+        audio.pause();
+    }
+});
+
+connect();
 </script>
-</body></html>
+
+</body>
+</html>
