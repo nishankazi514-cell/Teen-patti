@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Teen Patti Gold — Reference UI</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000;font-family:Arial,Helvetica,sans-serif}body{display:flex;align-items:center;justify-content:center}.stage{position:relative;width:min(100vw,100vh * 2.16);aspect-ratio:1080/500;overflow:hidden;background:#221238 url('assets/reference-game.jpg') center/cover no-repeat;box-shadow:0 0 35px #000}.stage:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(0,0,0,.05),transparent 35%,rgba(0,0,0,.08));}.hit{position:absolute;border:0;background:transparent;cursor:pointer;z-index:20}.sound{right:2.4%;top:4%;width:4%;height:10%}.pack{left:14.5%;bottom:1.5%;width:7.2%;height:16%}.side{left:22.5%;bottom:1.5%;width:8.2%;height:16%}.chaal{left:50.8%;bottom:1.5%;width:8.2%;height:16%}.chaal2{left:59.5%;bottom:1.5%;width:9%;height:16%}.toast{position:absolute;z-index:30;left:50%;top:8%;transform:translateX(-50%);padding:6px 13px;border:1px solid #e8bd55;border-radius:14px;background:rgba(22,10,33,.9);color:#fff;font-weight:700;font-size:clamp(10px,1.4vw,16px);opacity:0;transition:.2s;pointer-events:none;white-space:nowrap}.toast.show{opacity:1}.status{position:absolute;z-index:25;left:50%;bottom:2%;transform:translateX(-50%);min-width:15%;text-align:center;color:#fff;font-weight:800;font-size:clamp(11px,1.7vw,18px);text-shadow:0 1px 3px #000;pointer-events:none}.start{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.72);color:white}.start button{border:2px solid #f4c84b;border-radius:18px;padding:16px 28px;background:linear-gradient(#6b1b98,#2b0b45);color:#fff;font-size:18px;font-weight:800;box-shadow:0 0 25px rgba(199,93,255,.5)}
+@media(max-aspect-ratio:1/1){.stage{width:100vw}.start button{font-size:16px}}
+</style>
+</head>
+<body>
+<div class="stage" id="stage" aria-label="Teen Patti game">
+  <button class="hit sound" id="soundBtn" aria-label="Toggle sound"></button>
+  <button class="hit pack" id="packBtn" aria-label="Pack"></button>
+  <button class="hit side" id="sideBtn" aria-label="Side Show"></button>
+  <button class="hit chaal" id="chaalBtn" aria-label="Chaal"></button>
+  <button class="hit chaal2" id="chaal2Btn" aria-label="Chaal 2x"></button>
+  <div class="toast" id="toast"></div>
+  <div class="status" id="status">13.46 L</div>
+</div>
+<div class="start" id="start"><button id="startBtn">ENTER TABLE</button></div>
+<audio id="bgAudio" src="assets/reference-audio.mp3" preload="auto" loop></audio>
+<script>
+const audio=document.getElementById('bgAudio'), start=document.getElementById('start'), toast=document.getElementById('toast'), status=document.getElementById('status');
+let muted=false, balance=13460, bet=1600;
+function say(t){toast.textContent=t;toast.classList.add('show');clearTimeout(say.t);say.t=setTimeout(()=>toast.classList.remove('show'),1200)}
+async function begin(){try{audio.muted=false;await audio.play()}catch(e){}start.style.display='none';say('Table active');}
+document.getElementById('startBtn').onclick=begin;
+document.getElementById('soundBtn').onclick=()=>{muted=!muted;audio.muted=muted;say(muted?'Sound off':'Sound on')};
+document.getElementById('packBtn').onclick=()=>{say('You packed');status.textContent='PACKED';};
+document.getElementById('sideBtn').onclick=()=>{say('Forced Side Show');};
+document.getElementById('chaalBtn').onclick=()=>{if(balance>=bet){balance-=bet;say('Chaal '+bet.toLocaleString());status.textContent=(balance/1000).toFixed(2)+' K';}else say('Insufficient chips')};
+document.getElementById('chaal2Btn').onclick=()=>{const b=bet*2;if(balance>=b){balance-=b;say('Chaal 2x '+b.toLocaleString());status.textContent=(balance/1000).toFixed(2)+' K';}else say('Insufficient chips')};
+</script>
+</body></html>
